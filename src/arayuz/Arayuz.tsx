@@ -61,7 +61,7 @@ import { AyarlarEkrani } from './AyarlarEkrani';
 import { useEkranAyari } from './ekranAyari';
 import { EgitimEli, egitimHedefi } from './EgitimEli';
 import { CalisanAdi, CalisanEkrani } from './CalisanEkrani';
-import { dondur, ekrandaKaydir, insaatKamerasi, ortala, yakinlikDegistir } from '../sahne/kameraKarisimi';
+import { dondur, ekrandaKaydir, insaatKamerasi, yakinlikDegistir } from '../sahne/kameraKarisimi';
 import { DuraklatDugmesi, DuraklatMenusu, GezmeEkrani } from './Duraklat';
 import { ESYALAR, ESYA_BOYU, ESYA_RENKLERI, RENKLI_ESYALAR } from '../oyun/dekorasyon';
 

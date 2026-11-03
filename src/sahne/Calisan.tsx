@@ -6,7 +6,6 @@ import { gecerliSac, ONLUK_ACIK, ONLUK_YOK, ONLUKLER, SAC_RENKLERI, TENLER, type
 import { InsanKarakter, type Hareket } from './InsanKarakter';
 import type { Karakter, KarakterAksesuari, Varyant } from './karakterler';
 import { istasyonOdagi, kameraKarisimi, odak, tezgahOfseti } from './kameraKarisimi';
-import { renk } from './renkler';
 
 // Tezgahın arkasındaki çalışan (Kemal, 13 Ekim). Genel görünümde görünür;
 // tezgah görünümünde kamera onun yerinde olduğu için gizlenir.

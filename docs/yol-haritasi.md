@@ -92,6 +92,7 @@ yapar; Kemal "şimdi" demedikçe işler bu sırayla gider.
 - Hava durumu: güneşli, çok sıcak, bulutlu, yağmurlu; hafif etki, gün sonunda yarının tahmini, bazen gün içinde değişir; eşyalara konfor ve çekicilik puanı · [#59](https://github.com/hkemal94/DondumaciKizlar/pull/59)
 - Gedikli müşteriler; iç duvar deseni; masa / şemsiye / minder rengi; dışarıdaki eşyalar güneşte solar, boyanır · bu PR
 - Yazı tipi Poppins: bütün arayüz yazıları (Kemal, 22 Ekim; belge 0.7), dosyalar oyunun içinde · öneri PR'ı (`ajans/poppins`)
+- Kod temizliği (3 Kasım 2026): kullanılmayan 6 değişken kalktı, derlemenin ara dosyası (`tsconfig.tsbuildinfo`) artık git'te izlenmiyor, README'deki oyun adresi düzeldi; oyunda değişen bir şey yok · öneri PR'ı (`ajans/kod-temizligi`)
 
 ## Bilinen eksikler
 
