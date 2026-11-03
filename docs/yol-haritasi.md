@@ -15,6 +15,7 @@ yapar; Kemal "şimdi" demedikçe işler bu sırayla gider.
 | Şu an | Ekran düzeltmeleri ve açılış etiketi bitti (bu PR); sırada DK Lite öneri oyunu |
 | Sıradaki | DK Lite öneri oyunu (ayrı, dik, 2B) → seyyar dondurma arabası. Bulut kayıt Kemal'in Firebase kurulumunu bekliyor (`docs/bulut-kurulum.md`) |
 | Yayın | Deneme sürümü webde; tarih yok, acele yok |
+| Ekran görüntüleri | Yayındaki oyundan gerçek ekran görüntüleri `docs/ekran-goruntuleri/` altında (telefon ve masaüstü; açılış, dükkân, tezgah); liste `liste.json`. KKM'nin oyun sayfası bunları gösterecek (3 Kasım 2026, öneri; oyunda değişen bir şey yok) |
 
 ## Sıra (15 Ekim, belge 0.12)
 
