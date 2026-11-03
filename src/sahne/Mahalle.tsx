@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
-import { renk } from './renkler';
 import { SaydamEngel } from './SaydamEngel';
 import { useEkranAyari } from '../arayuz/ekranAyari';
 

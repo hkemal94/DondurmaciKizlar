@@ -5,7 +5,7 @@ Kems Company.
 
 - Oyunun tek kaynağı: [`docs/tasarim-belgesi.md`](docs/tasarim-belgesi.md)
 - Çalışma kuralları: [`CLAUDE.md`](CLAUDE.md)
-- Oynamak (ana dala birleştirildikten sonra): https://hkemal94.github.io/DondumaciKizlar/
+- Oynamak (ana dala birleştirildikten sonra): https://hkemal94.github.io/DondurmaciKizlar/
 
 ## Bilgisayarda çalıştırmak
 

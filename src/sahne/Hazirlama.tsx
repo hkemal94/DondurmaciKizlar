@@ -289,7 +289,6 @@ function AltlikVeToplar() {
 }
 
 function Kepce() {
-  const durum = useDurum();
   const ref = useRef<THREE.Group>(null);
   const topRef = useRef<THREE.Mesh>(null);
   const hedef = useMemo(() => new THREE.Vector3(), []);
