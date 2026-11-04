@@ -32,7 +32,7 @@ yapar; Kemal "şimdi" demedikçe işler bu sırayla gider.
 | 8 | Exp sistemi | Ana seviye + dükkân ve çalışan seviyeleri; günlük hedefler; yıldızlar yorum gibi; sıra bazen uzun bazen boş; otomatik kamera ayarı; eşyalara konfor ve çekicilik | Soru turu bitti (15 Ekim). 8a exp + seviyeler + kilitler: bitti ([#42](https://github.com/hkemal94/DondurmaciKizlar/pull/42)). 8b yetenekler: bitti ([#43](https://github.com/hkemal94/DondurmaciKizlar/pull/43)). 8c günlük hedefler, yorumlar, sıra, otomatik kamera: bitti ([#44](https://github.com/hkemal94/DondurmaciKizlar/pull/44)). Eşya konfor / çekicilik, renk ve yıpranma: bitti (bu PR) |
 | 9 | İçecekler ve stok | Soru turu bitti (15 Ekim akşam, belge 0.13). 9a ince arayüz, sağda açılan menüler, yol çizgileri ve lambalar: bitti ([#46](https://github.com/hkemal94/DondurmaciKizlar/pull/46)). 9b vitrin ve bar model adayları: bitti ([#47](https://github.com/hkemal94/DondurmaciKizlar/pull/47)), Kemal seçti. 9c gerçekçi vitrin + hafif stok: bitti ([#49](https://github.com/hkemal94/DondurmaciKizlar/pull/49)). 9d içecekler (tek istasyon, 15 içecek, basılı tutarak hazırlama, seviye + parayla açma): bitti ([#57](https://github.com/hkemal94/DondurmaciKizlar/pull/57)) | Bitti |
 | 10 | Sonra | Kayan yazıda müşteri yorumları (cümleler Kemal'in), ~~eşya renkleri ve yumuşak yıpranma~~ (bitti, bu PR), ~~gedikli müşteriler~~, ~~hava durumu~~ (#59), ~~duvar deseni~~ (bitti, bu PR), **seyyar dondurma arabası (sıradaki, belge 0.16)**, festival / bayramlar, yeni süslemeler, mevsim | |
-| 11 | Açık işler turu (21 Ekim, belge 0.16) | ~~11a ekran düzeltmeleri + açılış etiketi~~ (bitti, bu PR) · 11b DK Lite öneri oyunu · 11c seyyar araba · görsel dil ve marka KKM'de | Soru turu bitti |
+| 11 | Açık işler turu (21 Ekim, belge 0.16) | ~~11a ekran düzeltmeleri + açılış etiketi~~ (bitti, bu PR) · 11b DK Lite: ayrı depoda ilerliyor (DK-Lite) · 11c seyyar araba · görsel dil ve marka KKM'de | Soru turu bitti |
 
 ## Paketler (eski adlarla)
 
@@ -94,6 +94,7 @@ yapar; Kemal "şimdi" demedikçe işler bu sırayla gider.
 - Yazı tipi Poppins: bütün arayüz yazıları (Kemal, 22 Ekim; belge 0.7), dosyalar oyunun içinde · öneri PR'ı (`ajans/poppins`)
 - Kod temizliği (3 Kasım 2026): kullanılmayan 6 değişken kalktı, derlemenin ara dosyası (`tsconfig.tsbuildinfo`) artık git'te izlenmiyor, README'deki oyun adresi düzeldi; oyunda değişen bir şey yok · öneri PR'ı (`ajans/kod-temizligi`)
 - Yol haritası bağlantıları düzeltildi (3 Kasım 2026, öneri): PR bağlantıları açılıyor; oyunda değişen yok.
+- Dönem 2020 sonrası (4 Kasım 2026, Kemal; belge 0.17): belgeler künyeyle uyumlu; DK Lite satırları güncellendi; oyunda değişen yok · öneri (`ajans/donem-2020`)
 
 ## Bilinen eksikler
 
@@ -114,7 +115,6 @@ yapar; Kemal "şimdi" demedikçe işler bu sırayla gider.
 
 - Oyunun adı (yayına yakın)
 - Mevsim / kış dönemi (ilk sürümden sonra)
-- DK Lite: deposu (Kemal KKM'ye soracak), erime kuralı (öneri oyunu üzerinden), para modeli (yayın dönemi)
 - 3B model kaynağı (süslemeler dahil)
 - Para modelinin ayrıntıları (makyaj paketleri satılabilir; gerisi açık)
 - Çalışanın, sahibin ve mekânların adları; müşteri yorum cümleleri; festival adları

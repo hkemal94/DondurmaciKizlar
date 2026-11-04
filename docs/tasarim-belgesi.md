@@ -2,7 +2,7 @@
 
 **Proje:** Dondurmacı Kızlar (Kems Company)
 **Aşama:** Oynanabilir sürüm var; görsel kalite ve yeni sistemler sürüyor
-**Son güncelleme:** 15 Ekim 2026 — toparlama (bölüm 0.12). Bölüm 0'daki
+**Son güncelleme:** 4 Kasım 2026 — dönem 2020 sonrası (bölüm 0.17); toparlama 15 Ekim (bölüm 0.12). Bölüm 0'daki
 tarihli kararlar sırayla eklendi; sonradan değişenlerin yanında yeni kararın
 bölümü yazar. **Güncel sıra ve açık işler:** `docs/yol-haritasi.md`.
 **Açık sorular:** bölüm 7. Taslak görseller `docs/gorseller/` altında
@@ -35,7 +35,7 @@ Taslakla çelişen yerde bu bölüm geçerli.
 | Karakterler | Küçük hikâye kırıntıları: müşteri konuşmalarından adadaki olaylar sızar |
 | Oyuncu | ~~İsimsiz — oyuncu kendini koyar~~ → 13 Ekim: kişiselleştirilebilir çalışan (aşağıda) |
 | Kanon | Liman Mahallesi, iskelenin yakını. Oyun dükkânın **kuruluş hikâyesi** |
-| Dönem | 2000'lerin başı |
+| Dönem | ~~2000'lerin başı~~ → 4 Kasım 2026: **2020 sonrası** (bölüm 0.17) |
 | Mevsim | Kışın tatlıcı / kafe: menü ve görünüm mevsimle değişir. İlk sürümde değil |
 | Para modeli | **Makyaj paketleri satılabilir** (Kemal, 14 Ekim): mevsim paketleri gibi, oyunun görünüşünü değiştiren ürünler ayrıca satılabilir. Ayrıntılar (fiyat, mağaza) sonra |
 | Öncelik | Dondurmacı Kızlar önce; The Imperial (resepsiyon oyunu) bekliyor |
@@ -555,6 +555,10 @@ Dışarıdaki eşyalar konduktan ya da boyandıktan 5 gün sonra güneşte yava�
 - **Seyyar dondurma araba:** bekleyen oyun işlerinin ilki. Dekorasyon gibi yerleştirilir; seviyeyle açılır, satın alınır. Sabah "bugün arabada çalış" seçilir; o gün dükkânı yardımcılar işletir, arabada saat hızlı akar (rölanti). Az çeşitle.
 - Oyunun adı ve para modeli: yayına yakın. Mevsim: ilk sürümden sonra (değişmedi).
 
+### 0.17 Dönem (Kemal, 4 Kasım 2026)
+
+- **Dönem 2020 sonrası** (künyeyle uyum; önce 2000'lerin başı yazıyordu). KKM'deki Düzada künyesi "Dondurmacı Kızlar: 2020–" diyor; Kemal: "2020 sonrası (oyun düzelsin)". Oyun yine dükkânın kuruluş yıllarında geçer. Önceki bölümlerde "2000'ler" diye geçen notlar o günün kaydıdır; oyunda dönemle çelişebilecek yerler (yardımcı ad önerileri, 2000'lerin su ısıtıcısı, "dönem için az yaygın" çeşit notu) Kemal'in kararını bekliyor.
+
 ## 1. Oyunun özeti ve vizyonu
 
 ### 1.1 Tek cümlelik özet
@@ -637,7 +641,7 @@ ayarlanır, dükkân için yeni masa, bitki ve dekorasyon alınır.
 ## 5. Dünya ve kurgu
 
 - **Yer:** Düzada, Liman Mahallesi, iskelenin yakını.
-- **Dönem:** 2000'lerin başı — dükkânın açılış yılları.
+- **Dönem:** 2020 sonrası — dükkânın açılış yılları (4 Kasım 2026, bölüm 0.17).
 - **Hikâye:** Dükkânın kuruluş hikâyesi: küçük başlar, adanın bilinen
   dükkânına dönüşür.
 - **Oyuncu:** Tezgahın arkasında oyuncunun kişiselleştirdiği bir çalışan (bölüm 0, 13 Ekim); hikâyesi yazılmaz.
