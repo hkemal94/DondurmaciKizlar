@@ -95,6 +95,7 @@ yapar; Kemal "şimdi" demedikçe işler bu sırayla gider.
 - Kod temizliği (3 Kasım 2026): kullanılmayan 6 değişken kalktı, derlemenin ara dosyası (`tsconfig.tsbuildinfo`) artık git'te izlenmiyor, README'deki oyun adresi düzeldi; oyunda değişen bir şey yok · öneri PR'ı (`ajans/kod-temizligi`)
 - Yol haritası bağlantıları düzeltildi (3 Kasım 2026, öneri): PR bağlantıları açılıyor; oyunda değişen yok.
 - Dönem 2020 sonrası (4 Kasım 2026, Kemal; belge 0.17): belgeler künyeyle uyumlu; DK Lite satırları güncellendi; oyunda değişen yok · öneri (`ajans/donem-2020`)
+- Yardımcı ad önerileri yenilendi (4 Kasım 2026, Kemal; belge 0.17): işe alırken kutuda çıkan hazır adlar 2020'lere uygun (kadın 15, erkek 15) · öneri (`ajans/donem-2020`)
 
 ## Bilinen eksikler
 

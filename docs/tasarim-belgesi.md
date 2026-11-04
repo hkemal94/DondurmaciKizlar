@@ -560,7 +560,7 @@ Dışarıdaki eşyalar konduktan ya da boyandıktan 5 gün sonra güneşte yava�
 - **Dönem 2020 sonrası** (künyeyle uyum; önce 2000'lerin başı yazıyordu). KKM'deki Düzada künyesi "Dondurmacı Kızlar: 2020–" diyor; Kemal: "2020 sonrası (oyun düzelsin)". Oyun yine dükkânın kuruluş yıllarında geçer. Önceki bölümlerde "2000'ler" diye geçen notlar o günün kaydıdır; oyunda dönemle çelişebilecek yerler için Kemal'in kararları (4 Kasım):
   - Mango ve yaban mersini için "dönem için az yaygın" notu kalktı; çeşitler kalır.
   - Su ısıtıcısı kalır.
-  - Yardımcı ad önerileri 2020'lere göre yenilenecek; aday liste Kemal'e gitti (ajans). Kemal seçene kadar oyundaki liste değişmez.
+  - Yardımcı ad önerileri 2020'lere göre yenilendi (4 Kasım): Kemal'in seçtiği liste, kadın 15, erkek 15 (`src/oyun/adOnerileri.ts`).
   - Liman'daki kafe (2010 sonrası) artık Dondurmacı Kızlar'dan önce açılmış oluyor; Kemal: sorun yok. İkisi farklı yerler.
 
 ## 1. Oyunun özeti ve vizyonu
