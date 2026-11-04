@@ -13,7 +13,7 @@ Türkçe.
 ## Oyun bir cümlede
 
 Düzada adasında, Liman'da iskelenin yakınındaki "Dondurmacı Kızlar"
-dükkânının kuruluş yıllarında (2000'lerin başı) geçen, sakin bir dükkân
+dükkânının kuruluş yıllarında (2020 sonrası) geçen, sakin bir dükkân
 işletme oyunu. Oyuncu tezgahın arkasında dondurmayı kendi eliyle hazırlar.
 
 ## Sabitler (değişmez)
@@ -26,7 +26,7 @@ işletme oyunu. Oyuncu tezgahın arkasında dondurmayı kendi eliyle hazırlar.
 | Platform | **Telefon önce.** Dokunmatik birincil kontrol; fare de çalışır. Mağaza ve PC paketi sonra |
 | Teknoloji | Vite + TypeScript + React + **Three.js** (React Three Fiber). Oyun tarayıcıda çalışır |
 | Yer | Düzada, **Liman Mahallesi, iskelenin yakını** ("sahil şeridi" değil) |
-| Dönem | **2000'lerin başı** — dükkânın açılış yılları |
+| Dönem | **2020 sonrası** — dükkânın açılış yılları (4 Kasım 2026, Kemal; künyeyle uyum) |
 | Oyuncu | **13 Ekim'de değişti:** tezgahın arkasında oyuncunun kişiselleştirdiği bir çalışan; sahibi ara sıra dükkânda gezer. Çalışana hikâye / geçmiş yazma (Kemal'in) |
 | Gün | Oyun içinde saat akar; dükkân kapanınca gün biter, gün sonu ekranı gelir |
 | Ekran | **Yatay** (12 Ekim). Telefon dik tutulsa da oyun yatay görünür (ekran kilidi); "yan çevir" uyarısı yok |
@@ -35,13 +35,14 @@ işletme oyunu. Oyuncu tezgahın arkasında dondurmayı kendi eliyle hazırlar.
 
 ### Kanondan bilinenler (Düzada evreni)
 
-- Dondurmacı Kızlar 2000 sonrası açıldı; Liman'da, iskelenin yakınında.
+- Dondurmacı Kızlar 2020 sonrası açıldı; Liman'da, iskelenin yakınında.
 - Kışın tatlıcı / kafe olur (oyunda mevsim değişimi — **ilk sürümde değil**).
 - Sahibi bir kadın; ailesi adalı, anakaradan gelmiş. Aynı kadın İskele'deki
   meyhane Sade Meze'nin de sahibi. **Adı yok** — ad Kemal'in.
 - Dükkânın logo renkleri mor ve sarı (tonlar henüz taslak).
-- Liman'da ayrıca bir "kafe" var; o başka bir yer, 2010 sonrası açılmış.
-  Dondurmacı Kızlar ile karıştırma.
+- Liman'da ayrıca bir "kafe" var; o başka bir yer, 2010 sonrası açılmış
+  (Dondurmacı Kızlar 2020 sonrası, yani kafe ondan önce; Kemal, 4 Kasım: sorun yok).
+  İkisi farklı yerler; karıştırma.
 
 Burada ve belgede yazmayan bir coğrafi, tarihî ya da kurumsal bilgiyi
 **uydurma.** Gerekirse geçici bırak ve Kemal'e sor.
