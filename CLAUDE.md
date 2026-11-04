@@ -40,8 +40,9 @@ işletme oyunu. Oyuncu tezgahın arkasında dondurmayı kendi eliyle hazırlar.
 - Sahibi bir kadın; ailesi adalı, anakaradan gelmiş. Aynı kadın İskele'deki
   meyhane Sade Meze'nin de sahibi. **Adı yok** — ad Kemal'in.
 - Dükkânın logo renkleri mor ve sarı (tonlar henüz taslak).
-- Liman'da ayrıca bir "kafe" var; o başka bir yer, 2010 sonrası açılmış.
-  Dondurmacı Kızlar ile karıştırma.
+- Liman'da ayrıca bir "kafe" var; o başka bir yer, 2010 sonrası açılmış
+  (Dondurmacı Kızlar 2020 sonrası, yani kafe ondan önce; Kemal, 4 Kasım: sorun yok).
+  İkisi farklı yerler; karıştırma.
 
 Burada ve belgede yazmayan bir coğrafi, tarihî ya da kurumsal bilgiyi
 **uydurma.** Gerekirse geçici bırak ve Kemal'e sor.

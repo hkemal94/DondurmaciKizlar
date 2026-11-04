@@ -85,7 +85,7 @@ Taslakla çelişen yerde bu bölüm geçerli.
 | Sahibi | Günde bir kez, rastgele bir saatte iskeleden gelir, kapıdan girer, dükkânda ve terasta biraz dolaşıp gider; başka bir şey yapmaz. Görünüşü **geçici** (mor elbise, topuz saç); kanonda görünüşü yok, Kemal belirleyecek |
 | Alanlar | (Kemal, 14 Ekim) Dükkânın **iki yanındaki boş alanlar** ve **yol kenarındaki teras** satın alınır; yalnız **dükkânın hizasındaki** teras başta açıktır. Alınan alana eşya konur; yan alan alınınca ahşap zemin döşenir. Dört alan: iki yan, iki yol kenarı. Yerleştirirken kilitli kareler gri görünür |
 | Dış süsler | (Kemal, 14 Ekim: "dükkân dışı için tabela benzeri ürünler; dekorasyonda market çok zayıf") Dokuz yeni eşya: bank, çöp kutusu, çiçekli kasa, ayaklı kara tahta, flama direği, sokak lambası, sepetli bisiklet, ışıklı tabela, dev külah. Hepsi **yalnız dışarıya** konur (şemsiyeli masa da). Tabela ve kara tahtada **yazı yok**, yalnız dondurma çizimleri. Bankta iki müşteri oturabilir. Mağazada iki başlık: "Oturma ve çiçek", "Dükkânın dışı için" |
-| Çeşitler (14 Ekim) | **29 çeşit**, zamanla açılır (Kemal: "24'ten fazla"; liste Claude'un önerisi, Kemal onayladı). Baştan açık: kaymak, çikolata, çilek, fıstık. Parayla: mango, yaban mersini (dönem için az yaygın ama kalsın, Kemal), limon, vişne, kavun, karpuz, muz, kahve, fındık, karamel, portakal, kayısı, şeftali, hindistan cevizi, nane, böğürtlen. Memnuniyetle **satın alınabilir** olanlar: ortalama **4** yıldızda ahududu, bitter çikolata, tarçın, ballı yoğurt; **4,5**'te karadut, sakızlı, incir; **4,75**'te gül, kestane. Eşik en az 10 müşteriden sonraki en iyi ortalamaya bakar; bir kez açılan kapanmaz |
+| Çeşitler (14 Ekim) | **29 çeşit**, zamanla açılır (Kemal: "24'ten fazla"; liste Claude'un önerisi, Kemal onayladı). Baştan açık: kaymak, çikolata, çilek, fıstık. Parayla: mango, yaban mersini, limon, vişne, kavun, karpuz, muz, kahve, fındık, karamel, portakal, kayısı, şeftali, hindistan cevizi, nane, böğürtlen. Memnuniyetle **satın alınabilir** olanlar: ortalama **4** yıldızda ahududu, bitter çikolata, tarçın, ballı yoğurt; **4,5**'te karadut, sakızlı, incir; **4,75**'te gül, kestane. Eşik en az 10 müşteriden sonraki en iyi ortalamaya bakar; bir kez açılan kapanmaz |
 | Vitrin (14 Ekim) | **4 küvetle başlar**, Dükkânı geliştir'den 6, 8, 10, 12'ye büyür; 6'dan fazlası iki sıra. Gün başında **Vitrin** ekranı: çeşide dokunarak elle seçilir ya da **Otomatik** (her sabah dünün en çok satanları + bir yeni çeşit). Müşteriler **yalnız vitrindekileri** ister. Her küvetin önünde çeşidin adı yazan kart var (arka sırada çubukta); sipariş balonunda da adlar yazar |
 | Işıklı tabela | Üstünde dükkânın adı: "Dondurmacı Kızlar" (Kemal, 14 Ekim) |
 | Çeşit fiyatları (sonraki parça) | Genel fiyat (ucuz / normal / pahalı) kalır; Fiyat ekranı ayrıntılanır: **her çeşidin kendi fiyat çubuğu** ve hepsini birden ayarlayan çubuk. Pahalı çeşit daha seyrek istenir (Kemal, 14 Ekim). Fiyat ekranında: genel seviye, "Hepsi" çubuğu, "Makul fiyatlara dön", her açık çeşidin çubuğu (5–25), müşterinin ödediği fiyat ve "çok istenir / olağan / az istenir". Makul fiyat: klasik 10, 4 yıldızlılar 12, 4,5'lar 14, 4,75'ler 16. Makulün %20'sinden pahalısı memnuniyeti biraz düşürür (sayılar geçici) |
@@ -557,7 +557,11 @@ Dışarıdaki eşyalar konduktan ya da boyandıktan 5 gün sonra güneşte yava�
 
 ### 0.17 Dönem (Kemal, 4 Kasım 2026)
 
-- **Dönem 2020 sonrası** (künyeyle uyum; önce 2000'lerin başı yazıyordu). KKM'deki Düzada künyesi "Dondurmacı Kızlar: 2020–" diyor; Kemal: "2020 sonrası (oyun düzelsin)". Oyun yine dükkânın kuruluş yıllarında geçer. Önceki bölümlerde "2000'ler" diye geçen notlar o günün kaydıdır; oyunda dönemle çelişebilecek yerler (yardımcı ad önerileri, 2000'lerin su ısıtıcısı, "dönem için az yaygın" çeşit notu) Kemal'in kararını bekliyor.
+- **Dönem 2020 sonrası** (künyeyle uyum; önce 2000'lerin başı yazıyordu). KKM'deki Düzada künyesi "Dondurmacı Kızlar: 2020–" diyor; Kemal: "2020 sonrası (oyun düzelsin)". Oyun yine dükkânın kuruluş yıllarında geçer. Önceki bölümlerde "2000'ler" diye geçen notlar o günün kaydıdır; oyunda dönemle çelişebilecek yerler için Kemal'in kararları (4 Kasım):
+  - Mango ve yaban mersini için "dönem için az yaygın" notu kalktı; çeşitler kalır.
+  - Su ısıtıcısı kalır.
+  - Yardımcı ad önerileri 2020'lere göre yenilenecek; aday liste Kemal'e gitti (ajans). Kemal seçene kadar oyundaki liste değişmez.
+  - Liman'daki kafe (2010 sonrası) artık Dondurmacı Kızlar'dan önce açılmış oluyor; Kemal: sorun yok. İkisi farklı yerler.
 
 ## 1. Oyunun özeti ve vizyonu
 
@@ -678,7 +682,8 @@ toparlamada kalktı (cevaplananlar bölüm 0'da; geçmişi GitHub'da).
 | Festival / bayram günleri, adları ve özel çeşitleri | Sonra; Kemal'in |
 | Ayar panelinin oyuna yazma yolu | ~~Açık~~ → **GitHub anahtarı** (Kemal, 15 Ekim): KKM → Oyun → Ayarlar'da "Oyuna gönder" oyunun deposunda PR açar; anahtar yalnız o tarayıcıda durur |
 | Exp sisteminin sayıları | ~~Açık~~ → tablo sunuldu, Kemal "Başla" dedi (15 Ekim); bölüm 0.12 exp tablosu. KKM → Ayarlar'dan değişir |
-| DK Lite deposu, erime kuralı, 3B model kaynağı | Açık (0.16) |
+| ~~DK Lite deposu, erime kuralı~~ | ~~Açık (0.16)~~ → geçersiz (4 Kasım): DK Lite ayrı depoda (`hkemal94/DK-Lite`); erime kuralı o deponun konusu |
+| 3B model kaynağı (süslemeler dahil) | Sonra (0.16) |
 | Mahalle evleri | Paket adayları gösterilip Kemal seçecek |
 
 ### 7.1 Geçici sayılar
