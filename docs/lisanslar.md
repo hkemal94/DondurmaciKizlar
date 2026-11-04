@@ -22,3 +22,5 @@ paket eklenince buraya yazılır.
 | Poppins (yazı tipi; Fontsource 5.3.0 paketinden woff2) | https://github.com/itfoundry/Poppins · https://fonts.google.com/specimen/Poppins | SIL Open Font License 1.1 (lisans metni `public/yazitipi/OFL.txt`) | `public/yazitipi/` — bütün arayüz yazıları; 400, 500, 600, 700 kalınlıkları, Latin ve Latin genişletilmiş (Türkçe harfler) parçaları (22 Ekim) |
 
 Arka tezgah ürünleri (`public/modeller/tezgah/`, belge 0.14): Kenney Food Kit (fincan, tabak, bardak, şişe, kutu, külah, sundae, krem şanti, meyveler), Kenney Furniture Kit (kahve makinesi, blender), Tiny Treats Bakery (espresso makinesi, yazar kasa, sarı kupa), KayKit Restaurant (kavanozlar). Hepsi yukarıdaki paketlerden, CC0.
+
+Kodla kurulan modeller (dış kaynak yok, lisans gerekmez): seyyar dondurma arabası (`src/sahne/DisSusler.tsx`, `SeyyarAraba`; 4 Kasım 2026, belge 0.18). Depodaki hazır paketlerde seyyar araba yoktu. Mağaza resmi `public/gorseller/esyalar/seyyarAraba.webp` bu modelden çekildi.

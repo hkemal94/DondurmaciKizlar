@@ -919,6 +919,36 @@
         }
       }
     },
+    "araba": {
+      "ad": "Seyyar araba",
+      "aciklama": "Sabah \"bugün arabada çalış\" seçilince: dükkânı yardımcılar işletir, oyuncu arabada satar, saat hızlı akar (belge 0.18). Hepsi [Kemal] deneme değeri",
+      "ayarlar": {
+        "rolanti": {
+          "ad": "Arabadayken saatin hızı",
+          "deger": 3,
+          "birim": "kat",
+          "not": "[Kemal] deneme değeri (4 Kasım 2026): Kemal onaylayınca kesinleşir; 3 = saat üç kat hızlı akar"
+        },
+        "satisAraligi": {
+          "ad": "Arabada iki satış arası",
+          "deger": 15,
+          "birim": "oyun dakikası",
+          "not": "[Kemal] deneme değeri (4 Kasım 2026): Kemal onaylayınca kesinleşir"
+        },
+        "cesitSayisi": {
+          "ad": "Arabadaki çeşit sayısı",
+          "deger": 3,
+          "birim": "çeşit",
+          "not": "[Kemal] deneme değeri (4 Kasım 2026): Kemal onaylayınca kesinleşir; vitrinin ilk çeşitleri"
+        },
+        "enCok": {
+          "ad": "En çok araba",
+          "deger": 1,
+          "birim": "araba",
+          "not": "[Kemal] deneme değeri (4 Kasım 2026): Kemal onaylayınca kesinleşir"
+        }
+      }
+    },
     "esya": {
       "ad": "Eşya fiyatları",
       "aciklama": "Mağazadaki dekorasyon eşyaları",
@@ -1042,6 +1072,12 @@
           "ad": "Mutfak tezgahı",
           "deger": 150,
           "birim": "jeton"
+        },
+        "seyyarAraba": {
+          "ad": "Seyyar dondurma arabası",
+          "deger": 500,
+          "birim": "jeton",
+          "not": "[Kemal] deneme değeri (4 Kasım 2026): Kemal onaylayınca kesinleşir"
         }
       }
     },
@@ -2034,6 +2070,12 @@
           "ad": "Taze portakal suyu",
           "deger": 7,
           "birim": "dükkân seviyesi"
+        },
+        "esya.seyyarAraba": {
+          "ad": "Seyyar dondurma arabası",
+          "deger": 6,
+          "birim": "dükkân seviyesi",
+          "not": "[Kemal] deneme değeri (4 Kasım 2026): Kemal onaylayınca kesinleşir; fiyattan kilit kuralına göre (≤500 → 6)"
         }
       }
     },

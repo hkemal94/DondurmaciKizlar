@@ -30,7 +30,10 @@ export type Esya =
   | 'buzdolabi'
   | 'mutfakRafi'
   | 'kasaYigini'
-  | 'mutfakTezgahi';
+  | 'mutfakTezgahi'
+  // Seyyar dondurma arabası (belge 0.16, 0.18): dekorasyon gibi dışarı konur;
+  // sabah "bugün arabada çalış" seçilince oyuncu orada satar
+  | 'seyyarAraba';
 
 // grup: mağazadaki başlık. disari: yalnız dükkânın dışına konur (14 Ekim:
 // "özellikle dükkân dışı için tabela benzeri ürünler").
@@ -53,6 +56,8 @@ export const ESYALAR: { id: Esya; fiyat: number; grup: 'oturma' | 'dis' | 'ic' |
   { id: 'bisiklet', fiyat: 180, grup: 'dis', disari: true, konfor: 0, cekicilik: 1 },
   { id: 'isikliTabela', fiyat: 260, grup: 'dis', disari: true, konfor: 0, cekicilik: 3 },
   { id: 'kulahFiguru', fiyat: 380, grup: 'dis', disari: true, konfor: 0, cekicilik: 3 },
+  // Fiyatı ve kilidi ayar dosyasında ([Kemal] deneme değeri); konfor / çekicilik [Kemal]: şimdilik 0
+  { id: 'seyyarAraba', fiyat: 500, grup: 'dis', disari: true, konfor: 0, cekicilik: 0 },
   { id: 'paspas', fiyat: 70, grup: 'ic', iceri: true, konfor: 1, cekicilik: 0 },
   { id: 'haliYuvarlak', fiyat: 180, grup: 'ic', iceri: true, konfor: 1, cekicilik: 1 },
   { id: 'haliKilim', fiyat: 260, grup: 'ic', iceri: true, konfor: 2, cekicilik: 1 },
@@ -192,7 +197,11 @@ export const ESYA_BOYU: Record<Esya, { en: number; boy: number }> = {
   mutfakRafi: { en: 2, boy: 1 },
   kasaYigini: { en: 1, boy: 1 },
   mutfakTezgahi: { en: 1, boy: 1 },
+  seyyarAraba: { en: 2, boy: 1 },
 };
+
+// Seyyar araba (belge 0.18)
+export const ARABA: Esya = 'seyyarAraba';
 
 export function mutfakEsyasiMi(e: Esya) {
   return !!ESYALAR.find((x) => x.id === e)?.mutfak;

@@ -50,6 +50,7 @@ import {
   type Yardimci,
 } from './makine';
 import {
+  ARABA,
   BASLANGIC_PARCALARI,
   BASLANGIC_PARSELLERI,
   BASLANGIC_TEZGAHI,
@@ -329,6 +330,8 @@ export interface Durum {
   havaPlani: HavaPlani;
   yarinHava: HavaPlani | null;
   gedikliler: Gedikli[];
+  // Seyyar araba (belge 0.18): oyuncu bugün arabada; dükkânı yardımcılar işletir (kaydedilmez)
+  arabada: boolean;
 }
 
 // Waffle yapımı (belge 0.5) ve içecek standı (0.6)
@@ -397,10 +400,13 @@ export interface GunlukOzet {
   besYildiz: number;
   waffle: number;
   icecek: number;
+  // Seyyar araba (belge 0.18): arabanın kazancı (günün kazancına dahil) ve satış sayısı
+  araba: number;
+  arabaSatis: number;
 }
 
 function bosOzet(): GunlukOzet {
-  return { musteri: 0, kazanc: 0, mukemmel: 0, bahsis: 0, puanlar: [], yevmiye: 0, mesai: 0, mesaiSaati: 0, besYildiz: 0, waffle: 0, icecek: 0 };
+  return { musteri: 0, kazanc: 0, mukemmel: 0, bahsis: 0, puanlar: [], yevmiye: 0, mesai: 0, mesaiSaati: 0, besYildiz: 0, waffle: 0, icecek: 0, araba: 0, arabaSatis: 0 };
 }
 
 // Gösterge ayarları
@@ -472,6 +478,7 @@ let durum: Durum = {
   havaPlani: { sabah: 'gunesli', degisim: null },
   yarinHava: null,
   gedikliler: [],
+  arabada: false,
   insaat: false,
   seciliParsel: null,
   yerlestirme: false,
@@ -735,6 +742,8 @@ export function siradakiler(d: Durum, k: Kuyruk) {
 
 // Oyuncunun baktığı müşteri: kendi istasyonunun sırasında öndeki ve onun ürününü isteyen
 export function ondekiMusteri(d: Durum = durum): Musteri | undefined {
+  // Arabadayken (belge 0.18) oyuncu dükkânda kimseye bakmaz
+  if (d.arabada) return undefined;
   const m = siradakiler(d, kuyrugu(d.istasyon))[0];
   return m && m.urun === d.istasyon ? m : undefined;
 }
@@ -748,9 +757,14 @@ export function istasyonKurulu(ist: Istasyon, d: Durum = durum) {
   return takili(ist) && takili('servis');
 }
 
+// Oyuncunun dükkândaki istasyonu; arabadayken yok (belge 0.18)
+export function oyuncuIstasyonu(d: Durum = durum): Istasyon | null {
+  return d.arabada ? null : d.istasyon;
+}
+
 // Bugün açık istasyonlar: oyuncunun ve yardımcılarınki
 export function acikIstasyonlar(d: Durum = durum): Istasyon[] {
-  const liste = [d.istasyon, ...d.yardimcilar.map((y) => y.istasyon).filter((i): i is Istasyon => i !== null)];
+  const liste = [oyuncuIstasyonu(d), ...d.yardimcilar.map((y) => y.istasyon).filter((i): i is Istasyon => i !== null)];
   return ISTASYONLAR.filter((i) => liste.includes(i) && istasyonKurulu(i, d));
 }
 
@@ -797,6 +811,11 @@ export function musteriDongusu(simdi: number) {
   const egitimde = ilkSiparisEgitimi();
   const secilen = egitimde ? 'dondurma' : rastgeleUrun();
   if (secilen === null) {
+    // Arabadayken bütün yardımcılar dinleniyorsa dükkâna kimse gelmez ama araba satmaya devam eder (belge 0.18)
+    if (durum.arabada && !acikIstasyonlar().length) {
+      guncelle({ sonrakiGelis: simdi + 1500 });
+      return;
+    }
     // Her şey bitti (9c): dükkân cezasız erken kapanır, sıradakilere servis sürer
     guncelle({ acik: false });
     haberVer('haber.stokBitti');
@@ -1111,15 +1130,18 @@ export function zamanIlerlet(gecenMs: number) {
   if (ilkSiparisEgitimi() && durum.musteriler.some((m) => m.hal === 'sirada')) return;
   if (durum.acik) {
     birikenMs += Math.min(gecenMs, 1000); // sekme arkadayken gün akıp gitmesin
-    const adim = Math.floor(birikenMs / ADIM_MS);
+    const adimMs = adimSuresi();
+    const adim = Math.floor(birikenMs / adimMs);
     if (adim > 0) {
-      birikenMs -= adim * ADIM_MS;
+      birikenMs -= adim * adimMs;
       const uzunluk = gunUzunlugu();
       const dakika = Math.min(uzunluk, durum.dakika + adim * ADIM);
       // Hava gün içinde değişti (belge 0.15): kayan yazıda haber
       const dg = durum.havaPlani.degisim;
       if (dg && durum.dakika < dg.dakika && dakika >= dg.dakika) haberVer(`haber.hava.${dg.hava}`);
+      const onceki = durum.dakika;
       guncelle({ dakika, acik: dakika < uzunluk });
+      if (durum.arabada) arabaSatislari(onceki, dakika);
     }
     sabirKontrol();
     return;
@@ -1127,6 +1149,7 @@ export function zamanIlerlet(gecenMs: number) {
   // Kapandıktan sonra saat işlemeye devam eder (Kemal, 15 Ekim akşam: "saat
   // durmasın, kaça kadar çalıştığımızı bilelim"); ekranda kırmızı. Sıradakilerin
   // sabrı azalmaz. Kapandı: sıradakilere servis bitince gün sonu ekranı
+  // Kapanınca saat normal hızına döner (araba da kapanır; fazla mesai şişmesin, belge 0.18)
   birikenMs += Math.min(gecenMs, 1000);
   const mesaiAdimi = Math.floor(birikenMs / ADIM_MS);
   if (mesaiAdimi > 0) {
@@ -1134,7 +1157,7 @@ export function zamanIlerlet(gecenMs: number) {
     guncelle({ dakika: durum.dakika + mesaiAdimi * ADIM });
   }
   // Kimsenin bakmadığı istasyonun sırasında kalan müşteri cezasız gider
-  const bakan = (ist: Istasyon) => ist === durum.istasyon || durum.yardimcilar.some((y) => y.istasyon === ist);
+  const bakan = (ist: Istasyon) => ist === oyuncuIstasyonu() || durum.yardimcilar.some((y) => y.istasyon === ist);
   if (durum.musteriler.some((m) => m.hal === 'sirada' && !bakan(m.urun)))
     guncelle({ musteriler: durum.musteriler.map((m) => (m.hal === 'sirada' && !bakan(m.urun) ? { ...m, hal: 'gidiyor', mutlu: false } : m)) });
   const bekleyen = durum.musteriler.some((m) => m.hal === 'sirada');
@@ -1147,6 +1170,56 @@ export function zamanIlerlet(gecenMs: number) {
     const mesai = Math.min(durum.para - yevmiye, mesaiSaati * durum.yardimcilar.length * AYAR.yardimci.mesaiSaatlik);
     guncelle({ gunSonu: true, para: durum.para - yevmiye - mesai, gunluk: { ...durum.gunluk, yevmiye, mesai, mesaiSaati }, yarinHava: durum.yarinHava ?? havaPlaniUret() });
     kaydet();
+  }
+}
+
+// Bir adımın gerçek süresi: dükkân açıkken arabadaysa saat hızlı akar (rölanti, belge 0.18)
+function adimSuresi() {
+  return durum.arabada ? ADIM_MS / Math.max(1, AYAR.araba.rolanti) : ADIM_MS;
+}
+
+// ---- Seyyar araba (belge 0.16, 0.18) ----
+// Dekorasyon gibi dışarı konur; sabah istasyon seçiminde "Seyyar araba"
+// seçilince oyuncu bugün arabada çalışır: dükkânı yardımcılar işletir, saat
+// hızlı akar, araba az çeşitle kendi kendine satar. Sayılar ayar dosyasında
+// (`araba`), hepsi [Kemal] deneme değeri.
+export function arabaSayisi(d: Durum = durum) {
+  return depodaki(ARABA, d) + d.yerlesim.filter((y) => y.esya === ARABA).length;
+}
+export function arabaYerinde(d: Durum = durum) {
+  return d.yerlesim.find((y) => y.esya === ARABA) ?? null;
+}
+// Arabaya geçmek için: araba yere konmuş ve dükkânı işletecek en az bir yardımcı var
+export function arabaSecilebilir(d: Durum = durum) {
+  return !!arabaYerinde(d) && d.yardimcilar.length > 0;
+}
+// Arabadaki çeşitler: vitrinin ilk birkaçı (az çeşit)
+export function arabaCesitleri(d: Durum = durum) {
+  return d.vitrin.slice(0, Math.max(1, AYAR.araba.cesitSayisi));
+}
+// Saat ilerledikçe her satış aralığında bir tek toplu külah satılır; stok
+// (çeşit ve külah) dükkânla ortak. Biten çeşit satılmaz; ceza yok.
+function arabaSatislari(onceki: number, simdiki: number) {
+  const aralik = Math.max(1, AYAR.araba.satisAraligi);
+  const kac = Math.floor(simdiki / aralik) - Math.floor(onceki / aralik);
+  for (let n = 0; n < kac; n++) {
+    const mevcut = mevcutStok();
+    if (mevcut[altlikAnahtari('kulah')] < 1) return;
+    const uygun = arabaCesitleri().filter((c) => mevcut[dondurmaAnahtari(c)] >= 1);
+    if (!uygun.length) return;
+    const cesit = uygun[Math.floor(Math.random() * uygun.length)];
+    const miktar = satisFiyati(cesit);
+    const satislar = [...durum.satislar];
+    satislar[cesit] = (satislar[cesit] ?? 0) + 1;
+    guncelle({
+      para: durum.para + miktar,
+      stok: azalt(durum.stok, [dondurmaAnahtari(cesit), altlikAnahtari('kulah')]),
+      satislar,
+      gunluk: { ...durum.gunluk, kazanc: durum.gunluk.kazanc + miktar, araba: durum.gunluk.araba + miktar, arabaSatis: durum.gunluk.arabaSatis + 1 },
+    });
+    // Para dükkâna exp verir (yıldız yok: arabada puan alınmaz)
+    expEkle(0, dukkanExpi(miktar, 0));
+    hedefKontrol();
   }
 }
 
@@ -1179,6 +1252,7 @@ export function gunSonunuKapat() {
     acik: true,
     gunSonu: false,
     hazirlik: true,
+    arabada: false,
     gunluk: bosOzet(),
     gunYenilikleri: [],
     sonrakiGelis: 0,
@@ -1195,7 +1269,8 @@ export function gunSonunuKapat() {
 // Güne başla: makine istasyonu ya da yardımcı varsa önce istasyon seçilir (belge 0.5)
 export function guneBasla() {
   if (!durum.hazirlik) return;
-  const secimGerek = ISTASYONLAR.some((i) => i !== 'dondurma' && istasyonKurulu(i)) || durum.yardimcilar.length > 0;
+  // Seyyar araba konmuşsa da seçim ekranı açılır (belge 0.18)
+  const secimGerek = ISTASYONLAR.some((i) => i !== 'dondurma' && istasyonKurulu(i)) || durum.yardimcilar.length > 0 || !!arabaYerinde();
   if (secimGerek && !durum.istasyonSecimi) {
     istasyonSec(istasyonKurulu(durum.istasyon) ? durum.istasyon : 'dondurma');
     guncelle({ istasyonSecimi: true });
@@ -1240,7 +1315,7 @@ export function musteriVardi(id: number) {
 let sonKarsilanan = 0;
 // Öndeki müşteri tezgaha vardığında sahne bunu çağırır (her müşteri için bir kez).
 export function musteriTezgahaVardi(id: number) {
-  if (id === sonKarsilanan) return;
+  if (id === sonKarsilanan || durum.arabada) return;
   sonKarsilanan = id;
   guncelle({ sabirMusteri: id, sabirBasi: durum.dakika });
   // Ayarlar'dan kapatılabilir (8c); kapalıyken "Tezgaha geç" düğmesi parlar
@@ -1434,9 +1509,14 @@ export function isikAl() {
 
 export function esyaAl(esya: Esya) {
   const e = ESYALAR.find((x) => x.id === esya);
-  if (!e || durum.para < e.fiyat || !kilitAcik(`esya.${esya}`)) return;
+  if (!e || durum.para < e.fiyat || !kilitAcik(`esya.${esya}`) || !esyaAlinabilir(esya)) return;
   guncelle({ para: durum.para - e.fiyat, depo: { ...durum.depo, [esya]: (durum.depo[esya] ?? 0) + 1 } });
   kaydet();
+}
+
+// Bazı eşyalarda sınır var: seyyar araba en çok ayar dosyasındaki kadar (belge 0.18)
+export function esyaAlinabilir(esya: Esya, d: Durum = durum) {
+  return esya !== ARABA || arabaSayisi(d) < AYAR.araba.enCok;
 }
 
 export function depodaki(esya: Esya, d: Durum = durum) {
@@ -1867,7 +1947,25 @@ export function istasyonSec(ist: Istasyon) {
       const yer = bos.find((i) => !yardimcilar.some((z) => z.istasyon === i) && (!tur || i === y.yetenek));
       if (yer) y.istasyon = yer;
     }
-  guncelle({ istasyon: ist, yardimcilar });
+  guncelle({ istasyon: ist, yardimcilar, arabada: false });
+}
+
+// Sabah "bugün arabada çalış" (belge 0.18): yardımcılar bütün kurulu
+// istasyonlara, önce dondurmaya ve iyi oldukları yere dağılır
+export function arabaSec() {
+  if (!arabaSecilebilir()) return;
+  const bos = ISTASYONLAR.filter((i) => istasyonKurulu(i));
+  const yardimcilar = durum.yardimcilar.map((y) => ({ ...y, istasyon: null as Istasyon | null }));
+  // Dondurma vitrini boş kalmasın: önce dondurmada iyi olan, yoksa ilk yardımcı
+  const dondurmaci = yardimcilar.find((y) => y.yetenek === 'dondurma') ?? yardimcilar[0];
+  if (dondurmaci) dondurmaci.istasyon = 'dondurma';
+  for (const tur of [true, false])
+    for (const y of yardimcilar) {
+      if (y.istasyon) continue;
+      const yer = bos.find((i) => !yardimcilar.some((z) => z.istasyon === i) && (!tur || i === y.yetenek));
+      if (yer) y.istasyon = yer;
+    }
+  guncelle({ yardimcilar, arabada: true, kamera: 'dukkan' });
 }
 
 // Yardımcıya dokununca sıradaki boş istasyona geçer (ya da dinlenir)
@@ -1875,7 +1973,7 @@ export function yardimciYeriniDegistir(id: number) {
   const y = durum.yardimcilar.find((x) => x.id === id);
   if (!y) return;
   const secenekler: (Istasyon | null)[] = [
-    ...ISTASYONLAR.filter((i) => istasyonKurulu(i) && i !== durum.istasyon && !durum.yardimcilar.some((z) => z.id !== id && z.istasyon === i)),
+    ...ISTASYONLAR.filter((i) => istasyonKurulu(i) && i !== oyuncuIstasyonu() && !durum.yardimcilar.some((z) => z.id !== id && z.istasyon === i)),
     null,
   ];
   const sonraki = secenekler[(secenekler.indexOf(y.istasyon) + 1) % secenekler.length] ?? null;
@@ -2165,7 +2263,7 @@ function yardimciDongusu() {
   let isler = durum.yardimciIsleri;
   let degisti = false;
   for (const y of durum.yardimcilar) {
-    if (!y.istasyon || y.istasyon === durum.istasyon || !istasyonKurulu(y.istasyon)) continue;
+    if (!y.istasyon || y.istasyon === oyuncuIstasyonu() || !istasyonKurulu(y.istasyon)) continue;
     const on = siradakiler(durum, kuyrugu(y.istasyon))[0];
     const is = isler[y.id];
     if (is && (!on || on.id !== is.musteri)) {
@@ -2235,7 +2333,7 @@ export function yardimciCikar(id: number) {
 // ---- Tezgah parçaları (belge 0.5) ----
 // Oyuncunun istasyonunun tezgah bölümüne göre yeri: kamera ve çalışan oraya gider
 export function istasyonX(d: Durum = durum) {
-  if (d.istasyon === 'dondurma') return 0;
+  if (d.arabada || d.istasyon === 'dondurma') return 0;
   return parcaYerleri(d.tezgah, d.tezgahParcalari).find((p) => p.tur === d.istasyon)?.x ?? 0;
 }
 
@@ -2459,6 +2557,7 @@ export function kaydiYukle() {
     guncelle({
       para: (typeof k.para === 'number' ? k.para : 0) + eskiParcaIadesi(k),
       gun: typeof k.gun === 'number' ? k.gun : 1,
+      arabada: false,
       memnuniyetler: Array.isArray(k.memnuniyetler) ? k.memnuniyetler : [],
       acikCesitler: acik.length ? acik : [...BASLANGIC_CESITLERI],
       ...vitriniOku(k, acik.length ? acik : [...BASLANGIC_CESITLERI]),
@@ -2765,6 +2864,7 @@ function durumuSifirla() {
     acik: true,
     gunSonu: false,
     hazirlik: true,
+    arabada: false,
     gunluk: bosOzet(),
     sonrakiGelis: 0,
     musteriler: [],

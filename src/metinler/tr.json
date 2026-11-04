@@ -678,5 +678,18 @@
   "dekor.solan": "{sayi} eşya güneşte soldu",
   "dekor.solanYok": "hepsi yeni gibi",
   "dekor.boyaDugme": "Boya",
-  "yenilik.yipranma": "Dışarıdaki eşyalar günler geçtikçe güneşte hafifçe solar; Dekorasyon'dan boyanır"
+  "yenilik.yipranma": "Dışarıdaki eşyalar günler geçtikçe güneşte hafifçe solar; Dekorasyon'dan boyanır",
+  "esya.seyyarAraba": "Seyyar dondurma arabası",
+  "esya.tekAraba": "Araban var",
+  "istasyon.araba": "Seyyar araba",
+  "istasyon.arabaNot": "Dükkânı yardımcılar işletir · saat {carpan} kat hızlı akar",
+  "istasyon.arabaYardimci": "Önce bir yardımcı al",
+  "istasyon.arabaCesit": "Arabada: {cesitler}",
+  "araba.panel": "Bugün seyyar arabadasın",
+  "araba.saat": "Saat {carpan} kat hızlı",
+  "araba.satis": "{sayi} satış",
+  "ipucu.araba": "Araba kendi satıyor; dükkânda yardımcıların çalışıyor",
+  "gunSonu.dukkanKazanci": "Dükkân (yardımcılar)",
+  "gunSonu.araba": "Seyyar araba ({sayi} satış)",
+  "yenilik.seyyarAraba": "Seyyar dondurma arabası: Dekorasyon'dan alınır, dışarı konur; sabah \"Seyyar araba\" seçilince dükkânı yardımcılar işletir, saat hızlı akar"
 }

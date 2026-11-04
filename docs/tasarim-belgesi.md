@@ -563,6 +563,19 @@ Dışarıdaki eşyalar konduktan ya da boyandıktan 5 gün sonra güneşte yava�
   - Yardımcı ad önerileri 2020'lere göre yenilendi (4 Kasım): Kemal'in seçtiği liste, kadın 15, erkek 15 (`src/oyun/adOnerileri.ts`).
   - Liman'daki kafe (2010 sonrası) artık Dondurmacı Kızlar'dan önce açılmış oluyor; Kemal: sorun yok. İkisi farklı yerler.
 
+### 0.18 Seyyar dondurma arabası, ilk parça (Kemal, 4 Kasım 2026 akşam; yol haritası 11c)
+
+0.16'daki kararın ve 7. turun (`docs/soru-cevap/acik-isler-1.md`) ilk oynanabilir hâli. Belgede yazmayan her sayı **[Kemal] deneme değeri**: ayar dosyasında (`araba` bölümü, `esya.seyyarAraba`, `kilit.esya.seyyarAraba`) notuyla durur, KKM → Ayarlar'dan değişir; Kemal onaylayınca kesinleşir.
+
+- **Alma ve yerleştirme:** Dekorasyon → "Dükkânın dışı için" bölümünde "Seyyar dondurma arabası". Dükkân seviyesiyle açılır, parayla alınır, depoya gider; öbür dış eşyalar gibi yalnız dışarıdaki karelere konur, kaldırılıp taşınır, çevrilir. 2 × 1 m. Bir tane alınır (ikincisinde kartta "Araban var"). Fiyat **500** [Kemal], kilit **dükkân seviyesi 6** [Kemal] (fiyattan kilit kuralı: ≤500 → 6). Konfor ve çekicilik şimdilik 0 [Kemal].
+- **Model:** Depodaki hazır paketlerde seyyar araba yok; kodla kuruldu (mor gövde, sarı şerit, iki teker, itme kolu, mor-sarı şemsiye, kapakların üstünde üç top). Mağaza resmi `#onizleme=seyyarAraba` ile çekildi.
+- **Sabah seçimi:** Araba yere konmuşsa güne başlarken istasyon ekranında dördüncü kart "Seyyar araba" çıkar. Yardımcı yoksa kart kapalıdır ("Önce bir yardımcı al"; 0.16: "yardımcılar alınınca"). Seçilince yardımcılar bütün kurulu istasyonlara dağılır, dondurma vitrini boş kalmaz (önce dondurmada iyi olan, yoksa ilk yardımcı); yerleri yine dokunarak değişir.
+- **Arabada gün (rölanti):** Dükkân açıkken saat **3 kat** [Kemal] hızlı akar; kapanınca araba da kapanır, saat normal hızına döner (fazla mesai şişmesin). Oyuncu tezgaha geçmez; çalışan arabanın yanında, itme kolunun dibinde durur. Dükkânda yalnız yardımcıların istasyonlarına müşteri gelir, siparişleri yardımcılar yapar. Gün gerçekte kısaldığı için dükkâna gelen müşteri azalır (müşterilerin geliş aralığı gerçek saniyeyle). Sağ altta "Bugün seyyar arabadasın · saat 3 kat hızlı · N satış · jeton".
+- **Arabada satış (ilk parça: kendiliğinden):** Dükkân açıkken her **15 oyun dakikasında** [Kemal] bir tek toplu külah satılır. Çeşitler vitrinin ilk **3** çeşidi [Kemal]; fiyat o çeşidin dükkândaki top fiyatı. Stok dükkânla ortak (çeşit ve külah düşer); biten çeşit satılmaz, ceza yok. Para dükkâna exp verir (yıldız yok); günün kazanç hedefine sayılır.
+- **Gün sonu:** Araba günü "Günün kazancı"nın altında iki satır: "Dükkân (yardımcılar)" ve "Seyyar araba (N satış)".
+- Arabadaki seçim kaydedilmez: her sabah yeniden seçilir.
+- **Sonraki parça (yol haritasında):** arabada elle servis (arabanın önüne müşteri gelir, kepçeyle), arabaya kamera yakın planı, arabanın yeri için plaj / yol kenarı (0.16 satır "Sonraki fikirler"), arabada çeşit seçimi, hava etkisi. Hangisinin olacağı Kemal'in.
+
 ## 1. Oyunun özeti ve vizyonu
 
 ### 1.1 Tek cümlelik özet
@@ -685,6 +698,8 @@ toparlamada kalktı (cevaplananlar bölüm 0'da; geçmişi GitHub'da).
 | ~~DK Lite deposu, erime kuralı~~ | ~~Açık (0.16)~~ → geçersiz (4 Kasım): DK Lite ayrı depoda (`hkemal94/DK-Lite`); erime kuralı o deponun konusu |
 | 3B model kaynağı (süslemeler dahil) | Sonra (0.16) |
 | Mahalle evleri | Paket adayları gösterilip Kemal seçecek |
+| Seyyar araba sayıları (0.18) | Deneme değerleri: fiyat 500, kilit seviye 6, saat 3 kat, 15 oyun dakikasında bir satış, 3 çeşit, tek araba, konfor / çekicilik 0. Kemal onaylayacak |
+| Seyyar arabada oynanış (0.18) | İlk parçada araba kendi satıyor (rölanti). Elle servis, kamera, yer (plaj / yol kenarı) Kemal'in kararı |
 
 ### 7.1 Geçici sayılar
 
@@ -740,6 +755,7 @@ Uygulamada **olan**:
 
 | Kişiselleştirme / görünüş (0.11, C paketi) | Bitti (14–15 Ekim). Geliştir → Görünüş: dış boya, iç duvar, çerçeve, tente, zemin, çatı (düz dam, teras, kiremit, ahşap + pergola), tabelalar (çatı, direk, neon, iskele kemeri; akşam yanar); almadan önce deneme. Dekorasyon'da halı ve tablo (tablo duvara asılır). Önlük şimdilik kaldırıldı |
 | Toparlama (0.12) | Bitti (15 Ekim). Belge ve CLAUDE.md güncel kararlarla düzenlendi, açık sorular yeniden yazıldı, `#deneme` ve `#hizli` kaldırıldı |
+| Seyyar araba, ilk parça (0.18) | Öneri PR'ı (4 Kasım 2026, `ajans/seyyar-araba`). Dekorasyon gibi alınır ve dışarı konur; sabah "Seyyar araba" seçilince dükkânı yardımcılar işletir, saat hızlı akar, araba az çeşitle kendi satar; gün sonunda dükkân / araba ayrımı. Sayılar [Kemal] deneme değeri |
 
 Uygulamada **olmayan** ama belgede geçenler: 0.12'deki işlerin hepsi (sıra
 `docs/yol-haritasi.md`'de), Kemal'in müziği (şimdilik kodla geçici ezgi),
