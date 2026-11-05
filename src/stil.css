@@ -3363,3 +3363,48 @@ li.tamam .hedef-ad {
   opacity: 0.85;
   line-height: 1.25;
 }
+
+/* Seyyar araba (belge 0.18): dört kart yan yana sığsın */
+.istasyon-kartlar:has(> :nth-child(4)) .istasyon-kart {
+  width: 23%;
+  min-width: 0;
+}
+.istasyon-araba-not {
+  margin: 2px 0 4px;
+  text-align: center;
+}
+/* Arabadayken sağ altta bugünkü satış */
+.araba-paneli {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 12px;
+  background: var(--mor-koyu);
+  border: 1.5px solid var(--mor);
+  color: var(--yazi);
+  font-size: 12px;
+  box-shadow: 0 3px 10px rgba(40, 20, 60, 0.16);
+}
+.araba-paneli > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.araba-paneli b {
+  font-size: 13px;
+}
+.araba-paneli small {
+  opacity: 0.8;
+  font-size: 11px;
+}
+.araba-paneli .araba-satis {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-variant-numeric: tabular-nums;
+}
+.esya-kart-tek {
+  font-size: 11px;
+  font-weight: 600;
+}

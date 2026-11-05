@@ -24,7 +24,7 @@ import { IcSus, TABLO_YUKSEKLIGI } from './IcSusler';
 import { renk } from './renkler';
 import { HazirModel } from './HazirModel';
 import type { Boya } from './tasarimDili';
-import { Bisiklet, CicekKasasi, Flama, IsikliTabela, KaraTahta, KulahFiguru, SokakLambasi } from './DisSusler';
+import { Bisiklet, CicekKasasi, Flama, IsikliTabela, KaraTahta, KulahFiguru, SeyyarAraba, SokakLambasi } from './DisSusler';
 
 // Dekorasyon (belge bölüm 4; 13 Ekim): ışıklandırma seviyeleri ve
 // oyuncunun kareli zemine yerleştirdiği taşınabilir eşyalar.
@@ -142,6 +142,7 @@ export function EsyaModeli({ esya, renkId }: { esya: Esya; renkId?: string }) {
   if (esya === 'bisiklet') return <Bisiklet />;
   if (esya === 'copKutusu') return <HazirModel yol="mobilya/trashcan" ayar={{ grup: 'dukkan', yukseklik: 0.8 }} />;
   if (esya === 'sokakLambasi') return <SokakLambasi />;
+  if (esya === 'seyyarAraba') return <SeyyarAraba />;
   // Mutfak eşyaları (belge 0.14)
   if (esya === 'buzdolabi') return <BuzdolabiModeli />;
   if (esya === 'mutfakRafi') return <MutfakRafiModeli />;

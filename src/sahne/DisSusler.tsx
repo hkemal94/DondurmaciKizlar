@@ -299,3 +299,90 @@ export function SokakLambasi() {
     </group>
   );
 }
+
+// Seyyar dondurma arabası (belge 0.16, 0.18): kodla kuruldu (depodaki hazır
+// paketlerde seyyar araba yok). Ön yüzü denize (−z) bakar; satıcı itme
+// kolunun yanında, şemsiyenin dışında durur (üstten bakan kamerada şemsiye
+// arkadakini örtüyordu). 2 × 1 m. Logo renkleri: mor gövde, sarı şerit,
+// mor-sarı dilimli şemsiye; kapakların üstünde üç dondurma topu.
+export const ARABA_SATICI: [number, number] = [1.2, 0.35]; // satıcının arabanın ortasına göre yeri (x yanda, z arkada)
+export function SeyyarAraba() {
+  const dilimler = 8;
+  return (
+    <group>
+      {/* Tekerlekler: iki yanda, gövdenin ortasında */}
+      {[-0.82, 0.82].map((x) => (
+        <group key={x} position={[x, 0.32, 0]} rotation={[0, Math.PI / 2, 0]}>
+          <mesh castShadow>
+            <torusGeometry args={[0.3, 0.045, 6, 18]} />
+            <meshStandardMaterial color="#2a2830" roughness={0.8} />
+          </mesh>
+          {[0, Math.PI / 3, (2 * Math.PI) / 3].map((a) => (
+            <mesh key={a} rotation={[0, 0, a]}>
+              <boxGeometry args={[0.56, 0.02, 0.02]} />
+              <meshStandardMaterial color={renk.vitrinMetal} metalness={0.4} roughness={0.5} />
+            </mesh>
+          ))}
+        </group>
+      ))}
+      {/* Dingil */}
+      <mesh position={[0, 0.32, 0]} rotation={[0, 0, Math.PI / 2]}>
+        <cylinderGeometry args={[0.025, 0.025, 1.64, 6]} />
+        <meshStandardMaterial color={renk.vitrinMetal} metalness={0.4} />
+      </mesh>
+      {/* Gövde: mor sandık, önünde sarı şerit */}
+      <mesh position={[0, 0.72, 0]} castShadow receiveShadow>
+        <boxGeometry args={[1.5, 0.62, 0.72]} />
+        <meshStandardMaterial color={renk.mor} roughness={0.7} />
+      </mesh>
+      <mesh position={[0, 0.78, -0.365]}>
+        <boxGeometry args={[1.38, 0.14, 0.02]} />
+        <meshStandardMaterial color={renk.sari} roughness={0.7} />
+      </mesh>
+      {/* Üst tabla ve dondurma kapakları */}
+      <mesh position={[0, 1.05, 0]} castShadow>
+        <boxGeometry args={[1.56, 0.06, 0.78]} />
+        <meshStandardMaterial color={renk.krem} roughness={0.8} />
+      </mesh>
+      {[-0.45, 0, 0.45].map((x, i) => (
+        <group key={x} position={[x, 1.1, -0.05]}>
+          <mesh>
+            <cylinderGeometry args={[0.17, 0.17, 0.05, 12]} />
+            <meshStandardMaterial color={renk.vitrinMetal} metalness={0.5} roughness={0.4} />
+          </mesh>
+          <mesh position={[0, 0.1, 0]} castShadow>
+            <icosahedronGeometry args={[0.12, 1]} />
+            <meshStandardMaterial color={TOP_RENKLERI[i % TOP_RENKLERI.length]} roughness={0.6} flatShading />
+          </mesh>
+        </group>
+      ))}
+      {/* Arkada itme kolu */}
+      {[-0.42, 0.42].map((x) => (
+        <mesh key={x} position={[x, 1.02, 0.5]} rotation={[0.5, 0, 0]}>
+          <cylinderGeometry args={[0.022, 0.022, 0.36, 6]} />
+          <meshStandardMaterial color={renk.vitrinMetal} metalness={0.4} />
+        </mesh>
+      ))}
+      <mesh position={[0, 1.17, 0.58]} rotation={[0, 0, Math.PI / 2]}>
+        <cylinderGeometry args={[0.03, 0.03, 0.92, 6]} />
+        <meshStandardMaterial color="#2a2830" roughness={0.8} />
+      </mesh>
+      {/* Önde ayak (araba dururken dengede) */}
+      <mesh position={[0, 0.2, -0.28]}>
+        <boxGeometry args={[0.06, 0.4, 0.06]} />
+        <meshStandardMaterial color={renk.vitrinMetal} metalness={0.4} />
+      </mesh>
+      {/* Şemsiye: arkadan yükselen direk, mor-sarı dilimler */}
+      <mesh position={[0, 1.7, 0.3]}>
+        <cylinderGeometry args={[0.025, 0.025, 1.3, 6]} />
+        <meshStandardMaterial color={renk.krem} />
+      </mesh>
+      {Array.from({ length: dilimler }, (_, i) => (
+        <mesh key={i} position={[0, 2.38, 0.3]} rotation={[0, (i / dilimler) * Math.PI * 2, 0]} castShadow>
+          <coneGeometry args={[0.95, 0.35, 2, 1, true, 0, (Math.PI * 2) / dilimler]} />
+          <meshStandardMaterial color={i % 2 ? renk.sari : renk.mor} roughness={0.9} side={2} flatShading />
+        </mesh>
+      ))}
+    </group>
+  );
+}

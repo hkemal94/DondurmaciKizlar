@@ -93,6 +93,8 @@ export const DENEME_KAYDI = {
     { esya: 'sokakLambasi', hucre: '-12,-1', yon: 0 },
     { esya: 'bisiklet', hucre: '9,-2', yon: 0 },
     { esya: 'cicekKasasi', hucre: '-11,-2', yon: 0 },
+    // Seyyar araba (belge 0.18): terasın solunda, yürüyüş yoluna bakar
+    { esya: 'seyyarAraba', hucre: '-10,-4', yon: 0 },
     // Salon (C4): sağda kilimin üstünde masa, ortada yuvarlak halıda masa,
     // duvarlarda tablolar, köşelerde saksı; kapının önünde paspas
     { esya: 'haliKilim', hucre: '7,1', yon: 0 },

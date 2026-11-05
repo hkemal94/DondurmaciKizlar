@@ -18,6 +18,7 @@ import {
   cesitAc,
   depodaki,
   esyaAl,
+  esyaAlinabilir,
   isikAl,
   FIYAT_ETKISI,
   fiyatSec,
@@ -541,7 +542,7 @@ export function Gelistir({ kapat, ilkSekme = 'dekorasyon' }: { kapat: () => void
                       <button
                         key={e.id}
                         className={`esya-kart ${kilitAcik(`esya.${e.id}`, durum) ? '' : 'kilitli'}`}
-                        disabled={durum.para < e.fiyat || !kilitAcik(`esya.${e.id}`, durum)}
+                        disabled={durum.para < e.fiyat || !kilitAcik(`esya.${e.id}`, durum) || !esyaAlinabilir(e.id, durum)}
                         onClick={() => {
                           esyaAl(e.id);
                           setAlinan(e.id);
@@ -556,7 +557,8 @@ export function Gelistir({ kapat, ilkSekme = 'dekorasyon' }: { kapat: () => void
                           </span>
                         )}
                         <span className="esya-kart-alt">
-                          {kilitAcik(`esya.${e.id}`, durum) ? <Para miktar={e.fiyat} /> : <Kilit anahtar={`esya.${e.id}`} kisa />}
+                          {/* Seyyar araba tek (belge 0.18): alınmışsa fiyat yerine "Araban var" */}
+                          {!esyaAlinabilir(e.id, durum) ? <small className="esya-kart-tek">{m('esya.tekAraba')}</small> : kilitAcik(`esya.${e.id}`, durum) ? <Para miktar={e.fiyat} /> : <Kilit anahtar={`esya.${e.id}`} kisa />}
                           {depodaki(e.id, durum) > 0 && <span className="esya-sayi">{depodaki(e.id, durum)}</span>}
                         </span>
                       </button>

@@ -1,7 +1,9 @@
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { durumuOku, useDurum } from '../oyun/durum';
+import { arabaYerinde, durumuOku, useDurum } from '../oyun/durum';
+import { birimCoz, esyaOrtasi } from '../oyun/dekorasyon';
+import { ARABA_SATICI } from './DisSusler';
 import { gecerliSac, ONLUK_ACIK, ONLUK_YOK, ONLUKLER, SAC_RENKLERI, TENLER, type CalisanGorunumu, type Onluk } from '../oyun/calisan';
 import { InsanKarakter, type Hareket } from './InsanKarakter';
 import type { Karakter, KarakterAksesuari, Varyant } from './karakterler';
@@ -119,8 +121,21 @@ export function Calisan() {
     if (!g) return;
     g.visible = kameraKarisimi.deger > 0.12;
     const d = durumuOku();
-    // Oyuncunun istasyonunda durur (belge 0.5)
-    g.position.x = CALISAN_YERI.x + istasyonOdagi.x;
+    // Oyuncunun istasyonunda durur (belge 0.5); arabadayken arabanın arkasında (belge 0.18)
+    const araba = d.arabada ? arabaYerinde(d) : null;
+    if (araba) {
+      const { c, r } = birimCoz(araba.hucre);
+      const o = esyaOrtasi(araba.esya, c, r, araba.yon);
+      const a = (araba.yon * Math.PI) / 2;
+      const [lx, lz] = ARABA_SATICI;
+      // Grup tezgahla birlikte kayar: dünyadaki yerden tezgahın kaymasını çıkar
+      g.position.set(o.x + lx * Math.cos(a) + lz * Math.sin(a) - tezgahOfseti.x, 0.06, o.z - lx * Math.sin(a) + lz * Math.cos(a) - tezgahOfseti.z);
+      // Denize bakar, biraz arabaya dönük
+      g.rotation.y = Math.PI + a + 0.4;
+    } else {
+      g.position.set(CALISAN_YERI.x + istasyonOdagi.x, CALISAN_YERI.y, CALISAN_YERI.z);
+      g.rotation.y = Math.PI;
+    }
     // Kepçe dalarken ya da makinede çalışırken uzanır
     const calisiyor = d.asama === 'dolduruyor' || ['dokuluyor', 'doluyor'].includes(d.makine.asama);
     // Boştayken genel görünümde ara sıra el sallar (belge 0.12)
@@ -129,7 +144,7 @@ export function Calisan() {
     hareket.current = calisiyor ? 'calis' : g.visible && t > selamZamani.current ? 'selam' : 'dur';
     const etiket = calisanEtiketi.oge;
     if (etiket) {
-      v.set(g.position.x + tezgahOfseti.x, 2.0, CALISAN_YERI.z + tezgahOfseti.z).project(camera);
+      v.set(g.position.x + tezgahOfseti.x, 2.0, g.position.z + tezgahOfseti.z).project(camera);
       etiket.style.transform = `translate(${((v.x + 1) / 2) * size.width}px, ${((1 - v.y) / 2) * size.height}px)`;
       etiket.style.opacity = g.visible && d.calisan.ad && !odak.calisan ? '1' : '0';
     }

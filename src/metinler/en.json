@@ -678,5 +678,18 @@
   "dekor.solan": "{sayi} items faded in the sun",
   "dekor.solanYok": "all look like new",
   "dekor.boyaDugme": "Repaint",
-  "yenilik.yipranma": "Outdoor items slowly fade in the sun; repaint them from Decor"
+  "yenilik.yipranma": "Outdoor items slowly fade in the sun; repaint them from Decor",
+  "esya.seyyarAraba": "Ice cream cart",
+  "esya.tekAraba": "You have one",
+  "istasyon.araba": "Ice cream cart",
+  "istasyon.arabaNot": "Helpers run the shop · time runs {carpan}× faster",
+  "istasyon.arabaYardimci": "Hire a helper first",
+  "istasyon.arabaCesit": "On the cart: {cesitler}",
+  "araba.panel": "You're at the ice cream cart today",
+  "araba.saat": "Time runs {carpan}× faster",
+  "araba.satis": "{sayi} sales",
+  "ipucu.araba": "The cart sells on its own; your helpers are running the shop",
+  "gunSonu.dukkanKazanci": "Shop (helpers)",
+  "gunSonu.araba": "Ice cream cart ({sayi} sales)",
+  "yenilik.seyyarAraba": "Ice cream cart: buy it in Decoration and place it outside; pick \"Ice cream cart\" in the morning and your helpers run the shop while time runs faster"
 }

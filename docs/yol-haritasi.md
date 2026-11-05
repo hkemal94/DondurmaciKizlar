@@ -13,7 +13,7 @@ yapar; Kemal "şimdi" demedikçe işler bu sırayla gider.
 | Aşama | Oynanabilir sürüm, büyüme, karakterler, liman ve kişiselleştirme bitti. Sırada görsel kalite |
 | Son biten | Açık işler soru turu (21 Ekim, belge 0.16); gedikli müşteriler, duvar deseni, eşya renkleri, yıpranma [#60](https://github.com/hkemal94/DondurmaciKizlar/pull/60) |
 | Şu an | DK Lite ayrı depoda ilerliyor (DK-Lite deposu) |
-| Sıradaki | Dondurmacı Kızlar'da sıradaki: seyyar dondurma arabası (11c, şimdilik duruyor). Bulut kayıt Kemal'in Firebase kurulumunu bekliyor (`docs/bulut-kurulum.md`) |
+| Sıradaki | Seyyar araba ilk parçası öneri PR'ında (`ajans/seyyar-araba`, belge 0.18); deneme sayıları ve ikinci parça Kemal'in kararını bekliyor. Bulut kayıt Kemal'in Firebase kurulumunu bekliyor (`docs/bulut-kurulum.md`) |
 | Yayın | Deneme sürümü webde; tarih yok, acele yok |
 | Ekran görüntüleri | Yayındaki oyundan gerçek ekran görüntüleri `docs/ekran-goruntuleri/` altında (telefon ve masaüstü; açılış, dükkân, tezgah); liste `liste.json`. KKM'nin oyun sayfası bunları gösterecek (3 Kasım 2026, öneri; oyunda değişen bir şey yok) |
 
@@ -31,8 +31,8 @@ yapar; Kemal "şimdi" demedikçe işler bu sırayla gider.
 | 7 | Ayar paneli | Bütün sayılar oyunda tek ayar dosyasında; KKM'de "Ayarlar" sekmesi (KKM deposunda ayrı PR) | Bitti ([#41](https://github.com/hkemal94/DondurmaciKizlar/pull/41), KKM [#94](https://github.com/hkemal94/Kems-Company/pull/94)). Yazma yolu: GitHub anahtarı (Kemal, 15 Ekim) |
 | 8 | Exp sistemi | Ana seviye + dükkân ve çalışan seviyeleri; günlük hedefler; yıldızlar yorum gibi; sıra bazen uzun bazen boş; otomatik kamera ayarı; eşyalara konfor ve çekicilik | Soru turu bitti (15 Ekim). 8a exp + seviyeler + kilitler: bitti ([#42](https://github.com/hkemal94/DondurmaciKizlar/pull/42)). 8b yetenekler: bitti ([#43](https://github.com/hkemal94/DondurmaciKizlar/pull/43)). 8c günlük hedefler, yorumlar, sıra, otomatik kamera: bitti ([#44](https://github.com/hkemal94/DondurmaciKizlar/pull/44)). Eşya konfor / çekicilik, renk ve yıpranma: bitti (bu PR) |
 | 9 | İçecekler ve stok | Soru turu bitti (15 Ekim akşam, belge 0.13). 9a ince arayüz, sağda açılan menüler, yol çizgileri ve lambalar: bitti ([#46](https://github.com/hkemal94/DondurmaciKizlar/pull/46)). 9b vitrin ve bar model adayları: bitti ([#47](https://github.com/hkemal94/DondurmaciKizlar/pull/47)), Kemal seçti. 9c gerçekçi vitrin + hafif stok: bitti ([#49](https://github.com/hkemal94/DondurmaciKizlar/pull/49)). 9d içecekler (tek istasyon, 15 içecek, basılı tutarak hazırlama, seviye + parayla açma): bitti ([#57](https://github.com/hkemal94/DondurmaciKizlar/pull/57)) | Bitti |
-| 10 | Sonra | Kayan yazıda müşteri yorumları (cümleler Kemal'in), ~~eşya renkleri ve yumuşak yıpranma~~ (bitti, bu PR), ~~gedikli müşteriler~~, ~~hava durumu~~ (#59), ~~duvar deseni~~ (bitti, bu PR), **seyyar dondurma arabası (sıradaki, belge 0.16)**, festival / bayramlar, yeni süslemeler, mevsim | |
-| 11 | Açık işler turu (21 Ekim, belge 0.16) | ~~11a ekran düzeltmeleri + açılış etiketi~~ (bitti, bu PR) · 11b DK Lite: ayrı depoda ilerliyor (DK-Lite) · 11c seyyar araba · görsel dil ve marka KKM'de | Soru turu bitti |
+| 10 | Sonra | Kayan yazıda müşteri yorumları (cümleler Kemal'in), ~~eşya renkleri ve yumuşak yıpranma~~ (bitti, bu PR), ~~gedikli müşteriler~~, ~~hava durumu~~ (#59), ~~duvar deseni~~ (bitti, bu PR), **seyyar dondurma arabası** (11c'de), festival / bayramlar, yeni süslemeler, mevsim | |
+| 11 | Açık işler turu (21 Ekim, belge 0.16) | ~~11a ekran düzeltmeleri + açılış etiketi~~ (bitti, bu PR) · 11b DK Lite: ayrı depoda ilerliyor (DK-Lite) · 11c seyyar araba (belge 0.18): **11c-1** alma, yerleştirme, sabah seçimi, yardımcılar dükkânda, saat hızlı, araba kendi satar, gün sonu ayrımı: öneri PR'ı (`ajans/seyyar-araba`, 4 Kasım 2026) · **11c-2** (sonra, Kemal seçer): arabada elle servis, arabaya kamera, plaj / yol kenarı, arabada çeşit seçimi, hava etkisi · görsel dil ve marka KKM'de | 11c-1 öneride |
 
 ## Paketler (eski adlarla)
 
@@ -96,6 +96,7 @@ yapar; Kemal "şimdi" demedikçe işler bu sırayla gider.
 - Yol haritası bağlantıları düzeltildi (3 Kasım 2026, öneri): PR bağlantıları açılıyor; oyunda değişen yok.
 - Dönem 2020 sonrası (4 Kasım 2026, Kemal; belge 0.17): belgeler künyeyle uyumlu; DK Lite satırları güncellendi; oyunda değişen yok · öneri (`ajans/donem-2020`)
 - Yardımcı ad önerileri yenilendi (4 Kasım 2026, Kemal; belge 0.17): işe alırken kutuda çıkan hazır adlar 2020'lere uygun (kadın 15, erkek 15) · öneri (`ajans/donem-2020`)
+- Seyyar dondurma arabası, ilk parça (4 Kasım 2026 akşam; belge 0.18): Dekorasyon'dan alınır, dışarı konur; sabah "Seyyar araba" seçilince dükkânı yardımcılar işletir, saat 3 kat hızlı akar, araba vitrinin ilk 3 çeşidini kendi satar; gün sonunda dükkân / araba ayrımı. Sayılar [Kemal] deneme değeri · öneri (`ajans/seyyar-araba`)
 
 ## Bilinen eksikler
 
@@ -120,3 +121,4 @@ yapar; Kemal "şimdi" demedikçe işler bu sırayla gider.
 - Para modelinin ayrıntıları (makyaj paketleri satılabilir; gerisi açık)
 - Çalışanın, sahibin ve mekânların adları; müşteri yorum cümleleri; festival adları
 - Boş çerçeve resimleri (Kemal gönderecek)
+- Seyyar araba: deneme sayıları (fiyat 500, kilit seviye 6, saat 3 kat, 15 oyun dakikasında bir satış, 3 çeşit, tek araba) ve ikinci parçanın içeriği (belge 0.18)

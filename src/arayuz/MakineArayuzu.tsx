@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { m, type MetinAnahtari } from '../metinler';
+import { AYAR } from '../oyun/ayarlar';
+import { CESITLER } from '../oyun/kuvetler';
 import { Kilit } from './Seviye';
 import { adOner } from '../oyun/adOnerileri';
 import { rastgeleVaryant } from '../sahne/karakterler';
@@ -8,6 +10,10 @@ import {
   IYI_PAYI,
   mukemmelAraligi,
   adaylariGetir,
+  arabaCesitleri,
+  arabaSec,
+  arabaSecilebilir,
+  arabaYerinde,
   durumuOku,
   istasyonKurulu,
   istasyonSec,
@@ -352,13 +358,28 @@ export function IstasyonSecimi() {
         <h2 id="istasyon-baslik">{m('istasyon.baslik')}</h2>
         <div className="istasyon-kartlar">
           {ISTASYONLAR.map((i) => (
-            <button key={i} className={`istasyon-kart ${durum.istasyon === i ? 'secili' : ''}`} disabled={!istasyonKurulu(i, durum)} onClick={() => istasyonSec(i)}>
+            <button key={i} className={`istasyon-kart ${!durum.arabada && durum.istasyon === i ? 'secili' : ''}`} disabled={!istasyonKurulu(i, durum)} onClick={() => istasyonSec(i)}>
               <IstasyonResmi ist={i} />
               <span>{m(`istasyon.${i}` as MetinAnahtari)}</span>
               {!istasyonKurulu(i, durum) && <small>{m('istasyon.kurulmadi')}</small>}
             </button>
           ))}
+          {/* Seyyar araba (belge 0.18): yere konmuşsa görünür; yardımcı yoksa kapalı */}
+          {arabaYerinde(durum) && (
+            <button className={`istasyon-kart ${durum.arabada ? 'secili' : ''}`} disabled={!arabaSecilebilir(durum)} onClick={arabaSec}>
+              <ArabaResmi />
+              <span>{m('istasyon.araba')}</span>
+              {!arabaSecilebilir(durum) && <small>{m('istasyon.arabaYardimci')}</small>}
+            </button>
+          )}
         </div>
+        {/* Araba seçiliyken: bugün ne olacağı ve arabadaki çeşitler */}
+        {durum.arabada && (
+          <p className="gel-not istasyon-araba-not">
+            {m('istasyon.arabaNot', { carpan: AYAR.araba.rolanti })} ·{' '}
+            {m('istasyon.arabaCesit', { cesitler: arabaCesitleri(durum).map((c) => m(`cesit.${CESITLER[c].ad}` as MetinAnahtari)).join(', ') })}
+          </p>
+        )}
         {durum.yardimcilar.length > 0 && (
           <>
             <div className="gel-baslik">{m('istasyon.yardimcilar')}</div>
@@ -381,6 +402,20 @@ export function IstasyonSecimi() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Seyyar araba simgesi: mor sandık, iki teker, mor-sarı şemsiye
+export function ArabaResmi() {
+  return (
+    <svg viewBox="0 0 40 40" aria-hidden className="istasyon-simge">
+      <path d="M8 14 Q20 4 32 14 Z" fill="#ffc928" stroke="#7a3fa8" strokeWidth="1.5" />
+      <line x1="20" y1="14" x2="20" y2="20" stroke="#7a3fa8" strokeWidth="1.5" />
+      <rect x="8" y="20" width="24" height="10" rx="2" fill="#7a3fa8" />
+      <rect x="10" y="23" width="20" height="2.5" fill="#ffc928" />
+      <circle cx="12" cy="33" r="3.5" fill="#2a2830" />
+      <circle cx="28" cy="33" r="3.5" fill="#2a2830" />
+    </svg>
   );
 }
 

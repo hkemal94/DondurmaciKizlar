@@ -47,11 +47,12 @@ import { ArkaTezgahEkrani } from './ArkaTezgahEkrani';
 import { GunlukHedefler, GunSonuHedefleri, GunSonuYorumlari } from './Hedefler';
 import { logoAdresi } from '../sahne/logo';
 import { CESITLER } from '../oyun/kuvetler';
+import { AYAR } from '../oyun/ayarlar';
 import { balon } from '../sahne/Musteriler';
 import { Gelistir, type GelistirSekmesi } from './Gelistir';
 import { VitrinEkrani } from './VitrinEkrani';
 import { MenuSeridi, type MenuIsi } from './MenuSeridi';
-import { IstasyonSecimi, MakineDugmeleri, MakineGostergesi, MakineSiparisResmi, YardimciEkrani, makineIpucu, makineSiparisAdlari } from './MakineArayuzu';
+import { ArabaResmi, IstasyonSecimi, MakineDugmeleri, MakineGostergesi, MakineSiparisResmi, YardimciEkrani, makineIpucu, makineSiparisAdlari } from './MakineArayuzu';
 import { InsaatPaneli } from './InsaatPaneli';
 import { KameraDugmeleri } from './KameraDugmeleri';
 import { HaberSeridi } from './HaberSeridi';
@@ -454,6 +455,24 @@ function GunSaat() {
   );
 }
 
+// Seyyar araba günü (belge 0.18): sağ altta arabanın bugünkü satışı
+function ArabaPaneli() {
+  const durum = useDurum();
+  const g = durum.gunluk;
+  return (
+    <div className="araba-paneli" role="status">
+      <ArabaResmi />
+      <div>
+        <b>{m('araba.panel')}</b>
+        <small>{m('araba.saat', { carpan: AYAR.araba.rolanti })}</small>
+        <span className="araba-satis">
+          {m('araba.satis', { sayi: g.arabaSatis })} · <span className="para-simge" aria-hidden /> {g.araba}
+        </span>
+      </div>
+    </div>
+  );
+}
+
 // Gün sonu ekranı (belge: dükkân kapanınca gün biter, gün sonu ekranı gelir).
 function GunSonu({ stokAc }: { stokAc: () => void }) {
   const durum = useDurum();
@@ -463,6 +482,13 @@ function GunSonu({ stokAc }: { stokAc: () => void }) {
   const satirlar: [string, React.ReactNode][] = [
     [m('gunSonu.musteri'), g.musteri],
     [m('gunSonu.kazanc'), <><span className="para-simge" aria-hidden /> {g.kazanc}</>],
+    // Seyyar araba günü (belge 0.18): kazancın dükkân ve araba ayrımı
+    ...(durum.arabada
+      ? ([
+          [m('gunSonu.dukkanKazanci'), <><span className="para-simge" aria-hidden /> {g.kazanc - g.araba}</>],
+          [m('gunSonu.araba', { sayi: g.arabaSatis }), <><span className="para-simge" aria-hidden /> {g.araba}</>],
+        ] as [string, React.ReactNode][])
+      : []),
     [m('gunSonu.mukemmel'), g.mukemmel],
     ...(g.bahsis > 0 ? ([[m('gunSonu.bahsis'), <><span className="para-simge" aria-hidden /> {g.bahsis}</>]] as [string, React.ReactNode][]) : []),
     // Yardımcıların yevmiyesi (belge 0.5)
@@ -709,7 +735,7 @@ export function Arayuz() {
   const tezgahta = durum.kamera === 'tezgah';
   if (!tezgahta && durum.insaat) ipucu = durum.seciliParsel ? null : 'insaat.ipucu';
   else if (!tezgahta && durum.yerlestirme) ipucu = ESYALAR.some((e) => depodaki(e.id, durum) > 0) || durum.seciliEsya ? 'yerlestir.ipucu' : 'yerlestir.bos';
-  else if (!tezgahta) ipucu = durum.hazirlik ? 'ipucu.hazirlik' : musteri ? 'ipucu.siparisVar' : durum.acik ? 'ipucu.musteriYok' : null;
+  else if (!tezgahta) ipucu = durum.hazirlik ? 'ipucu.hazirlik' : durum.arabada ? (durum.acik ? 'ipucu.araba' : null) : musteri ? 'ipucu.siparisVar' : durum.acik ? 'ipucu.musteriYok' : null;
   // Makine istasyonunda (belge 0.5)
   const makinede = durum.istasyon !== 'dondurma';
   if (tezgahta && makinede) ipucu = makineIpucu(durum) ?? (musteri ? null : durum.acik ? 'ipucu.musteriYok' : null);
@@ -821,6 +847,9 @@ export function Arayuz() {
             <button className="dugme dugme-servis" onClick={guneBasla}>
               {m('gunBasi.basla')}
             </button>
+          ) : durum.arabada ? (
+            // Seyyar araba (belge 0.18): oyuncu bugün arabada; tezgaha geçilmez
+            <ArabaPaneli />
           ) : (
             <button className={`dugme dugme-servis ${musteri ? 'dikkat' : ''}`} data-egitim="tezgah" onClick={() => kameraSec('tezgah')}>
               {m('kamera.tezgah')}
