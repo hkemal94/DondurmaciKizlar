@@ -1,6 +1,6 @@
 # Dondurmacı Kızlar · Yol haritası
 
-Son güncelleme: **4 Kasım 2026**. Bu dosya her PR'da güncellenir. KKM →
+Son güncelleme: **11 Kasım 2026**. Bu dosya her PR'da güncellenir. KKM →
 Oyun → Dondurmacı Kızlar → **Yol haritası** sekmesi onu buradan canlı okur.
 Kararların ayrıntısı `docs/tasarim-belgesi.md`'de (son turlar: bölüm 0.12);
 bu sayfa yalnız nerede olduğumuzu ve sırayı gösterir. Sıralamayı Claude
@@ -15,7 +15,7 @@ yapar; Kemal "şimdi" demedikçe işler bu sırayla gider.
 | Şu an | DK Lite ayrı depoda ilerliyor (DK-Lite deposu) |
 | Sıradaki | Seyyar araba ilk parçası öneri PR'ında (`ajans/seyyar-araba`, belge 0.18); deneme sayıları ve ikinci parça Kemal'in kararını bekliyor. Bulut kayıt Kemal'in Firebase kurulumunu bekliyor (`docs/bulut-kurulum.md`) |
 | Yayın | Deneme sürümü webde; tarih yok, acele yok |
-| Ekran görüntüleri | Yayındaki oyundan gerçek ekran görüntüleri `docs/ekran-goruntuleri/` altında (telefon ve masaüstü; açılış, dükkân, tezgah); liste `liste.json`. KKM'nin oyun sayfası bunları gösterecek (3 Kasım 2026, öneri; oyunda değişen bir şey yok) |
+| Ekran görüntüleri | 11 Kasım: yeni ekran görüntüleri; açılış ekranı KKM'de kapak (Kemal seçti); belgede adı geçmeyen 249 eski taslak görsel silindi (Kemal). Önce: yayındaki oyundan gerçek ekran görüntüleri `docs/ekran-goruntuleri/` altında (telefon ve masaüstü; açılış, dükkân, tezgah); liste `liste.json`. KKM'nin oyun sayfası bunları gösterecek (3 Kasım 2026, öneri; oyunda değişen bir şey yok) |
 
 ## Sıra (15 Ekim, belge 0.12)
 
