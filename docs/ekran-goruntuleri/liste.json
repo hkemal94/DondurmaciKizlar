@@ -1,8 +1,21 @@
 {
   "oyun": "Dondurmacı Kızlar",
   "kaynak": "https://hkemal94.github.io/DondurmaciKizlar/",
-  "not": "Yayındaki oyundan alındı; ekran ölçüsünün 2 katı çözünürlük. Dükkân ve tezgah görüntüleri açılış ekranındaki Deneme dükkânı ile alındı (Sv. 30). Gün sonu görüntüsü alınamadı. Eski taslak görseller docs/gorseller ve docs/ekran altında durur.",
+  "not": "Yayındaki oyundan alındı; ekran ölçüsünün 2 katı çözünürlük. Dükkân ve tezgah görüntüleri açılış ekranındaki Deneme dükkânı ile alındı (Sv. 30). Gün sonu görüntüsü alınamadı. Belgede adı geçmeyen eski taslak görseller 11 Kasım 2026'da silindi (Kemal).",
   "goruntuler": [
+    {
+      "dosya": "telefon-11-11-acilis.png",
+      "baslik": "Açılış ekranı (kapak)",
+      "tarih": "2026-11-11",
+      "cihaz": "telefon (yatay, 844x390)",
+      "kapak": true
+    },
+    {
+      "dosya": "telefon-11-11-dukkan.png",
+      "baslik": "Dükkânın genel görünümü (deneme dükkânı)",
+      "tarih": "2026-11-11",
+      "cihaz": "telefon (yatay, 844x390)"
+    },
     {
       "dosya": "telefon-01-acilis.png",
       "baslik": "Açılış ekranı",
@@ -39,5 +52,6 @@
       "tarih": "2026-11-03",
       "cihaz": "masaüstü (1440x900)"
     }
-  ]
+  ],
+  "logo": "public/gorseller/logo-kulahli.webp"
 }
