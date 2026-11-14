@@ -1,6 +1,6 @@
 # Dondurmacı Kızlar · Yol haritası
 
-Son güncelleme: **11 Kasım 2026**. Bu dosya her PR'da güncellenir. KKM →
+Son güncelleme: **14 Kasım 2026**. Bu dosya her PR'da güncellenir. KKM →
 Oyun → Dondurmacı Kızlar → **Yol haritası** sekmesi onu buradan canlı okur.
 Kararların ayrıntısı `docs/tasarim-belgesi.md`'de (son turlar: bölüm 0.12);
 bu sayfa yalnız nerede olduğumuzu ve sırayı gösterir. Sıralamayı Claude
@@ -11,7 +11,7 @@ yapar; Kemal "şimdi" demedikçe işler bu sırayla gider.
 | | |
 |---|---|
 | Aşama | Oynanabilir sürüm, büyüme, karakterler, liman ve kişiselleştirme bitti. Sırada görsel kalite |
-| Son biten | Açık işler soru turu (21 Ekim, belge 0.16); gedikli müşteriler, duvar deseni, eşya renkleri, yıpranma [#60](https://github.com/hkemal94/DondurmaciKizlar/pull/60) |
+| Son biten | Belge: dükkânın sahibi Eylül Alimyeri, ailesi eski yazlıkçı (2000 sonrası adaya yerleşti); İskele'deki meyhanenin adı Sade Meyhane; oyunda değişen yok (bu PR) |
 | Şu an | DK Lite ayrı depoda ilerliyor (DK-Lite deposu) |
 | Sıradaki | Seyyar araba ilk parçası öneri PR'ında (`ajans/seyyar-araba`, belge 0.18); deneme sayıları ve ikinci parça Kemal'in kararını bekliyor. Bulut kayıt Kemal'in Firebase kurulumunu bekliyor (`docs/bulut-kurulum.md`) |
 | Yayın | Deneme sürümü webde; tarih yok, acele yok |
