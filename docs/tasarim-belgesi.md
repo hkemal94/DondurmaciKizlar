@@ -664,8 +664,9 @@ ayarlanır, dükkân için yeni masa, bitki ve dekorasyon alınır.
 - **Oyuncu:** Tezgahın arkasında oyuncunun kişiselleştirdiği bir çalışan (bölüm 0, 13 Ekim); hikâyesi yazılmaz.
 - **Karakterler:** Müşterilerin konuşmalarından adadaki olaylara dair küçük
   kırıntılar sızar. Metinleri Kemal yazar.
-- **Kanondan:** Sahibi bir kadın (ailesi adalı, anakaradan gelmiş; Sade
-  Meze'nin de sahibi; adı yok). Logo renkleri mor ve sarı (taslak).
+- **Kanondan:** Sahibi Eylül Alimyeri (ailesi adalı değil, eski yazlıkçı;
+  2000 sonrası, Eylül 5 yaşındayken adaya yerleşti; Sade Meze'nin de sahibi;
+  14 Kasım 2026, Kemal). Logo renkleri mor ve sarı (taslak).
 
 ---
 
