@@ -97,7 +97,7 @@ yapar; Kemal "şimdi" demedikçe işler bu sırayla gider.
 - Dönem 2020 sonrası (4 Kasım 2026, Kemal; belge 0.17): belgeler künyeyle uyumlu; DK Lite satırları güncellendi; oyunda değişen yok · öneri (`ajans/donem-2020`)
 - Yardımcı ad önerileri yenilendi (4 Kasım 2026, Kemal; belge 0.17): işe alırken kutuda çıkan hazır adlar 2020'lere uygun (kadın 15, erkek 15) · öneri (`ajans/donem-2020`)
 - Seyyar dondurma arabası, ilk parça (4 Kasım 2026 akşam; belge 0.18): Dekorasyon'dan alınır, dışarı konur; sabah "Seyyar araba" seçilince dükkânı yardımcılar işletir, saat 3 kat hızlı akar, araba vitrinin ilk 3 çeşidini kendi satar; gün sonunda dükkân / araba ayrımı. Sayılar [Kemal] deneme değeri · öneri (`ajans/seyyar-araba`)
-- Sahibin künye bilgisi (14 Kasım 2026, Kemal): sahibi Eylül Alimyeri, ailesi eski yazlıkçı (2000 sonrası yerleşti); CLAUDE.md ve belge künyeyle uyumlu; oyunda değişen yok · öneri (`ajans/kunye-sahibi`)
+- Sahibin künye bilgisi (14 Kasım 2026, Kemal): sahibi Eylül Alimyeri, ailesi eski yazlıkçı (2000 sonrası yerleşti); CLAUDE.md ve belge künyeyle uyumlu; meyhanenin adı "Sade Meyhane" oldu; belgede sahibin adı yazıldı ve açık sorulardan çıktı; oyunda değişen yok · öneri (`ajans/kunye-sahibi`)
 
 ## Bilinen eksikler
 

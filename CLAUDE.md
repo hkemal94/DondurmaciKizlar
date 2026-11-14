@@ -39,7 +39,7 @@ işletme oyunu. Oyuncu tezgahın arkasında dondurmayı kendi eliyle hazırlar.
 - Kışın tatlıcı / kafe olur (oyunda mevsim değişimi — **ilk sürümde değil**).
 - Sahibi Eylül Alimyeri; ailesi adalı değil, eski yazlıkçı: 2000 sonrası, Eylül
   5 yaşındayken adaya yerleşti (14 Kasım 2026, Kemal). Aynı kadın İskele'deki
-  meyhane Sade Meze'nin de sahibi.
+  Sade Meyhane'nin de sahibi.
 - Dükkânın logo renkleri mor ve sarı (tonlar henüz taslak).
 - Liman'da ayrıca bir "kafe" var; o başka bir yer, 2010 sonrası açılmış
   (Dondurmacı Kızlar 2020 sonrası, yani kafe ondan önce; Kemal, 4 Kasım: sorun yok).

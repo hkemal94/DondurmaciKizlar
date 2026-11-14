@@ -56,7 +56,7 @@ Taslakla çelişen yerde bu bölüm geçerli.
 | Oyunun adı | ~~Dondurmacı Kızlar (13 Ekim)~~ → **henüz karar yok** (Kemal, 15 Ekim, 0.12); şimdilik açılışta dükkânın logosu |
 | İlk dört çeşit | **Çilek, Çikolata, Fıstık, Kaymak** (Kemal, 13 Ekim) |
 | Para | Adsız jeton (Kemal, 13 Ekim) |
-| Oyuncu ve dükkândakiler | **Karar değişti** (13 Ekim): tezgahın arkasında oyuncunun **kişiselleştirebileceği bir çalışan** olur: ten rengi, saç, kıyafet ve önlük, **ad** (oyuncu yazar); parayla yeni kıyafet açılır; vakti gelince şapka, küpe, gözlük gibi aksesuarlar. Dükkânın sahibi (kanondaki kadın, adı yok) **ara sıra gelip dükkânda dolaşır**, şimdilik başka bir şey yapmaz. Eski "oyuncuya ad, yüz verme" kuralının yerine geçer |
+| Oyuncu ve dükkândakiler | **Karar değişti** (13 Ekim): tezgahın arkasında oyuncunun **kişiselleştirebileceği bir çalışan** olur: ten rengi, saç, kıyafet ve önlük, **ad** (oyuncu yazar); parayla yeni kıyafet açılır; vakti gelince şapka, küpe, gözlük gibi aksesuarlar. Dükkânın sahibi (Eylül Alimyeri; 14 Kasım 2026, Kemal) **ara sıra gelip dükkânda dolaşır**, şimdilik başka bir şey yapmaz. Eski "oyuncuya ad, yüz verme" kuralının yerine geçer |
 | Müşteri sabrı | **Karar değişti** (13 Ekim): yalnız **öndeki** (sırası gelen) müşteri sabırsızlanır. Hiç işlem yapılmadan **oyun saatiyle 80 dakika** (gerçekte ~12 sn; önce yarım saat, sonra bir saatti. Saat 13 Ekim'de hızlanınca Kemal sabrın kısalmamasını istedi: "onu durağanlığın önüne geçmek için koyduk") geçerse sıkılıp gider ve memnuniyete **sıfır yıldız** verir. Herhangi bir işlem (yanlış bile olsa) sabrı sıfırlar. Para kaybı yok. Balonun altında sabır çubuğu (yeşil → sarı → kırmızı). Kapanıştan sonra saat durduğu için sıradakilerin sabrı azalmaz. |
 | Hafta sonu | Hafta sonu daha kalabalık (Kemal, 13 Ekim): müşteri aralığı ×0,65 (geçici). |
 | Siparişlerin büyümesi | Bazen **iki dondurma**, bazen **birden çok süsleme**; bir şey **açılınca** başlar (Kemal, 13 Ekim). Açılan şey: **Tepsi** (aşağıda) |
@@ -665,7 +665,7 @@ ayarlanır, dükkân için yeni masa, bitki ve dekorasyon alınır.
 - **Karakterler:** Müşterilerin konuşmalarından adadaki olaylara dair küçük
   kırıntılar sızar. Metinleri Kemal yazar.
 - **Kanondan:** Sahibi Eylül Alimyeri (ailesi adalı değil, eski yazlıkçı;
-  2000 sonrası, Eylül 5 yaşındayken adaya yerleşti; Sade Meze'nin de sahibi;
+  2000 sonrası, Eylül 5 yaşındayken adaya yerleşti; Sade Meyhane'nin de sahibi;
   14 Kasım 2026, Kemal). Logo renkleri mor ve sarı (taslak).
 
 ---
@@ -690,7 +690,7 @@ toparlamada kalktı (cevaplananlar bölüm 0'da; geçmişi GitHub'da).
 | Oyunun adı | Yayına yaklaşınca (21 Ekim, 0.16) |
 | Mevsim / kış dönemi ne zaman | İlk sürümden sonra (21 Ekim, 0.16) |
 | Para modelinin ayrıntıları | Makyaj paketleri satılabilir (14 Ekim); gerisi açık |
-| Çalışanın, sahibin, yardımcıların, mekânların adları | Kemal'in |
+| Çalışanın, yardımcıların, mekânların adları | Kemal'in |
 | Müşteri yorum cümleleri, hikâye kırıntıları | Kemal'in; o zamana kadar [YER TUTUCU] |
 | Boş çerçeve resimleri | Kemal gönderecek |
 | Festival / bayram günleri, adları ve özel çeşitleri | Sonra; Kemal'in |
