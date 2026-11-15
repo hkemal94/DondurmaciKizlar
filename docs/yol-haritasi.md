@@ -11,7 +11,7 @@ yapar; Kemal "şimdi" demedikçe işler bu sırayla gider.
 | | |
 |---|---|
 | Aşama | Oynanabilir sürüm, büyüme, karakterler, liman ve kişiselleştirme bitti. Sırada görsel kalite |
-| Son biten | Belge: ödül olarak pul koleksiyonu kararı (bütün oyunların ortak sistemi, belge 0.19); bu oyunda bir ayın pulunun nasıl kazanılacağı Kemal'in sorusu; oyunda değişen yok (bu PR) |
+| Son biten | Belge: ödül olarak pul koleksiyonu kararı (bütün oyunların ortak sistemi, belge 0.19); ayın pulu o ayın görevi bitince gelir (her ay tek büyük görev; içerikleri ileride Kemal'e sorulacak), seviye ödülleri ve hediye eşya pulla birlikte durur; oyunda değişen yok (bu PR) |
 | Şu an | DK Lite ayrı depoda ilerliyor (DK-Lite deposu) |
 | Sıradaki | Seyyar araba ilk parçası öneri PR'ında (`ajans/seyyar-araba`, belge 0.18); deneme sayıları ve ikinci parça Kemal'in kararını bekliyor. Bulut kayıt Kemal'in Firebase kurulumunu bekliyor (`docs/bulut-kurulum.md`) |
 | Yayın | Deneme sürümü webde; tarih yok, acele yok |

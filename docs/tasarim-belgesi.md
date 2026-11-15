@@ -582,7 +582,8 @@ Dışarıdaki eşyalar konduktan ya da boyandıktan 5 gün sonra güneşte yava�
 - **Her ay bir pul.** Bir çeyreğin üç aylık pulu toplanınca daha büyük ve süslü **4. pul** gelir ("3+1" seri). Kazanılan pul kaybolmaz.
 - Gerçek posta pulu gibi (tırtıklı kenar, ince çerçeve); **her pul ayrı tasarlanır**, tek şablon yok. **Pulun üstünde yazı yok**; çeyrek ve yıl pulun altında, sayfada yazar. Tasarlanana kadar sade yer tutucu durur; görseller Kemal onaylayınca girer.
 - Oyunlar arasında ortak bir **koleksiyon sayfası** dili: her yıl bir bölüm, her çeyrekte üç aylık pul ve yanında büyük pul; kazanılan tam renkli, kazanılmayan soluk. 3B oyun olduğu için sayfa 2B arayüz olarak gelir.
-- Bu oyuna özgü olan yalnız **bir ayın pulunun nasıl kazanıldığı**: Kemal'in kararı (7. bölüm).
+- **Ayın pulu, o ayın görevi bitince gelir** (Kemal, 15 Kasım 2026). Her ay oyunda tek bir büyük görev olur; görevlerin içerikleri ileride Kemal'e sorulacak ([Kemal]).
+- **Mevcut ödüller pulla birlikte durur, pula dönüşmez** (Kemal, 15 Kasım 2026): seviye ödülleri ve hediye eşya olduğu gibi kalır.
 - Ayrıntı: Kems-Ajans deposunda `docs/pul-koleksiyonu.md`. Kod yapısı kart oyunundaki `src/pul/` klasörü örnek alınarak kurulacak.
 - Henüz kod yok; bu yalnız karar kaydı.
 
@@ -711,8 +712,8 @@ toparlamada kalktı (cevaplananlar bölüm 0'da; geçmişi GitHub'da).
 | Mahalle evleri | Paket adayları gösterilip Kemal seçecek |
 | Seyyar araba sayıları (0.18) | Deneme değerleri: fiyat 500, kilit seviye 6, saat 3 kat, 15 oyun dakikasında bir satış, 3 çeşit, tek araba, konfor / çekicilik 0. Kemal onaylayacak |
 | Seyyar arabada oynanış (0.18) | İlk parçada araba kendi satıyor (rölanti). Elle servis, kamera, yer (plaj / yol kenarı) Kemal'in kararı |
-| Pul koleksiyonu (0.19): bu oyunda bir ayın pulu nasıl kazanılır? | [Kemal]. Aday: o ay belli sayıda gün dükkânı açmak (sayı Kemal'in) |
-| Pul koleksiyonu (0.19): mevcut seviye ödülleri ve hediye eşya pulla birlikte mi durur, pula mı dönüşür? | [Kemal]. Adaylar: ikisi yan yana durur · seviye ödülleri kalır, hediye eşya pula döner · hepsi pula döner |
+| ~~Pul koleksiyonu (0.19): bu oyunda bir ayın pulu nasıl kazanılır?~~ | Cevaplandı (Kemal, 15 Kasım): o ayın görevi bitince; her ay tek büyük görev. Görevlerin içerikleri [Kemal], ileride sorulacak |
+| ~~Pul koleksiyonu (0.19): mevcut seviye ödülleri ve hediye eşya pulla birlikte mi durur, pula mı dönüşür?~~ | Cevaplandı (Kemal, 15 Kasım): pulla birlikte durur, pula dönüşmez |
 
 ### 7.1 Geçici sayılar
 
