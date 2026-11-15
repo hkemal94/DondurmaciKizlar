@@ -576,6 +576,16 @@ Dışarıdaki eşyalar konduktan ya da boyandıktan 5 gün sonra güneşte yava�
 - Arabadaki seçim kaydedilmez: her sabah yeniden seçilir.
 - **Sonraki parça (yol haritasında):** arabada elle servis (arabanın önüne müşteri gelir, kepçeyle), arabaya kamera yakın planı, arabanın yeri için plaj / yol kenarı (0.16 satır "Sonraki fikirler"), arabada çeşit seçimi, hava etkisi. Hangisinin olacağı Kemal'in.
 
+### 0.19 Ödül: pul koleksiyonu (Kemal, 15 Kasım 2026)
+
+- Posta pulları bütün oyunlarımızın **ortak ödül sistemi**; Dondurmacı Kızlar da buna katılır.
+- **Her ay bir pul.** Bir çeyreğin üç aylık pulu toplanınca daha büyük ve süslü **4. pul** gelir ("3+1" seri). Kazanılan pul kaybolmaz.
+- Gerçek posta pulu gibi (tırtıklı kenar, ince çerçeve); **her pul ayrı tasarlanır**, tek şablon yok. **Pulun üstünde yazı yok**; çeyrek ve yıl pulun altında, sayfada yazar. Tasarlanana kadar sade yer tutucu durur; görseller Kemal onaylayınca girer.
+- Oyunlar arasında ortak bir **koleksiyon sayfası** dili: her yıl bir bölüm, her çeyrekte üç aylık pul ve yanında büyük pul; kazanılan tam renkli, kazanılmayan soluk. 3B oyun olduğu için sayfa 2B arayüz olarak gelir.
+- Bu oyuna özgü olan yalnız **bir ayın pulunun nasıl kazanıldığı**: Kemal'in kararı (7. bölüm).
+- Ayrıntı: Kems-Ajans deposunda `docs/pul-koleksiyonu.md`. Kod yapısı kart oyunundaki `src/pul/` klasörü örnek alınarak kurulacak.
+- Henüz kod yok; bu yalnız karar kaydı.
+
 ## 1. Oyunun özeti ve vizyonu
 
 ### 1.1 Tek cümlelik özet
@@ -701,6 +711,8 @@ toparlamada kalktı (cevaplananlar bölüm 0'da; geçmişi GitHub'da).
 | Mahalle evleri | Paket adayları gösterilip Kemal seçecek |
 | Seyyar araba sayıları (0.18) | Deneme değerleri: fiyat 500, kilit seviye 6, saat 3 kat, 15 oyun dakikasında bir satış, 3 çeşit, tek araba, konfor / çekicilik 0. Kemal onaylayacak |
 | Seyyar arabada oynanış (0.18) | İlk parçada araba kendi satıyor (rölanti). Elle servis, kamera, yer (plaj / yol kenarı) Kemal'in kararı |
+| Pul koleksiyonu (0.19): bu oyunda bir ayın pulu nasıl kazanılır? | [Kemal]. Aday: o ay belli sayıda gün dükkânı açmak (sayı Kemal'in) |
+| Pul koleksiyonu (0.19): mevcut seviye ödülleri ve hediye eşya pulla birlikte mi durur, pula mı dönüşür? | [Kemal]. Adaylar: ikisi yan yana durur · seviye ödülleri kalır, hediye eşya pula döner · hepsi pula döner |
 
 ### 7.1 Geçici sayılar
 
