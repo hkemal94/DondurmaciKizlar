@@ -1,6 +1,6 @@
 # Dondurmacı Kızlar · Yol haritası
 
-Son güncelleme: **15 Kasım 2026**. Bu dosya her PR'da güncellenir. KKM →
+Son güncelleme: **16 Kasım 2026**. Bu dosya her PR'da güncellenir. KKM →
 Oyun → Dondurmacı Kızlar → **Yol haritası** sekmesi onu buradan canlı okur.
 Kararların ayrıntısı `docs/tasarim-belgesi.md`'de (son turlar: bölüm 0.12);
 bu sayfa yalnız nerede olduğumuzu ve sırayı gösterir. Sıralamayı Claude
@@ -11,7 +11,7 @@ yapar; Kemal "şimdi" demedikçe işler bu sırayla gider.
 | | |
 |---|---|
 | Aşama | Oynanabilir sürüm, büyüme, karakterler, liman ve kişiselleştirme bitti. Sırada görsel kalite |
-| Son biten | Belge: ödül olarak pul koleksiyonu kararı (bütün oyunların ortak sistemi, belge 0.19); ayın pulu o ayın görevi bitince gelir (her ay tek büyük görev; içerikleri ileride Kemal'e sorulacak), seviye ödülleri ve hediye eşya pulla birlikte durur; oyunda değişen yok (bu PR) |
+| Son biten | Tablo resimleri: "Tablo: dondurma" ve "Tablo: deniz" artık Kemal'in onayladığı iki resmi gösteriyor (Kems Ajans, Canva; 16 Kasım 2026, öneri `ajans/cerceve-resimleri-v2`). Önceki: Belge: ödül olarak pul koleksiyonu kararı (bütün oyunların ortak sistemi, belge 0.19); ayın pulu o ayın görevi bitince gelir (her ay tek büyük görev; içerikleri ileride Kemal'e sorulacak), seviye ödülleri ve hediye eşya pulla birlikte durur; oyunda değişen yok (#72) |
 | Şu an | DK Lite ayrı depoda ilerliyor (DK-Lite deposu) |
 | Sıradaki | Seyyar araba ilk parçası öneri PR'ında (`ajans/seyyar-araba`, belge 0.18); deneme sayıları ve ikinci parça Kemal'in kararını bekliyor. Bulut kayıt Kemal'in Firebase kurulumunu bekliyor (`docs/bulut-kurulum.md`) |
 | Yayın | Deneme sürümü webde; tarih yok, acele yok |
@@ -98,6 +98,7 @@ yapar; Kemal "şimdi" demedikçe işler bu sırayla gider.
 - Yardımcı ad önerileri yenilendi (4 Kasım 2026, Kemal; belge 0.17): işe alırken kutuda çıkan hazır adlar 2020'lere uygun (kadın 15, erkek 15) · öneri (`ajans/donem-2020`)
 - Seyyar dondurma arabası, ilk parça (4 Kasım 2026 akşam; belge 0.18): Dekorasyon'dan alınır, dışarı konur; sabah "Seyyar araba" seçilince dükkânı yardımcılar işletir, saat 3 kat hızlı akar, araba vitrinin ilk 3 çeşidini kendi satar; gün sonunda dükkân / araba ayrımı. Sayılar [Kemal] deneme değeri · öneri (`ajans/seyyar-araba`)
 - Sahibin künye bilgisi (14 Kasım 2026, Kemal): sahibi Eylül Alimyeri, ailesi eski yazlıkçı (2000 sonrası yerleşti); CLAUDE.md ve belge künyeyle uyumlu; meyhanenin adı "Sade Meyhane" oldu; belgede sahibin adı yazıldı ve açık sorulardan çıktı; oyunda değişen yok · öneri (`ajans/kunye-sahibi`)
+- Tablo resimleri (16 Kasım 2026; Kemal 14 Kasım: "ikisi de uygun, oyuna girsin"): "Tablo: dondurma" yatık mor-sarı külah, "Tablo: deniz" mor deniz ve iki yelkenli resmini gösterir (Kems Ajans, Canva yapay zekâ üretimi); eski kodla çizilmiş resimler kalktı; mağaza resimleri yenilendi; boş çerçeve boş kalır · öneri (`ajans/cerceve-resimleri-v2`)
 
 ## Bilinen eksikler
 
@@ -121,5 +122,5 @@ yapar; Kemal "şimdi" demedikçe işler bu sırayla gider.
 - 3B model kaynağı (süslemeler dahil)
 - Para modelinin ayrıntıları (makyaj paketleri satılabilir; gerisi açık)
 - Çalışanın, sahibin ve mekânların adları; müşteri yorum cümleleri; festival adları
-- Boş çerçeve resimleri (Kemal gönderecek)
+- Boş çerçeve: iki resim dondurma ve deniz tablolarına girdi; boş çerçeve boş kaldı. İçine de resim girsin mi, girerse hangisi (16 Kasım 2026)
 - Seyyar araba: deneme sayıları (fiyat 500, kilit seviye 6, saat 3 kat, 15 oyun dakikasında bir satış, 3 çeşit, tek araba) ve ikinci parçanın içeriği (belge 0.18)

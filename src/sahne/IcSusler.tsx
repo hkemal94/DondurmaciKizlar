@@ -5,7 +5,7 @@ import { renk } from './renkler';
 
 // İç süsler (C4, belge 0.11): halılar ve tablolar. Desenler kodla çizilir;
 // tablolarda kurgu ya da Düzada'ya özel bir yer yok: soyut desen, dondurma,
-// genel bir deniz ve tekne silueti. Boş çerçeve Kemal'in resmini bekler.
+// genel bir deniz ve tekneler. Boş çerçeve Kemal'in resmini bekler.
 
 const dokular = new Map<string, THREE.CanvasTexture>();
 function cizilmisDoku(ad: string, en: number, boy: number, ciz: (g: CanvasRenderingContext2D, w: number, h: number) => void) {
@@ -96,7 +96,28 @@ function Hali({ esya }: { esya: Esya }) {
 }
 
 // ---- Tablolar ----
+// Dondurma ve deniz tabloları hazır resim (Kems Ajans, Kemal onaylı, 14 Kasım 2026;
+// docs/lisanslar.md). Resimler çerçevenin resim yüzeyiyle aynı oranda (14:11)
+// kırpıldı ve telefon için 512 piksele küçültüldü: tablo ekranda küçük görünür,
+// daha büyüğü yalnız belleği doldurur.
+const RESIMLI_TABLOLAR: Partial<Record<Esya, string>> = {
+  tabloDondurma: 'gorseller/tablolar/dondurma.webp',
+  tabloDeniz: 'gorseller/tablolar/deniz.webp',
+};
+const resimDokulari = new Map<string, THREE.Texture>();
+function resimDokusu(yol: string) {
+  const var_ = resimDokulari.get(yol);
+  if (var_) return var_;
+  const t = new THREE.TextureLoader().load(import.meta.env.BASE_URL + yol);
+  t.colorSpace = THREE.SRGBColorSpace;
+  t.anisotropy = 4;
+  resimDokulari.set(yol, t);
+  return t;
+}
+
 function tabloDokusu(esya: Esya) {
+  const resim = RESIMLI_TABLOLAR[esya];
+  if (resim) return resimDokusu(resim);
   return cizilmisDoku(esya, 256, 200, (g, w, h) => {
     if (esya === 'tabloSoyut') {
       g.fillStyle = renk.krem;
@@ -116,70 +137,6 @@ function tabloDokusu(esya: Esya) {
       g.beginPath();
       g.moveTo(20, 40);
       g.bezierCurveTo(70, 0, 110, 80, 160, 30);
-      g.stroke();
-    } else if (esya === 'tabloDondurma') {
-      g.fillStyle = '#f6e3a4';
-      g.fillRect(0, 0, w, h);
-      // Külah ve üç top
-      g.fillStyle = '#c99a6b';
-      g.beginPath();
-      g.moveTo(98, 108);
-      g.lineTo(158, 108);
-      g.lineTo(128, 190);
-      g.closePath();
-      g.fill();
-      [['#ff8fb1', 104, 92], ['#fff0c8', 152, 92], ['#8a4b2e', 128, 58]].forEach(([r, x, y]) => {
-        g.fillStyle = r as string;
-        g.beginPath();
-        g.arc(x as number, y as number, 30, 0, Math.PI * 2);
-        g.fill();
-      });
-      g.fillStyle = '#c0392b';
-      g.beginPath();
-      g.arc(128, 26, 9, 0, Math.PI * 2);
-      g.fill();
-    } else if (esya === 'tabloDeniz') {
-      const gok = g.createLinearGradient(0, 0, 0, h);
-      gok.addColorStop(0, '#a9cfe0');
-      gok.addColorStop(1, '#fbf1e3');
-      g.fillStyle = gok;
-      g.fillRect(0, 0, w, h);
-      g.fillStyle = '#ffc928';
-      g.beginPath();
-      g.arc(200, 50, 22, 0, Math.PI * 2);
-      g.fill();
-      g.fillStyle = '#2f7fb3';
-      g.fillRect(0, 130, w, h - 130);
-      // Yelkenli silueti
-      g.fillStyle = '#3a3340';
-      g.beginPath();
-      g.moveTo(80, 125);
-      g.lineTo(140, 125);
-      g.lineTo(130, 138);
-      g.lineTo(90, 138);
-      g.closePath();
-      g.fill();
-      g.fillStyle = '#fbf8f1';
-      g.beginPath();
-      g.moveTo(108, 60);
-      g.lineTo(108, 120);
-      g.lineTo(138, 120);
-      g.closePath();
-      g.fill();
-      // Dalgalar ve martı
-      g.strokeStyle = '#a9cfe0';
-      g.lineWidth = 4;
-      for (const y of [155, 178]) {
-        g.beginPath();
-        for (let x = 0; x <= w; x += 32) g.arc(x + 16, y, 16, Math.PI, 0);
-        g.stroke();
-      }
-      g.strokeStyle = '#3a3340';
-      g.lineWidth = 3;
-      g.beginPath();
-      g.moveTo(40, 50);
-      g.quadraticCurveTo(50, 40, 58, 50);
-      g.quadraticCurveTo(66, 40, 76, 50);
       g.stroke();
     } else {
       // Boş çerçeve: Kemal'in resmini bekler

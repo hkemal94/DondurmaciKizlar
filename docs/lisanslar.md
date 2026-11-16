@@ -23,4 +23,6 @@ paket eklenince buraya yazılır.
 
 Arka tezgah ürünleri (`public/modeller/tezgah/`, belge 0.14): Kenney Food Kit (fincan, tabak, bardak, şişe, kutu, külah, sundae, krem şanti, meyveler), Kenney Furniture Kit (kahve makinesi, blender), Tiny Treats Bakery (espresso makinesi, yazar kasa, sarı kupa), KayKit Restaurant (kavanozlar). Hepsi yukarıdaki paketlerden, CC0.
 
+Tablo resimleri (`public/gorseller/tablolar/`): **Tablo: dondurma** (`dondurma.webp`, yatık mor-sarı dondurma külahı, ahşap masada) ve **Tablo: deniz** (`deniz.webp`, mor deniz, iki yelkenli, sarı gök). Kaynak: Kems Ajans, Canva yapay zekâ üretimi (Canva tasarımları DAHa64uHKM0 ve DAHa64rcBDI); Kemal onaylı, 14 Kasım 2026. Yazı ve logo yok. 1080×1080 kareden çerçevenin resim yüzeyi oranında (14:11) kırpıldı, 512×402 WebP'ye küçültüldü (16 Kasım 2026). Eski kodla çizilmiş dondurma ve deniz resimlerinin yerine geçti.
+
 Kodla kurulan modeller (dış kaynak yok, lisans gerekmez): seyyar dondurma arabası (`src/sahne/DisSusler.tsx`, `SeyyarAraba`; 4 Kasım 2026, belge 0.18). Depodaki hazır paketlerde seyyar araba yoktu. Mağaza resmi `public/gorseller/esyalar/seyyarAraba.webp` bu modelden çekildi.
