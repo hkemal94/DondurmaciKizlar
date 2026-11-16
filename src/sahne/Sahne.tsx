@@ -20,6 +20,7 @@ import { EgitimTakibi } from './EgitimTakibi';
 import { Dekorlar } from './Dekorlar';
 import { Insaat } from './Insaat';
 import { renk } from './renkler';
+import { ekrandanSahneye } from './ekranNoktasi';
 
 // İki sabit kamera (belge bölüm 0): dükkânın genel görünümü ve tezgahın
 // arkasından yakın plan. Aralarında yumuşak geçiş; oyuncu yürümez.
@@ -294,15 +295,6 @@ function Isiklar() {
       <pointLight ref={icIsik} position={[0, 2.8, 0.2]} intensity={2.5} distance={7} color="#ffd9a8" />
     </>
   );
-}
-
-// Telefon dik tutulunca oyun CSS ile 90° çevrilir (stil.css). Parmağın
-// ekrandaki yerini çevrilmiş oyunun içindeki yere dönüştürür.
-function ekrandanSahneye(x: number, y: number) {
-  if (window.matchMedia('(orientation: portrait)').matches) {
-    return { x: y, y: window.innerWidth - x };
-  }
-  return { x, y };
 }
 
 function dokunmaOlaylari(store: Parameters<typeof events>[0]) {

@@ -199,7 +199,17 @@ export type Bildirim =
   | { tur: 'sikildi'; zaman: number }
   | { tur: 'ikiDondurma'; zaman: number }
   | { tur: 'pisme'; pisme: Pisme; zaman: number }
-  | { tur: 'susleme'; eksik: Susleme[]; fazla: Susleme[]; zaman: number };
+  | { tur: 'susleme'; eksik: Susleme[]; fazla: Susleme[]; zaman: number }
+  | { tur: 'sigmiyor'; zaman: number };
+
+// Konmuş eşyayı parmakla sürükleyerek taşıma (16 Kasım 2026, telefon denemesi):
+// sürüklenen eşya, parmağın götürdüğü kare ve oraya sığıp sığmadığı
+export interface Surukleme {
+  y: Yerlesim;
+  c: number;
+  r: number;
+  sigar: boolean;
+}
 
 // Haber şeridinde geçen bir haber: metin anahtarı ve içine konan değerler
 export interface Haber {
@@ -272,6 +282,11 @@ export interface Durum {
   seciliYon: number; // yerleştirirken eşyanın yönü (0 / 1)
   seciliRenk: EsyaRengi; // yerleştirirken eşyanın rengi (belge 0.15e)
   seciliBoya: number | null; // kaldırılan eşyanın boya günü: yeniden konunca solukluğu korunur
+  // Sürüklenen eşya (kaydedilmez); dokunarak kaldırılan eşyaların eski yerleri ("Yerine koy");
+  // sığmayan yere dokunulunca kısa süre kırmızı yanan kare
+  surukleme: Surukleme | null;
+  tasinanlar: Yerlesim[];
+  gecersizYer: { c: number; r: number; zaman: number } | null;
   // Çalışan (Kemal, 13 Ekim): oyuncunun kişiselleştirdiği
   calisan: CalisanGorunumu;
   acikOnlukler: string[];
@@ -486,6 +501,9 @@ let durum: Durum = {
   seciliYon: 0,
   seciliRenk: 'mor',
   seciliBoya: null,
+  surukleme: null,
+  tasinanlar: [],
+  gecersizYer: null,
   calisan: { ...VARSAYILAN_CALISAN },
   acikOnlukler: ONLUKLER.filter((o) => o.fiyat === 0).map((o) => o.id),
   acikAksesuarlar: [],
@@ -1293,7 +1311,7 @@ function gunuBaslat() {
   birikenMs = 0;
   guncelle({ hedefler: hedefleriUret(), yorumlar: [], grupZamanlari: grupZamanlariUret(), grupKalan: 0 });
   guncelle({ istasyonSecimi: false, makine: bosMakine(), yardimciIsleri: {} });
-  guncelle({ hazirlik: false, sonrakiGelis: 0, yerlestirme: false, seciliEsya: null });
+  guncelle({ hazirlik: false, sonrakiGelis: 0, yerlestirme: false, seciliEsya: null, surukleme: null, tasinanlar: [] });
   kaydet();
 }
 
@@ -1530,7 +1548,7 @@ export function yerlestirmeyiAc() {
 }
 
 export function yerlestirmeyiKapat() {
-  guncelle({ yerlestirme: false, seciliEsya: null });
+  guncelle({ yerlestirme: false, seciliEsya: null, surukleme: null, tasinanlar: [] });
   kaydet();
 }
 
@@ -1711,9 +1729,17 @@ export function noktayaKoy(x: number, z: number) {
   const e = durum.seciliEsya;
   if (!durum.yerlestirme || !e || depodaki(e) <= 0) return;
   const yer = enYakinYer(e, x, z, durum.seciliYon);
-  if (!yer) return;
+  if (!yer) {
+    // Sığmayan yer: dokunulan kare kısa süre kırmızı yanar, ortada "Buraya sığmıyor"
+    const simdi = performance.now();
+    guncelle({ gecersizYer: { ...noktaninBirimi(x, z), zaman: simdi }, bildirim: { tur: 'sigmiyor', zaman: simdi } });
+    return;
+  }
   const kalan = depodaki(e) - 1;
+  // Konan eşya kaldırılmışlardan biriyse "Yerine koy" listesinden düşer
+  const t = durum.tasinanlar.map((x) => x.esya).lastIndexOf(e);
   guncelle({
+    tasinanlar: t < 0 ? durum.tasinanlar : durum.tasinanlar.filter((_, i) => i !== t),
     yerlesim: [...durum.yerlesim, { esya: e, hucre: birimAnahtari(yer.c, yer.r), yon: durum.seciliYon, ...(RENKLI_ESYALAR.includes(e) ? { renk: durum.seciliRenk } : {}), boya: durum.seciliBoya ?? durum.gun }],
     seciliBoya: null,
     depo: { ...durum.depo, [e]: kalan },
@@ -1732,7 +1758,85 @@ export function yerlesimiKaldir(y: Yerlesim) {
     seciliYon: y.yon,
     seciliRenk: y.renk ?? durum.seciliRenk,
     seciliBoya: y.boya ?? null,
+    tasinanlar: [...durum.tasinanlar, y],
   });
+}
+
+// Dokunarak kaldırılan eşyayı eski yerine geri koy (yanlışlıkla dokunulduysa).
+// Elde seçili eşyanın en son kaldırılanı döner.
+export function tasinanSecili(d: Durum = durum) {
+  const e = d.seciliEsya;
+  if (!e || depodaki(e, d) <= 0) return null;
+  return [...d.tasinanlar].reverse().find((x) => x.esya === e) ?? null;
+}
+export function yerineKoy() {
+  const y = tasinanSecili();
+  if (!durum.yerlestirme || !y) return;
+  const kalanlar = durum.tasinanlar.filter((x) => x !== y);
+  const { c, r } = birimCoz(y.hucre);
+  if (!esyaSigar(y.esya, c, r, y.yon)) {
+    guncelle({ tasinanlar: kalanlar, bildirim: { tur: 'sigmiyor', zaman: performance.now() } });
+    return;
+  }
+  const kalan = depodaki(y.esya) - 1;
+  guncelle({
+    yerlesim: [...durum.yerlesim, y],
+    depo: { ...durum.depo, [y.esya]: kalan },
+    tasinanlar: kalanlar,
+    seciliBoya: null,
+    seciliEsya: kalan > 0 ? y.esya : (ESYALAR.find((x) => x.id !== y.esya && depodaki(x.id) > 0)?.id ?? null),
+  });
+}
+
+// ---- Parmakla sürükleyerek taşıma (16 Kasım 2026) ----
+// Konmuş eşyaya basılı tutup parmak kaydırılınca eşya kalkmadan parmakla
+// gider; kamera o sırada kaymaz. Bırakınca sığıyorsa oraya konur, sığmıyorsa
+// eski yerine döner. Tablolar duvara asıldığı için dokunarak taşınır.
+let tutulanParmak: number | null = null;
+let suruklemeBitisi = 0;
+export function esyaTutuldu(parmak: number) {
+  tutulanParmak = parmak;
+}
+export function esyaTutuluyor() {
+  return tutulanParmak !== null;
+}
+export function esyaBirakildi() {
+  tutulanParmak = null;
+}
+// Sürükleme yeni bittiyse arkasından gelen dokunuş sayılmaz (eşya kalkmasın, başka eşya konmasın)
+export function suruklemeSuruyor() {
+  return !!durum.surukleme || performance.now() - suruklemeBitisi < 350;
+}
+
+export function suruklemeyeBasla(y: Yerlesim) {
+  if (!durum.yerlestirme || !durum.yerlesim.includes(y) || esyaKatmani(y.esya) === 'duvar') return;
+  const { c, r } = birimCoz(y.hucre);
+  guncelle({ surukleme: { y, c, r, sigar: true } });
+}
+
+// Parmağın yerdeki noktası: eşya o noktayı ortalayan kareye oturur
+export function suruklemeyiGuncelle(x: number, z: number) {
+  const s = durum.surukleme;
+  if (!s) return;
+  const { en, boy } = esyaOlcusu(s.y.esya, s.y.yon);
+  const c = Math.round(x - en / 2);
+  const r = Math.round(z - Z0 - boy / 2);
+  if (c === s.c && r === s.r) return;
+  guncelle({ surukleme: { ...s, c, r, sigar: esyaSigar(s.y.esya, c, r, s.y.yon, durum, s.y) } });
+}
+
+export function suruklemeyiBitir(iptal = false) {
+  const s = durum.surukleme;
+  if (!s) return;
+  suruklemeBitisi = performance.now();
+  const eski = birimCoz(s.y.hucre);
+  const yerinde = s.c === eski.c && s.r === eski.r;
+  if (!iptal && s.sigar && !yerinde && durum.yerlesim.includes(s.y)) {
+    guncelle({ surukleme: null, yerlesim: durum.yerlesim.map((x) => (x === s.y ? { ...x, hucre: birimAnahtari(s.c, s.r) } : x)) });
+  } else if (!iptal && !s.sigar) {
+    // Sığmayan yerde bırakıldı: eşya eski yerine döner
+    guncelle({ surukleme: null, bildirim: { tur: 'sigmiyor', zaman: suruklemeBitisi } });
+  } else guncelle({ surukleme: null });
 }
 
 // Yumuşak yıpranma (belge 0.15f; exp soru turu "Eşyalar: yumuşak yıpranma, solar,
@@ -2846,6 +2950,9 @@ function durumuSifirla() {
     seciliYon: 0,
     seciliRenk: 'mor',
     seciliBoya: null,
+    surukleme: null,
+    tasinanlar: [],
+    gecersizYer: null,
     calisan: { ...VARSAYILAN_CALISAN },
     acikOnlukler: ONLUKLER.filter((o) => o.fiyat === 0).map((o) => o.id),
     acikAksesuarlar: [],
