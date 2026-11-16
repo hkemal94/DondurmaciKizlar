@@ -582,7 +582,8 @@ Dışarıdaki eşyalar konduktan ya da boyandıktan 5 gün sonra güneşte yava�
 - **Her ay bir pul.** Bir çeyreğin üç aylık pulu toplanınca daha büyük ve süslü **4. pul** gelir ("3+1" seri). Kazanılan pul kaybolmaz.
 - Gerçek posta pulu gibi (tırtıklı kenar, ince çerçeve); **her pul ayrı tasarlanır**, tek şablon yok. **Pulun üstünde yazı yok**; çeyrek ve yıl pulun altında, sayfada yazar. Tasarlanana kadar sade yer tutucu durur; görseller Kemal onaylayınca girer.
 - Oyunlar arasında ortak bir **koleksiyon sayfası** dili: her yıl bir bölüm, her çeyrekte üç aylık pul ve yanında büyük pul; kazanılan tam renkli, kazanılmayan soluk. 3B oyun olduğu için sayfa 2B arayüz olarak gelir.
-- **Ayın pulu, o ayın görevi bitince gelir** (Kemal, 15 Kasım 2026). Her ay oyunda tek bir büyük görev olur; görevlerin içerikleri ileride Kemal'e sorulacak ([Kemal]).
+- **Ayın pulu, o ayın görevi bitince gelir** (Kemal, 15 Kasım 2026). Her ay oyunda tek bir büyük görev olur.
+- **Ayın büyük görevi her ay farklı, sırayla** (Kemal, 16 Kasım 2026): 1) ay içinde [sayı: Kemal] günlük hedef tut → 2) ay içinde [sayı: Kemal] MÜKEMMEL top yap → 3) ay içinde [sayı: Kemal] beş yıldızlı yorum al; sonra başa döner. Üçü de oyunda olan mekaniklere dayanır (günlük hedefler, kepçede MÜKEMMEL, yıldızlı yorumlar; 0.12). Görev cezasızdır: tutmazsa hiçbir şey kaybedilmez. Sayılar [Kemal]; açık sorular 7. bölümde. Aday listesi: Kems-Ajans `oneriler/aylik-gorev-adaylari-16-11-2026.md`.
 - **Mevcut ödüller pulla birlikte durur, pula dönüşmez** (Kemal, 15 Kasım 2026): seviye ödülleri ve hediye eşya olduğu gibi kalır.
 - Ayrıntı: Kems-Ajans deposunda `docs/pul-koleksiyonu.md`. Kod yapısı kart oyunundaki `src/pul/` klasörü örnek alınarak kurulacak.
 - Henüz kod yok; bu yalnız karar kaydı.
@@ -752,7 +753,11 @@ toparlamada kalktı (cevaplananlar bölüm 0'da; geçmişi GitHub'da).
 | Mahalle evleri | Paket adayları gösterilip Kemal seçecek |
 | Seyyar araba sayıları (0.18) | Deneme değerleri: fiyat 500, kilit seviye 6, saat 3 kat, 15 oyun dakikasında bir satış, 3 çeşit, tek araba, konfor / çekicilik 0. Kemal onaylayacak |
 | Seyyar arabada oynanış (0.18) | İlk parçada araba kendi satıyor (rölanti). Elle servis, kamera, yer (plaj / yol kenarı) Kemal'in kararı |
-| ~~Pul koleksiyonu (0.19): bu oyunda bir ayın pulu nasıl kazanılır?~~ | Cevaplandı (Kemal, 15 Kasım): o ayın görevi bitince; her ay tek büyük görev. Görevlerin içerikleri [Kemal], ileride sorulacak |
+| ~~Pul koleksiyonu (0.19): bu oyunda bir ayın pulu nasıl kazanılır?~~ | Cevaplandı (Kemal, 15 Kasım): o ayın görevi bitince; her ay tek büyük görev |
+| ~~Pul koleksiyonu (0.19): ayın büyük görevi ne olsun?~~ | Cevaplandı (Kemal, 16 Kasım): her ay farklı, sırayla: günlük hedef tut → MÜKEMMEL top yap → 5 yıldızlı yorum al, sonra başa (0.19) |
+| Ayın büyük görevi (0.19): her görevin sayısı (kaç günlük hedef, kaç MÜKEMMEL top, kaç 5 yıldızlı yorum) | Açık; [Kemal] |
+| Ayın büyük görevi (0.19): "ay" takvim ayı mı? | Açık. Öneri (karar değil): takvim ayı; oyun içi 30 günlük "ay" (albüm, 0.12) ayrı kalır |
+| Ayın büyük görevi (0.19): geçen ayın görevi sonradan bitirilebilir mi? | Açık. Öneri (karar değil): geçen ay kapanır, görev yalnız kendi ayında yapılır |
 | ~~Pul koleksiyonu (0.19): mevcut seviye ödülleri ve hediye eşya pulla birlikte mi durur, pula mı dönüşür?~~ | Cevaplandı (Kemal, 15 Kasım): pulla birlikte durur, pula dönüşmez |
 | ~~Eşya taşıma (0.20): eline aldığın eşyayla "Bitti"ye basınca~~ | ~~Açık~~ → Kemal 16 Kasım: eski yerine dönsün (0.20, 2. tur) |
 | ~~Eşya taşıma (0.20): konmuş eşyayı yerinde çevirmek~~ | ~~Açık~~ → Kemal 16 Kasım: eşyaya dokununca üstünde küçük düğmeler: Çevir, Depoya kaldır (0.20, 2. tur) |
