@@ -11,7 +11,7 @@ yapar; Kemal "şimdi" demedikçe işler bu sırayla gider.
 | | |
 |---|---|
 | Aşama | Oynanabilir sürüm, büyüme, karakterler, liman ve kişiselleştirme bitti. Sırada görsel kalite |
-| Son biten | Tablo resimleri: "Tablo: dondurma" ve "Tablo: deniz" artık Kemal'in onayladığı iki resmi gösteriyor (Kems Ajans, Canva; 16 Kasım 2026, öneri `ajans/cerceve-resimleri-v2`). Önceki: Belge: ödül olarak pul koleksiyonu kararı (bütün oyunların ortak sistemi, belge 0.19); ayın pulu o ayın görevi bitince gelir (her ay tek büyük görev; içerikleri ileride Kemal'e sorulacak), seviye ödülleri ve hediye eşya pulla birlikte durur; oyunda değişen yok (#72) |
+| Son biten | Belge: boş çerçeve kararı (Kemal 16 Kasım 2026): boş çerçeve eşyası boş kalır, iki tablo dondurma ve deniz resimlerini gösterir (#73); oyunda değişen yok. Önceki: Tablo resimleri: "Tablo: dondurma" ve "Tablo: deniz" artık Kemal'in onayladığı iki resmi gösteriyor (Kems Ajans, Canva; 16 Kasım 2026, öneri `ajans/cerceve-resimleri-v2`). Önceki: Belge: ödül olarak pul koleksiyonu kararı (bütün oyunların ortak sistemi, belge 0.19); ayın pulu o ayın görevi bitince gelir (her ay tek büyük görev; içerikleri ileride Kemal'e sorulacak), seviye ödülleri ve hediye eşya pulla birlikte durur; oyunda değişen yok (#72) |
 | Şu an | DK Lite ayrı depoda ilerliyor (DK-Lite deposu) |
 | Sıradaki | Seyyar araba ilk parçası öneri PR'ında (`ajans/seyyar-araba`, belge 0.18); deneme sayıları ve ikinci parça Kemal'in kararını bekliyor. Bulut kayıt Kemal'in Firebase kurulumunu bekliyor (`docs/bulut-kurulum.md`) |
 | Yayın | Deneme sürümü webde; tarih yok, acele yok |
@@ -122,5 +122,4 @@ yapar; Kemal "şimdi" demedikçe işler bu sırayla gider.
 - 3B model kaynağı (süslemeler dahil)
 - Para modelinin ayrıntıları (makyaj paketleri satılabilir; gerisi açık)
 - Çalışanın, sahibin ve mekânların adları; müşteri yorum cümleleri; festival adları
-- Boş çerçeve: iki resim dondurma ve deniz tablolarına girdi; boş çerçeve boş kaldı. İçine de resim girsin mi, girerse hangisi (16 Kasım 2026)
 - Seyyar araba: deneme sayıları (fiyat 500, kilit seviye 6, saat 3 kat, 15 oyun dakikasında bir satış, 3 çeşit, tek araba) ve ikinci parçanın içeriği (belge 0.18)

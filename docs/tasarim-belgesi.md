@@ -329,7 +329,7 @@ Sims gibi: dükkânın dışı ve içi oyuncunun zevkine göre. Geliştir'de yen
 | Tabelalar | Çatı tabelası, kaldırımda direk tabela, pencerede neon, iskele girişinde kemer. Yazı: dükkânın adı. Işıklılar akşam kendiliğinden yanar, sabah söner. Yapıldı (C3): Görünüş → Tabela; birden çok takılır, alınana dokununca takılır / çıkar. Çatı tabelası en öndeki sıranın ortasında, direk tabela iskelenin sağında kaldırımda, neon ön cephenin ortasına yakın bir camda ("DONDURMA" + külah), kemer iskelenin girişinde. Yeni ışık kaynağı yok (telefon); yalnız parlayan yüzeyler, saat ~19'da yanar, sabah 7'ye doğru söner |
 | İç zemin | Ahşap tonları, damalı fayans, mozaik / karo, terrazzo / beton cila |
 | Halı ve tablo | Eşya gibi yerleşir (halı yere, tablo bir duvar parçasına); taşınır, döndürülür, depoya kalkar. Yapıldı (C4): Dekorasyon → "Dükkânın içi için": paspas, yuvarlak halı, kilim, üç tablo ve boş çerçeve. Yalnız içeri konur. Halı yere serilir, üstüne masa konabilir. Tablo düz duvarın dibindeki kareye konur ve o duvara asılır (yeşil işaret duvarda); tezgahın arkasındaki duvara da asılır, mutfağa konmaz; köşede "Çevir" öbür duvara geçirir |
-| Tablolarda | Soyut renk desenleri, dondurma çizimleri, deniz / tekne siluetleri (Düzada'ya özel bir yer çizilmez), boş çerçeve (Kemal sonra doldurur). İleride reklam alınabilir. 16 Kasım 2026: dondurma ve deniz tabloları Kemal'in onayladığı iki hazır resmi gösterir (Kems Ajans, Canva; `docs/lisanslar.md`); boş çerçeve boş kalır |
+| Tablolarda | Soyut renk desenleri, dondurma çizimleri, deniz / tekne siluetleri (Düzada'ya özel bir yer çizilmez), boş çerçeve (Kemal sonra doldurur). İleride reklam alınabilir. 16 Kasım 2026: dondurma ve deniz tabloları Kemal'in onayladığı iki hazır resmi gösterir (Kems Ajans, Canva; `docs/lisanslar.md`); boş çerçeve boş kalır (Kemal 16 Kasım: Boş çerçeve eşyası boş kalır; iki tablo dondurma ve deniz resimlerini gösterir (#73)) |
 | Fiyat | Her seçenek bir kez alınır, alınanlar arasında geçiş bedava. Başlangıçtaki görünüş baştan açık. Fiyatlar geçici |
 | Satın almadan önce | Dokununca dükkân hemen öyle görünür (deneme); beğenilirse "Al", mağaza kapanınca alınmayan geri döner. Panel sağa çekilir, dükkân solda döndürülebilir |
 | Kilitler | 8a'dan beri dükkân seviyesi kilitleri (0.12 exp tablosu). Eskiden: şimdilik yok. İleride her şey için bir deneyim (exp) sistemi: kimi para, kimi memnuniyet, servis edilen ürün / müşteri sayısı gibi ölçülerle açılır (ayrı çalışma) |
@@ -703,7 +703,7 @@ toparlamada kalktı (cevaplananlar bölüm 0'da; geçmişi GitHub'da).
 | Para modelinin ayrıntıları | Makyaj paketleri satılabilir (14 Ekim); gerisi açık |
 | Çalışanın, yardımcıların, mekânların adları | Kemal'in |
 | Müşteri yorum cümleleri, hikâye kırıntıları | Kemal'in; o zamana kadar [YER TUTUCU] |
-| Boş çerçeve resimleri | Kemal'in onayladığı iki resim (14 Kasım 2026) dondurma ve deniz tablolarına girdi (16 Kasım, öneri PR'ı). Boş çerçevenin içine de resim girsin mi: Kemal'in |
+| Boş çerçeve resimleri | ~~Açık~~ → Kemal 16 Kasım: Boş çerçeve eşyası boş kalır; iki tablo dondurma ve deniz resimlerini gösterir (#73) |
 | Festival / bayram günleri, adları ve özel çeşitleri | Sonra; Kemal'in |
 | Ayar panelinin oyuna yazma yolu | ~~Açık~~ → **GitHub anahtarı** (Kemal, 15 Ekim): KKM → Oyun → Ayarlar'da "Oyuna gönder" oyunun deposunda PR açar; anahtar yalnız o tarayıcıda durur |
 | Exp sisteminin sayıları | ~~Açık~~ → tablo sunuldu, Kemal "Başla" dedi (15 Ekim); bölüm 0.12 exp tablosu. KKM → Ayarlar'dan değişir |
