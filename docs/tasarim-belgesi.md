@@ -69,7 +69,7 @@ Taslakla çelişen yerde bu bölüm geçerli.
 | Süsleme kaldırma | Aynı süslemeye yeniden basınca o süsleme kalkar; süsleme için Geri al gerekmez (Geri al yalnız kepçedeki ve konmuş toplar için kalır). Bir dondurmaya birden çok süsleme gelebilir (Kemal, 13 Ekim). |
 | Dekorasyon türleri | İki tür (Kemal, 13 Ekim): **genel** (ör. ışıklandırma; tek tip, daha pahalı üst seviyeleri olabilir) ve **taşınabilir** (ör. masa takımı: alınır, yerini oyuncu elle seçer; kareli yerleştirme düzeni önerildi). Taşınabilir eşyalar **dükkânın içine de önüne (terasa) de** konabilir (Kemal, 13 Ekim). Dekorasyon uzun soluklu bir alan. Yapıldı (bölüm 0.1–0.4, 0.11) |
 | Kapı ve müşteri yolu | Dükkânın önünde (teras / iskele tarafında) bir **kapı** olur. Müşteriler havadan belirmez: kameranın dışından **iskele boyunca yürüyerek** gelir, kapıdan girer, sıraya geçer; giderken kapıdan çıkıp yürür. Hep aynı taraftan gelmezler, iki yönden de gelirler (Kemal, 13 Ekim) |
-| Dekorasyon | **Genel:** ışıklandırma üç seviye — 1 fenerler, 2 terasa asma ampuller, 3 dükkân önünde ışıklı mor-sarı şerit; her seviye öncekinden pahalı. **Taşınabilir:** masa takımı, şemsiyeli masa, çiçek saksısı; alınınca depoya gider, gün başında "Yerleştir" ile kareli zeminde bir kareye konur (terasa ve içeri); konmuş eşyaya dokunulunca yeniden seçilir, başka yere taşınır; parmakla sürüklenerek de taşınır (0.20). Müşteri yolu ve kapı önü boş kalır. Yerleştirilen her eşya ve her ışık seviyesi müşterileri biraz daha sık getirir. Fiyatlar geçici |
+| Dekorasyon | **Genel:** ışıklandırma üç seviye — 1 fenerler, 2 terasa asma ampuller, 3 dükkân önünde ışıklı mor-sarı şerit; her seviye öncekinden pahalı. **Taşınabilir:** masa takımı, şemsiyeli masa, çiçek saksısı; alınınca depoya gider, gün başında "Yerleştir" ile kareli zeminde bir kareye konur (terasa ve içeri); depodan konan eşya önce soluk önizleme olarak görünür, "Koy" ile konur; konmuş eşyaya dokununca üstünde Çevir ve Depoya kaldır çıkar, dokunulan eşya yeni yere dokunup "Koy" ile ya da parmakla sürüklenerek taşınır (0.20). Müşteri yolu ve kapı önü boş kalır. Yerleştirilen her eşya ve her ışık seviyesi müşterileri biraz daha sık getirir. Fiyatlar geçici |
 | Genel görünümde kamera | **Değişti (Kemal, 14 Ekim):** "360 döndürme ve aşağı yukarı bakma, her yerde". Genel görünümde her an, alışılmış harita düzeniyle (Kemal, 14 Ekim): **tek parmak** kaydırır (açı değişmez, dükkândan uzaklaşamaz); **iki parmak açıp kapama** yakınlaştırır (sınırlı); **iki parmağı çevirmek** dükkânın çevresinde döndürür; **iki parmakla birlikte yukarı aşağı sürüklemek** eğer (alçak bakıştan neredeyse tepeden bakışa). İki parmakta önce belirginleşen hareket, parmaklar kalkana dek tek başına çalışır; birbirine karışmaz. Farede sol tuş kaydırır, sağ tuş döndürür ve eğer, tekerlek yakınlaştırır. Sol alttaki **ortala** düğmesi baştaki görünüme döndürür. Tezgah yakın planı sabit kalır. (13 Ekim'deki "tek parmak kaydırır, açı değişmez" kuralının yerine geçer) |
 | Tezgah düzeni | Dar telefon ekranında külah çikolata küvetini kapatıyordu (Kemal, 13 Ekim). Kamera biraz aşağı eğildi, küvetler ekranda yukarı çıktı; külah küvetlerin üstüne, sola alındı |
 | Duraklatma menüsü | Sol üstte duraklat düğmesi (Kemal, 13 Ekim). Saat, müşteriler ve sabır durur. Menüde: **Devam et**, **Dükkânı gez**, **ses ayarı** (müzik ve sesler; ses henüz yok, ayar saklanır) |
@@ -603,7 +603,29 @@ denendi; bulunanlar ve yapılanlar (oynanış değişmedi, dokunarak koyma ve ka
   dokunulduysa eşya şeridindeki "Yerine koy" onu eski yerine geri koyar (elde birkaç eşya
   birikse de her biri kendi yerine döner).
 - Konmuş eşyayı tutmak için dokunma alanı biraz büyüdü (karenin tamamı).
-- Açık sorular bölüm 7'de (eşya taşıma satırları).
+- Açık sorular bölüm 7'deydi; Kemal 16 Kasım'da altısına da önerilen seçeneği verdi (aşağıda, 2. tur).
+
+**2. tur (Kemal, 16 Kasım 2026; altı soruya önerilen seçenek):**
+
+- **El boş başlar.** Yerleştir açılınca şeritten eşya kendiliğinden seçilmez. Şeritten eşya
+  seçilir; seçili eşyaya yeniden dokununca el boşalır.
+- **Konmuş eşyaya dokununca** (el boşken) eşya yerinden kalkmaz, altı sarı yanar ve üstünde
+  küçük **Çevir** (kare olmayan eşyada) ve **Depoya kaldır** düğmeleri çıkar. Çevir eşyayı
+  yerinde döndürür; döndüğü hâliyle oraya ya da 1 m yakınına sığmıyorsa "Buraya sığmıyor".
+  Renkli eşyada renk düğmeleri rengi yerinde değiştirir. Aynı eşyaya yeniden dokununca seçim kalkar.
+- **Önizleme.** Elde eşya varken (şeritten seçilen ya da dokunulan) dokunulan yerde eşyanın
+  soluk hâli ve altında yeşil kareler çıkar; üstünde **Koy** · Çevir · **Vazgeç**. Koy'a
+  basılınca konur (dokunulan eşya oraya taşınır). Depoda o eşyadan kaldıysa elde kalır.
+- **Bitti.** Elde eşya varken Bitti'ye basılırsa eşya eski yerinde kalır (yerinden hiç
+  kalkmamıştır); onaylanmamış önizleme konmaz, eşya depoda kalır. Önceki turdaki "Yerine koy"
+  düğmesi bu yüzden kalktı.
+- **Eşya şeridi** tek sıra, parmakla yana kaydırılır; renkler ve Bitti yanında durur.
+- **Sığmayan yer.** Dokunulan yerde eşya sığmıyorsa boş yer en fazla 1 m (bir kare) öteye
+  aranır; yoksa dokunulan kare kırmızı yanar, "Buraya sığmıyor" yazar (önceden 2 m'ye kadar
+  uzağa, bazen duvarın arkasına konuyordu).
+- **Elde eşya varken** başka bir konmuş eşyaya dokununca yalnız elindekinin önizlemesi o yere
+  (ya da 1 m yakınına) gelir; öbür eşya yerinde kalır. Başka eşya parmakla sürüklenerek ya da
+  el boşken dokunarak seçilir.
 
 ## 1. Oyunun özeti ve vizyonu
 
@@ -732,12 +754,12 @@ toparlamada kalktı (cevaplananlar bölüm 0'da; geçmişi GitHub'da).
 | Seyyar arabada oynanış (0.18) | İlk parçada araba kendi satıyor (rölanti). Elle servis, kamera, yer (plaj / yol kenarı) Kemal'in kararı |
 | ~~Pul koleksiyonu (0.19): bu oyunda bir ayın pulu nasıl kazanılır?~~ | Cevaplandı (Kemal, 15 Kasım): o ayın görevi bitince; her ay tek büyük görev. Görevlerin içerikleri [Kemal], ileride sorulacak |
 | ~~Pul koleksiyonu (0.19): mevcut seviye ödülleri ve hediye eşya pulla birlikte mi durur, pula mı dönüşür?~~ | Cevaplandı (Kemal, 15 Kasım): pulla birlikte durur, pula dönüşmez |
-| Eşya taşıma (0.20): eline aldığın eşyayla "Bitti"ye basınca | Açık. Seçenekler: eski yerine dönsün (önerilen) · bugünkü gibi depoya gitsin |
-| Eşya taşıma (0.20): konmuş eşyayı yerinde çevirmek | Açık. Seçenekler: eşyaya dokununca üstünde küçük düğmeler: Çevir, Depoya kaldır (önerilen) · bugünkü gibi: kaldır, Çevir, yeniden koy |
-| Eşya taşıma (0.20): depodan yeni eşya koyarken | Açık. Seçenekler: dokununca soluk önizleme, onaylayınca konsun (önerilen) · bugünkü gibi dokununca hemen konsun · eşya kartından sahneye sürükleyip bırak |
-| Eşya taşıma (0.20): eşya şeridi kalabalıkta iki sıraya çıkıp dükkânın altını kapatıyor | Açık. Seçenekler: tek sıra, yana kaydırılan şerit (önerilen) · bugünkü gibi |
-| Eşya taşıma (0.20): sığmayan yere dokununca eşya 2 m'ye kadar uzaktaki boş yere konuyor (bazen duvarın arkasına, gözden kaybolur) | Açık. Seçenekler: arama 1 m'ye insin, uzaktaysa "Buraya sığmıyor" (önerilen) · bugünkü gibi 2 m |
-| Eşya taşıma (0.20): elde eşya varken başka bir konmuş eşyaya dokununca o da kalkıyor | Açık. Seçenekler: elde eşya varken dokunuş yalnız koysun, kaldırmak sürükleyerek ya da eşya boşken (önerilen) · bugünkü gibi |
+| ~~Eşya taşıma (0.20): eline aldığın eşyayla "Bitti"ye basınca~~ | ~~Açık~~ → Kemal 16 Kasım: eski yerine dönsün (0.20, 2. tur) |
+| ~~Eşya taşıma (0.20): konmuş eşyayı yerinde çevirmek~~ | ~~Açık~~ → Kemal 16 Kasım: eşyaya dokununca üstünde küçük düğmeler: Çevir, Depoya kaldır (0.20, 2. tur) |
+| ~~Eşya taşıma (0.20): depodan yeni eşya koyarken~~ | ~~Açık~~ → Kemal 16 Kasım: dokununca soluk önizleme, onaylayınca konsun (0.20, 2. tur) |
+| ~~Eşya taşıma (0.20): eşya şeridi kalabalıkta iki sıraya çıkıp dükkânın altını kapatıyor~~ | ~~Açık~~ → Kemal 16 Kasım: tek sıra, yana kaydırılan şerit (0.20, 2. tur) |
+| ~~Eşya taşıma (0.20): sığmayan yere dokununca eşya 2 m'ye kadar uzaktaki boş yere konuyor~~ | ~~Açık~~ → Kemal 16 Kasım: arama en fazla 1 m, yoksa "Buraya sığmıyor" (0.20, 2. tur) |
+| ~~Eşya taşıma (0.20): elde eşya varken başka bir konmuş eşyaya dokununca o da kalkıyor~~ | ~~Açık~~ → Kemal 16 Kasım: elde eşya varken dokunuş yalnız elindekini koyar; başka eşya sürükleyerek ya da el boşken (0.20, 2. tur) |
 
 ### 7.1 Geçici sayılar
 

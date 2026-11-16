@@ -282,10 +282,12 @@ export interface Durum {
   seciliYon: number; // yerleştirirken eşyanın yönü (0 / 1)
   seciliRenk: EsyaRengi; // yerleştirirken eşyanın rengi (belge 0.15e)
   seciliBoya: number | null; // kaldırılan eşyanın boya günü: yeniden konunca solukluğu korunur
-  // Sürüklenen eşya (kaydedilmez); dokunarak kaldırılan eşyaların eski yerleri ("Yerine koy");
+  // Sürüklenen eşya (kaydedilmez); dokunulan konmuş eşya (üstünde Çevir / Depoya kaldır,
+  // 16 Kasım 2026, 2. tur); konmadan önce soluk görünen yer (onaylanınca konur);
   // sığmayan yere dokunulunca kısa süre kırmızı yanan kare
   surukleme: Surukleme | null;
-  tasinanlar: Yerlesim[];
+  tutulan: Yerlesim | null;
+  onizleme: { c: number; r: number } | null;
   gecersizYer: { c: number; r: number; zaman: number } | null;
   // Çalışan (Kemal, 13 Ekim): oyuncunun kişiselleştirdiği
   calisan: CalisanGorunumu;
@@ -502,7 +504,8 @@ let durum: Durum = {
   seciliRenk: 'mor',
   seciliBoya: null,
   surukleme: null,
-  tasinanlar: [],
+  tutulan: null,
+  onizleme: null,
   gecersizYer: null,
   calisan: { ...VARSAYILAN_CALISAN },
   acikOnlukler: ONLUKLER.filter((o) => o.fiyat === 0).map((o) => o.id),
@@ -1311,7 +1314,7 @@ function gunuBaslat() {
   birikenMs = 0;
   guncelle({ hedefler: hedefleriUret(), yorumlar: [], grupZamanlari: grupZamanlariUret(), grupKalan: 0 });
   guncelle({ istasyonSecimi: false, makine: bosMakine(), yardimciIsleri: {} });
-  guncelle({ hazirlik: false, sonrakiGelis: 0, yerlestirme: false, seciliEsya: null, surukleme: null, tasinanlar: [] });
+  guncelle({ hazirlik: false, sonrakiGelis: 0, yerlestirme: false, seciliEsya: null, surukleme: null, tutulan: null, onizleme: null });
   kaydet();
 }
 
@@ -1541,19 +1544,27 @@ export function depodaki(esya: Esya, d: Durum = durum) {
   return d.depo[esya] ?? 0;
 }
 
+// Yerleştir açılınca el boş (16 Kasım 2026, 2. tur): konmuş eşyaya dokununca o seçilsin
+// diye şeritten eşya kendiliğinden seçilmez; oyuncu şeritten seçer.
 export function yerlestirmeyiAc() {
   if (!durum.hazirlik) return;
-  const ilk = ESYALAR.find((e) => depodaki(e.id) > 0)?.id ?? null;
-  guncelle({ yerlestirme: true, seciliEsya: ilk, kamera: 'dukkan' });
+  guncelle({ yerlestirme: true, seciliEsya: null, tutulan: null, onizleme: null, seciliBoya: null, kamera: 'dukkan' });
 }
 
+// Bitti: dokunulmuş (eldeki) eşya yerinden hiç kalkmadığı için eski yerinde kalır;
+// onaylanmamış önizleme konmaz, eşya depoda kalır (Kemal, 16 Kasım 2026)
 export function yerlestirmeyiKapat() {
-  guncelle({ yerlestirme: false, seciliEsya: null, surukleme: null, tasinanlar: [] });
+  guncelle({ yerlestirme: false, seciliEsya: null, surukleme: null, tutulan: null, onizleme: null, seciliBoya: null });
   kaydet();
 }
 
+// Şeritten eşya seç; seçili eşyaya yeniden dokununca el boşalır
 export function esyaSec(esya: Esya) {
-  if (depodaki(esya) > 0) guncelle({ seciliEsya: esya });
+  if (durum.seciliEsya === esya && !durum.tutulan) {
+    elBosalt();
+    return;
+  }
+  if (depodaki(esya) > 0) guncelle({ seciliEsya: esya, tutulan: null, onizleme: null, seciliBoya: null, ...(durum.tutulan ? { seciliYon: 0 } : {}) });
 }
 
 // ---- Arazi ve İnşaat modu (belge 0.1, 0.2; Kemal, 14 Ekim) ----
@@ -1708,83 +1719,140 @@ export function enYakinYer(esya: Esya, x: number, z: number, yon: number, d: Dur
   return enIyi;
 }
 
-// Bir noktadaki konmuş eşya. Halı ya da tablo seçiliyken yalnız aynı
-// katmandakiler; değilse önce tablo ve eşyalar, halı en son (altta kalır).
+// Bir noktadaki konmuş eşya: önce tablo ve eşyalar, halı en son (altta kalır)
 export function noktadakiEsya(x: number, z: number, d: Durum = durum) {
   const { c, r } = noktaninBirimi(x, z);
   const oradakiler = d.yerlesim.filter((y) => {
     const k = birimCoz(y.hucre);
     return kapladigiBirimler(y.esya, k.c, k.r, y.yon).some((b) => b.c === c && b.r === r);
   });
-  return oradakiler.find((y) => esyaKatmani(y.esya) === dokunmaKatmani(d)) ?? (d.seciliEsya ? undefined : oradakiler.find((y) => esyaKatmani(y.esya) !== 'zemin') ?? oradakiler[0]);
+  return oradakiler.find((y) => esyaKatmani(y.esya) !== 'zemin') ?? oradakiler[0];
 }
 
-// Yerleştirirken dokunulunca hangi katmandaki eşya kalkar
-export function dokunmaKatmani(d: Durum = durum): Katman | null {
-  return d.seciliEsya ? esyaKatmani(d.seciliEsya) : null;
+// Dokunulan noktaya en yakın, eşyanın sığdığı yer; en fazla 1 m (bir kare) öteye
+// kayar, yoksa yok (Kemal, 16 Kasım 2026: önceden 2 m'ye kadar uzağa, bazen duvarın
+// arkasına konuyordu)
+export function yakindakiYer(esya: Esya, x: number, z: number, yon: number, d: Durum = durum, haric?: Yerlesim) {
+  const { en, boy } = esyaOlcusu(esya, yon);
+  const c0 = Math.round(x - en / 2);
+  const r0 = Math.round(z - Z0 - boy / 2);
+  let enIyi: { c: number; r: number } | null = null;
+  let enKisa = Infinity;
+  for (const [dc, dr] of [[0, 0], [1, 0], [-1, 0], [0, 1], [0, -1]]) {
+    const c = c0 + dc;
+    const r = r0 + dr;
+    if (!esyaSigar(esya, c, r, yon, d, haric)) continue;
+    const o = esyaOrtasi(esya, c, r, yon);
+    const uzak = Math.hypot(o.x - x, o.z - z);
+    if (uzak < enKisa) {
+      enKisa = uzak;
+      enIyi = { c, r };
+    }
+  }
+  return enIyi;
 }
 
-// Dokunulan yere seçili eşyayı koy
-export function noktayaKoy(x: number, z: number) {
-  const e = durum.seciliEsya;
-  if (!durum.yerlestirme || !e || depodaki(e) <= 0) return;
-  const yer = enYakinYer(e, x, z, durum.seciliYon);
-  if (!yer) {
-    // Sığmayan yer: dokunulan kare kısa süre kırmızı yanar, ortada "Buraya sığmıyor"
-    const simdi = performance.now();
-    guncelle({ gecersizYer: { ...noktaninBirimi(x, z), zaman: simdi }, bildirim: { tur: 'sigmiyor', zaman: simdi } });
+function sigmiyorDe(c?: number, r?: number) {
+  const simdi = performance.now();
+  guncelle({ bildirim: { tur: 'sigmiyor', zaman: simdi }, ...(c !== undefined && r !== undefined ? { gecersizYer: { c, r, zaman: simdi } } : {}) });
+}
+
+// ---- Yerleştirmede dokunuş (Kemal, 16 Kasım 2026, 2. tur) ----
+// El boşken konmuş eşyaya dokununca o eşya seçilir: yerinden kalkmaz, üstünde
+// Çevir ve Depoya kaldır çıkar. Elde eşya varken (şeritten seçilen ya da dokunulan
+// eşya) dokunuş yalnız elindekinin soluk önizlemesini koyar; başka eşya kalkmaz.
+// Önizleme "Koy" ile onaylanınca eşya konur.
+export function yerlestirmeDokunusu(x: number, z: number, dokunulan?: Yerlesim) {
+  if (!durum.yerlestirme || suruklemeSuruyor()) return;
+  if (!durum.seciliEsya) {
+    const y = dokunulan ?? noktadakiEsya(x, z);
+    if (y) esyaTut(y);
     return;
   }
+  // Elindeki eşyanın kendisine dokunuldu: önizleme varsa kalkar, yoksa el boşalır
+  const t = durum.tutulan;
+  if (t && (dokunulan === t || (!dokunulan && tutulanaDokunuldu(t, x, z)))) {
+    if (durum.onizleme) guncelle({ onizleme: null });
+    else elBosalt();
+    return;
+  }
+  onizlemeKoy(x, z);
+}
+
+function tutulanaDokunuldu(t: Yerlesim, x: number, z: number) {
+  const { c, r } = noktaninBirimi(x, z);
+  const k = birimCoz(t.hucre);
+  return kapladigiBirimler(t.esya, k.c, k.r, t.yon).some((b) => b.c === c && b.r === r);
+}
+
+function esyaTut(y: Yerlesim) {
+  if (!durum.yerlesim.includes(y)) return;
+  guncelle({ tutulan: y, onizleme: null, seciliEsya: y.esya, seciliYon: y.yon, seciliRenk: y.renk ?? durum.seciliRenk, seciliBoya: null });
+}
+
+export function elBosalt() {
+  guncelle({ tutulan: null, onizleme: null, seciliEsya: null, seciliBoya: null });
+}
+
+function onizlemeKoy(x: number, z: number) {
+  const e = durum.seciliEsya;
+  const t = durum.tutulan;
+  if (!e || (!t && depodaki(e) <= 0)) return;
+  const yer = yakindakiYer(e, x, z, durum.seciliYon, durum, t ?? undefined);
+  if (!yer) {
+    sigmiyorDe(noktaninBirimi(x, z).c, noktaninBirimi(x, z).r);
+    return;
+  }
+  // Dokunulan eşya kendi yerine gösterildiyse önizleme gerekmez
+  if (t && t.hucre === birimAnahtari(yer.c, yer.r) && t.yon === durum.seciliYon) {
+    guncelle({ onizleme: null });
+    return;
+  }
+  guncelle({ onizleme: yer });
+}
+
+// Önizlemeyi onayla: depodan gelen eşya konur, dokunulan eşya oraya taşınır
+export function onizlemeyiOnayla() {
+  const e = durum.seciliEsya;
+  const o = durum.onizleme;
+  const t = durum.tutulan;
+  if (!durum.yerlestirme || !e || !o) return;
+  if (!esyaSigar(e, o.c, o.r, durum.seciliYon, durum, t ?? undefined)) {
+    sigmiyorDe(o.c, o.r);
+    return;
+  }
+  const hucre = birimAnahtari(o.c, o.r);
+  if (t) {
+    if (!durum.yerlesim.includes(t)) return;
+    guncelle({ yerlesim: durum.yerlesim.map((x) => (x === t ? { ...x, hucre, yon: durum.seciliYon } : x)), tutulan: null, onizleme: null, seciliEsya: null });
+    return;
+  }
+  if (depodaki(e) <= 0) return;
   const kalan = depodaki(e) - 1;
-  // Konan eşya kaldırılmışlardan biriyse "Yerine koy" listesinden düşer
-  const t = durum.tasinanlar.map((x) => x.esya).lastIndexOf(e);
   guncelle({
-    tasinanlar: t < 0 ? durum.tasinanlar : durum.tasinanlar.filter((_, i) => i !== t),
-    yerlesim: [...durum.yerlesim, { esya: e, hucre: birimAnahtari(yer.c, yer.r), yon: durum.seciliYon, ...(RENKLI_ESYALAR.includes(e) ? { renk: durum.seciliRenk } : {}), boya: durum.seciliBoya ?? durum.gun }],
+    yerlesim: [...durum.yerlesim, { esya: e, hucre, yon: durum.seciliYon, ...(RENKLI_ESYALAR.includes(e) ? { renk: durum.seciliRenk } : {}), boya: durum.seciliBoya ?? durum.gun }],
     seciliBoya: null,
     depo: { ...durum.depo, [e]: kalan },
-    // Depoda o eşya kalmadıysa başka bir eşyaya geç
-    seciliEsya: kalan > 0 ? e : (ESYALAR.find((x) => x.id !== e && depodaki(x.id) > 0)?.id ?? null),
+    onizleme: null,
+    // Depoda o eşyadan kaldıysa elde kalır (art arda koymak için); bittiyse el boşalır
+    seciliEsya: kalan > 0 ? e : null,
   });
 }
 
-// Konmuş eşyaya dokununca yerden kalkar, depoya döner ve seçilir (taşımak için)
-export function yerlesimiKaldir(y: Yerlesim) {
-  if (!durum.yerlestirme || !durum.yerlesim.includes(y)) return;
-  guncelle({
-    yerlesim: durum.yerlesim.filter((x) => x !== y),
-    depo: { ...durum.depo, [y.esya]: depodaki(y.esya) + 1 },
-    seciliEsya: y.esya,
-    seciliYon: y.yon,
-    seciliRenk: y.renk ?? durum.seciliRenk,
-    seciliBoya: y.boya ?? null,
-    tasinanlar: [...durum.tasinanlar, y],
-  });
+export function onizlemedenVazgec() {
+  guncelle({ onizleme: null });
 }
 
-// Dokunarak kaldırılan eşyayı eski yerine geri koy (yanlışlıkla dokunulduysa).
-// Elde seçili eşyanın en son kaldırılanı döner.
-export function tasinanSecili(d: Durum = durum) {
-  const e = d.seciliEsya;
-  if (!e || depodaki(e, d) <= 0) return null;
-  return [...d.tasinanlar].reverse().find((x) => x.esya === e) ?? null;
-}
-export function yerineKoy() {
-  const y = tasinanSecili();
-  if (!durum.yerlestirme || !y) return;
-  const kalanlar = durum.tasinanlar.filter((x) => x !== y);
-  const { c, r } = birimCoz(y.hucre);
-  if (!esyaSigar(y.esya, c, r, y.yon)) {
-    guncelle({ tasinanlar: kalanlar, bildirim: { tur: 'sigmiyor', zaman: performance.now() } });
-    return;
-  }
-  const kalan = depodaki(y.esya) - 1;
+// Dokunulan eşyayı depoya kaldır (Kemal, 16 Kasım 2026: üstündeki düğme)
+export function depoyaKaldir() {
+  const t = durum.tutulan;
+  if (!durum.yerlestirme || !t || !durum.yerlesim.includes(t)) return;
   guncelle({
-    yerlesim: [...durum.yerlesim, y],
-    depo: { ...durum.depo, [y.esya]: kalan },
-    tasinanlar: kalanlar,
-    seciliBoya: null,
-    seciliEsya: kalan > 0 ? y.esya : (ESYALAR.find((x) => x.id !== y.esya && depodaki(x.id) > 0)?.id ?? null),
+    yerlesim: durum.yerlesim.filter((x) => x !== t),
+    depo: { ...durum.depo, [t.esya]: depodaki(t.esya) + 1 },
+    tutulan: null,
+    onizleme: null,
+    seciliEsya: null,
   });
 }
 
@@ -1832,7 +1900,10 @@ export function suruklemeyiBitir(iptal = false) {
   const eski = birimCoz(s.y.hucre);
   const yerinde = s.c === eski.c && s.r === eski.r;
   if (!iptal && s.sigar && !yerinde && durum.yerlesim.includes(s.y)) {
-    guncelle({ surukleme: null, yerlesim: durum.yerlesim.map((x) => (x === s.y ? { ...x, hucre: birimAnahtari(s.c, s.r) } : x)) });
+    const yeni = { ...s.y, hucre: birimAnahtari(s.c, s.r) };
+    // Sürüklenen eşya dokunulmuş eşyaysa düğmeleri onu izler
+    const tutulanMi = durum.tutulan === s.y;
+    guncelle({ surukleme: null, yerlesim: durum.yerlesim.map((x) => (x === s.y ? yeni : x)), ...(tutulanMi ? { tutulan: yeni, onizleme: null } : {}) });
   } else if (!iptal && !s.sigar) {
     // Sığmayan yerde bırakıldı: eşya eski yerine döner
     guncelle({ surukleme: null, bildirim: { tur: 'sigmiyor', zaman: suruklemeBitisi } });
@@ -1863,13 +1934,45 @@ export function esyalariBoya() {
 }
 
 // Yerleştirirken eşyanın rengini seç (belge 0.15e)
+// Dokunulan konmuş eşyanın rengi yerinde değişir
 export function esyaRengiSec(renk: EsyaRengi) {
+  const t = durum.tutulan;
+  if (t && durum.yerlesim.includes(t) && RENKLI_ESYALAR.includes(t.esya)) {
+    const yeni = { ...t, renk };
+    guncelle({ seciliRenk: renk, tutulan: yeni, yerlesim: durum.yerlesim.map((x) => (x === t ? yeni : x)) });
+    return;
+  }
   guncelle({ seciliRenk: renk });
 }
 
-// Yerleştirirken eşyayı çevir (belge 0.3)
+// Yerleştirirken eşyayı çevir (belge 0.3). Önizleme varsa önizleme, dokunulan
+// konmuş eşya varsa o yerinde döner (Kemal, 16 Kasım 2026: kaldırmadan çevirme);
+// döndüğü hâliyle oraya (ya da 1 m yakınına) sığmıyorsa "Buraya sığmıyor".
 export function esyaCevir() {
-  guncelle({ seciliYon: (durum.seciliYon + 1) % 2 });
+  const e = durum.seciliEsya;
+  const yon = (durum.seciliYon + 1) % 2;
+  const t = durum.tutulan;
+  const o = durum.onizleme;
+  if (!e || (!o && !t)) {
+    guncelle({ seciliYon: yon });
+    return;
+  }
+  const merkez = o ? esyaOrtasi(e, o.c, o.r, durum.seciliYon) : (() => {
+    const k = birimCoz(t!.hucre);
+    return esyaOrtasi(t!.esya, k.c, k.r, t!.yon);
+  })();
+  const yer = yakindakiYer(e, merkez.x, merkez.z, yon, durum, t ?? undefined);
+  if (!yer) {
+    sigmiyorDe();
+    return;
+  }
+  if (o) {
+    guncelle({ seciliYon: yon, onizleme: yer });
+    return;
+  }
+  if (!t || !durum.yerlesim.includes(t)) return;
+  const yeni = { ...t, hucre: birimAnahtari(yer.c, yer.r), yon };
+  guncelle({ seciliYon: yon, tutulan: yeni, yerlesim: durum.yerlesim.map((x) => (x === t ? yeni : x)) });
 }
 
 // ---- Duvar ör / yık, duvar parçaları (belge 0.4) ----
@@ -2951,7 +3054,8 @@ function durumuSifirla() {
     seciliRenk: 'mor',
     seciliBoya: null,
     surukleme: null,
-    tasinanlar: [],
+    tutulan: null,
+    onizleme: null,
     gecersizYer: null,
     calisan: { ...VARSAYILAN_CALISAN },
     acikOnlukler: ONLUKLER.filter((o) => o.fiyat === 0).map((o) => o.id),
