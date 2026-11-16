@@ -16,6 +16,9 @@ import {
   esyaCevir,
   insaataBasla,
   yerlestirmeyiKapat,
+  yerineKoy,
+  tasinanSecili,
+  esyaTutuluyor,
   IYI_PAYI,
   mukemmelAraligi,
   ondekiMusteri,
@@ -138,6 +141,11 @@ function Bildirim() {
       : m('sonuc.suslemeFazla', { ad: bildirim.fazla.map(ad).join(', ') });
   } else if (bildirim.tur === 'sikildi') yazi = m('sonuc.sikildi');
   else if (bildirim.tur === 'ikiDondurma') yazi = m('sonuc.ikiDondurma');
+  else if (bildirim.tur === 'sigmiyor') {
+    // Yerleştirmede sığmayan yer (16 Kasım 2026)
+    yazi = m('yerlestir.sigmiyor');
+    sinif = 'yanlis';
+  }
   else yazi = m('sonuc.yanlis');
   return (
     <div key={bildirim.zaman} className={`bildirim bildirim-${sinif}`}>
@@ -605,6 +613,8 @@ function useYakinlastirma(etkin: boolean) {
     const bas = (e: PointerEvent) => {
       // Panel, düğme ya da yazı kutusunun üstünde başlayan kaydırma görüntüyü oynatmaz
       if ((e.target as HTMLElement | null)?.closest('button, input, .calisan-panel, .gelistir, .gun-sonu')) return;
+      // Konmuş eşya parmakla tutuluyorsa (yerleştirme) görüntü kaymaz; parmak eşyayı taşır
+      if (esyaTutuluyor()) return;
       parmaklar.set(e.pointerId, { x: e.clientX, y: e.clientY });
       sagTus = e.pointerType === 'mouse' && e.button === 2;
       if (parmaklar.size === 2) {
@@ -818,6 +828,12 @@ export function Arayuz() {
                   {m(`esya.${e.id}` as MetinAnahtari)} <span className="esya-sayi">{depodaki(e.id, durum)}</span>
                 </button>
               ))}
+              {/* Dokunarak kaldırılan eşya eski yerine tek dokunuşla döner (16 Kasım 2026) */}
+              {tasinanSecili(durum) && (
+                <button className="dugme esya-cip" onClick={yerineKoy}>
+                  ↩ {m('yerlestir.yerineKoy')}
+                </button>
+              )}
               {/* Kare olmayan eşyalar çevrilebilir (belge 0.3) */}
               {durum.seciliEsya && ESYA_BOYU[durum.seciliEsya].en !== ESYA_BOYU[durum.seciliEsya].boy && (
                 <button className="dugme esya-cip" onClick={esyaCevir}>
