@@ -16,8 +16,9 @@ import {
   esyaCevir,
   insaataBasla,
   yerlestirmeyiKapat,
-  yerineKoy,
-  tasinanSecili,
+  onizlemeyiOnayla,
+  onizlemedenVazgec,
+  depoyaKaldir,
   esyaTutuluyor,
   IYI_PAYI,
   mukemmelAraligi,
@@ -52,6 +53,7 @@ import { logoAdresi } from '../sahne/logo';
 import { CESITLER } from '../oyun/kuvetler';
 import { AYAR } from '../oyun/ayarlar';
 import { balon } from '../sahne/Musteriler';
+import { esyaDugmeleri } from '../sahne/Dekorlar';
 import { Gelistir, type GelistirSekmesi } from './Gelistir';
 import { VitrinEkrani } from './VitrinEkrani';
 import { MenuSeridi, type MenuIsi } from './MenuSeridi';
@@ -683,6 +685,47 @@ function useYakinlastirma(etkin: boolean) {
   }, [etkin]);
 }
 
+// Yerleştirmede dokunulan eşyanın ya da önizlemenin üstündeki küçük düğmeler
+// (Kemal, 16 Kasım 2026): önizlemede Koy · Çevir · Vazgeç, konmuş eşyada
+// Çevir · Depoya kaldır. Yerini sahne her karede yazar (Dekorlar → DugmeTakibi).
+function EsyaDugmeleri() {
+  const durum = useDurum();
+  const e = durum.seciliEsya;
+  if (!durum.yerlestirme || !e || durum.surukleme || (!durum.onizleme && !durum.tutulan)) return null;
+  // Kare olmayan eşyalar çevrilebilir (belge 0.3)
+  const cevrilir = ESYA_BOYU[e].en !== ESYA_BOYU[e].boy;
+  return (
+    <div className="esya-dugmeleri" ref={(o) => void (esyaDugmeleri.oge = o)}>
+      {durum.onizleme ? (
+        <>
+          <button className="dugme esya-mini esya-mini-koy" onClick={onizlemeyiOnayla}>
+            ✓ {m('yerlestir.koy')}
+          </button>
+          {cevrilir && (
+            <button className="dugme esya-mini" onClick={esyaCevir}>
+              ⟳ {m('yerlestir.cevir')}
+            </button>
+          )}
+          <button className="dugme esya-mini" onClick={onizlemedenVazgec}>
+            ✕ {m('yerlestir.vazgec')}
+          </button>
+        </>
+      ) : (
+        <>
+          {cevrilir && (
+            <button className="dugme esya-mini" onClick={esyaCevir}>
+              ⟳ {m('yerlestir.cevir')}
+            </button>
+          )}
+          <button className="dugme esya-mini" onClick={depoyaKaldir}>
+            {m('yerlestir.depoyaKaldir')}
+          </button>
+        </>
+      )}
+    </div>
+  );
+}
+
 export function Arayuz() {
   const durum = useDurum();
   // Dil değişince bütün arayüz yeni dille yeniden çizilir (6. adım)
@@ -753,6 +796,7 @@ export function Arayuz() {
   return (
     <div className="arayuz">
       <SiparisBalonu />
+      {!tezgahta && <EsyaDugmeleri />}
       <CalisanAdi />
       <UstBilgi />
       <SeviyeParlamasi />
@@ -812,34 +856,25 @@ export function Arayuz() {
         <KameraDugmeleri />
       )}
       {!tezgahta && !durum.gunSonu && !calisanAcik && (
-        <div className="sag-dugmeler">
+        <div className={`sag-dugmeler ${durum.yerlestirme && !durum.insaat ? 'yerlestirme-satiri' : ''}`}>
           {durum.insaat ? (
             <InsaatPaneli />
           ) : durum.yerlestirme ? (
-            // Yerleştirme: depodaki eşyalar, seçili olan vurgulu
+            // Yerleştirme: depodaki eşyalar tek sırada, yana kaydırılır (Kemal, 16 Kasım 2026);
+            // seçili olan vurgulu. Çevir eşyanın üstündeki düğmelerde.
             <>
-              {ESYALAR.filter((e) => depodaki(e.id, durum) > 0 || durum.seciliEsya === e.id).map((e) => (
-                <button
-                  key={e.id}
-                  className={`dugme esya-cip ${durum.seciliEsya === e.id ? 'secili' : ''}`}
-                  onClick={() => esyaSec(e.id)}
-                >
-                  <img className="esya-cip-resim" src={`${import.meta.env.BASE_URL}gorseller/esyalar/${e.id}.webp`} alt="" aria-hidden />
-                  {m(`esya.${e.id}` as MetinAnahtari)} <span className="esya-sayi">{depodaki(e.id, durum)}</span>
-                </button>
-              ))}
-              {/* Dokunarak kaldırılan eşya eski yerine tek dokunuşla döner (16 Kasım 2026) */}
-              {tasinanSecili(durum) && (
-                <button className="dugme esya-cip" onClick={yerineKoy}>
-                  ↩ {m('yerlestir.yerineKoy')}
-                </button>
-              )}
-              {/* Kare olmayan eşyalar çevrilebilir (belge 0.3) */}
-              {durum.seciliEsya && ESYA_BOYU[durum.seciliEsya].en !== ESYA_BOYU[durum.seciliEsya].boy && (
-                <button className="dugme esya-cip" onClick={esyaCevir}>
-                  ⟳ {m('yerlestir.cevir')}
-                </button>
-              )}
+              <div className="esya-serit">
+                {ESYALAR.filter((e) => depodaki(e.id, durum) > 0 || (durum.seciliEsya === e.id && !durum.tutulan)).map((e) => (
+                  <button
+                    key={e.id}
+                    className={`dugme esya-cip ${durum.seciliEsya === e.id && !durum.tutulan ? 'secili' : ''}`}
+                    onClick={() => esyaSec(e.id)}
+                  >
+                    <img className="esya-cip-resim" src={`${import.meta.env.BASE_URL}gorseller/esyalar/${e.id}.webp`} alt="" aria-hidden />
+                    {m(`esya.${e.id}` as MetinAnahtari)} <span className="esya-sayi">{depodaki(e.id, durum)}</span>
+                  </button>
+                ))}
+              </div>
               {/* Renk (belge 0.15e): masa örtüsü, şemsiye, minder */}
               {durum.seciliEsya && RENKLI_ESYALAR.includes(durum.seciliEsya) && (
                 <div className="esya-renkleri" aria-label={m('yerlestir.renk')}>

@@ -3408,3 +3408,59 @@ li.tamam .hedef-ad {
   font-size: 11px;
   font-weight: 600;
 }
+
+/* Eşya taşıma 2. tur (Kemal, 16 Kasım 2026): yerleştirmede eşya şeridi tek sıra,
+   yana kaydırılır; renkler ve Bitti yanında durur */
+.sag-dugmeler.yerlestirme-satiri {
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  left: calc(max(14px, env(safe-area-inset-left)) + 70px);
+  max-width: none;
+  pointer-events: none;
+}
+.sag-dugmeler.yerlestirme-satiri > * {
+  pointer-events: auto;
+}
+.esya-serit {
+  display: flex;
+  gap: 7px;
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  justify-content: flex-start;
+  padding: 2px 0;
+}
+.esya-serit::-webkit-scrollbar {
+  display: none;
+}
+.esya-serit .esya-cip {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+.yerlestirme-satiri .esya-renkleri,
+.yerlestirme-satiri .dugme-servis {
+  flex: 0 0 auto;
+}
+/* Dokunulan eşyanın ya da önizlemenin üstündeki küçük düğmeler */
+.esya-dugmeleri {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  gap: 6px;
+  opacity: 0;
+  pointer-events: auto;
+  z-index: 5;
+  white-space: nowrap;
+}
+.esya-mini {
+  font-size: 12px;
+  padding: 5px 10px;
+}
+.esya-mini-koy {
+  background: var(--sari);
+  color: var(--mor-koyu);
+}

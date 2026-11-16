@@ -8,24 +8,23 @@ import {
   birimDuvarlari,
   birimEngelliKatman,
   birimIcMi,
-  dokunmaKatmani,
   durumuOku,
   esyaBirakildi,
   esyaTutuldu,
-  noktadakiEsya,
-  noktayaKoy,
   suruklemeSuruyor,
   suruklemeyeBasla,
   suruklemeyiBitir,
   suruklemeyiGuncelle,
   useDurum,
-  yerlesimiKaldir,
+  yerlestirmeDokunusu,
   type Yerlesim,
 } from '../oyun/durum';
 import { ekrandanSahneye } from './ekranNoktasi';
 import {
   DUKKAN_PARSELLERI,
   ESYALAR,
+  RENKLI_ESYALAR,
+  birimAnahtari,
   PARSEL,
   birimCoz,
   birimParseli,
@@ -243,15 +242,16 @@ function ParselZemini({ anahtar }: { anahtar: string }) {
 }
 
 // Yerleştirme kareleri (1×1 m): alınmış arazideki boş yerler yeşil görünür.
-// Dokunma tek bir görünmez zeminden alınır: konmuş eşyaya dokunulursa o
-// kalkar (taşımak için), değilse seçili eşya en yakın sığdığı yere konur.
+// Dokunma tek bir görünmez zeminden alınır: el boşken konmuş eşyaya dokunulursa
+// o seçilir; elde eşya varken dokunulan yerde soluk önizlemesi çıkar (16 Kasım 2026).
 const yesilKare = new THREE.PlaneGeometry(0.86, 0.86);
 const yesilMalzeme = new THREE.MeshBasicMaterial({ color: '#8fe36b', transparent: true, opacity: 0.35, depthWrite: false });
 
 function Kareler() {
   const durum = useDurum();
   // Sürüklenirken yeşil kareler sürüklenen eşyaya göre; eşyanın kendi eski yeri boş sayılır
-  const haric = durum.surukleme?.y;
+  // (dokunulan eşya taşınırken de)
+  const haric = durum.surukleme?.y ?? durum.tutulan ?? undefined;
   const esya = haric?.esya ?? durum.seciliEsya;
   const tanim = ESYALAR.find((e) => e.id === esya);
   const disariya = !!tanim?.disari;
@@ -296,7 +296,7 @@ function Kareler() {
               onClick={(e) => {
                 if (e.delta > 12 || suruklemeSuruyor()) return;
                 e.stopPropagation();
-                noktayaKoy(o.x, o.z);
+                yerlestirmeDokunusu(o.x, o.z);
               }}
             />
           );
@@ -309,9 +309,7 @@ function Kareler() {
         onClick={(e) => {
           if (e.delta > 12 || suruklemeSuruyor()) return; // sürükleme / yakınlaştırma değil
           e.stopPropagation();
-          const y = noktadakiEsya(e.point.x, e.point.z);
-          if (y) yerlesimiKaldir(y);
-          else noktayaKoy(e.point.x, e.point.z);
+          yerlestirmeDokunusu(e.point.x, e.point.z);
         }}
       >
         <planeGeometry args={[90, 26]} />
@@ -342,13 +340,13 @@ function GecersizIsaret() {
 const izKaresi = new THREE.PlaneGeometry(0.96, 0.96);
 const izYesil = new THREE.MeshBasicMaterial({ color: '#6dff4f', transparent: true, opacity: 0.85, depthWrite: false });
 const izKirmizi = new THREE.MeshBasicMaterial({ color: '#ff3b3b', transparent: true, opacity: 0.85, depthWrite: false });
-function SurukleIzi({ y, c, r, sigar }: { y: Yerlesim; c: number; r: number; sigar: boolean }) {
+function SurukleIzi({ y, c, r, sigar, malzeme }: { y: Yerlesim; c: number; r: number; sigar: boolean; malzeme?: THREE.Material }) {
   return (
     <group>
       {kapladigiBirimler(y.esya, c, r, y.yon).map((b) => {
         const o = birimOrtasi(b.c, b.r);
         return (
-          <mesh key={`${b.c},${b.r}`} geometry={izKaresi} material={sigar ? izYesil : izKirmizi} position={[o.x, 0.12, o.z]} rotation={[-Math.PI / 2, 0, 0]} renderOrder={2} />
+          <mesh key={`${b.c},${b.r}`} geometry={izKaresi} material={malzeme ?? (sigar ? izYesil : izKirmizi)} position={[o.x, 0.12, o.z]} rotation={[-Math.PI / 2, 0, 0]} renderOrder={2} />
         );
       })}
     </group>
@@ -416,9 +414,98 @@ function EsyaSurukleyici() {
 // Duvar parçasının dönüşü (Dukkan.tsx ile aynı): yerel −z dışarı bakar
 const DUVAR_DONUSU: Record<Yon, number> = { g: 0, k: Math.PI, b: Math.PI / 2, d: -Math.PI / 2 };
 
+// Önizleme (Kemal, 16 Kasım 2026): konmadan önce eşya soluk görünür. Malzemeler
+// eşyaya özel yarı saydam kopyalanır; önizleme dokunuşu tutmaz (arkadaki zemin alır).
+const solukKopyalar = new WeakMap<THREE.Material, THREE.Material>();
+const solukMalzemeler = new WeakSet<THREE.Material>();
+function solukYap(m: THREE.Material) {
+  if (solukMalzemeler.has(m)) return m;
+  let k = solukKopyalar.get(m);
+  if (!k) {
+    k = m.clone();
+    k.transparent = true;
+    k.opacity = 0.55;
+    k.depthWrite = false;
+    solukKopyalar.set(m, k);
+    solukMalzemeler.add(k);
+  }
+  return k;
+}
+const dokunmaz = () => {};
+function Soluk({ children }: { children: ReactNode }) {
+  const grup = useRef<THREE.Group>(null);
+  useFrame(() => {
+    grup.current?.traverse((o) => {
+      const mesh = o as THREE.Mesh;
+      if (!mesh.isMesh) return;
+      mesh.raycast = dokunmaz;
+      mesh.material = Array.isArray(mesh.material) ? mesh.material.map(solukYap) : solukYap(mesh.material);
+    });
+  });
+  return <group ref={grup}>{children}</group>;
+}
+
+// Dokunulan eşyanın ya da önizlemenin üstündeki küçük düğmeler (Arayüz'de) bu
+// noktayı izler: arayüz öğesini buraya bağlar, sahne her karede yerini yazar.
+export const esyaDugmeleri: { oge: HTMLDivElement | null } = { oge: null };
+function DugmeTakibi() {
+  const kamera = useThree((s) => s.camera);
+  const boyut = useThree((s) => s.size);
+  const v = useRef(new THREE.Vector3()).current;
+  useFrame(() => {
+    const oge = esyaDugmeleri.oge;
+    if (!oge) return;
+    const d = durumuOku();
+    const e = d.seciliEsya;
+    let nokta: { x: number; z: number; y: number } | null = null;
+    if (e && d.onizleme) {
+      const o = esyaOrtasi(e, d.onizleme.c, d.onizleme.r, d.seciliYon);
+      nokta = { ...o, y: 0 };
+      if (esyaKatmani(e) === 'duvar') {
+        const duvar = birimDuvarlari(d.onizleme.c, d.onizleme.r, d)[0];
+        if (duvar) nokta = { ...kenarYeri(duvar), y: 0 };
+      }
+    } else if (d.tutulan) {
+      const k = birimCoz(d.tutulan.hucre);
+      nokta = { ...esyaOrtasi(d.tutulan.esya, k.c, k.r, d.tutulan.yon), y: 0 };
+      if (esyaKatmani(d.tutulan.esya) === 'duvar') {
+        const duvarlar = birimDuvarlari(k.c, k.r, d);
+        if (duvarlar.length) nokta = { ...kenarYeri(duvarlar[d.tutulan.yon % duvarlar.length]), y: 0 };
+      }
+    }
+    if (!nokta || d.surukleme) {
+      oge.style.opacity = '0';
+      return;
+    }
+    const katman = esyaKatmani((e ?? d.tutulan?.esya)!);
+    // Düğmeler eşyanın biraz üstünde (halı yerde, tablo duvarda)
+    const yukseklik = katman === 'zemin' ? 0.4 : katman === 'duvar' ? TABLO_YUKSEKLIGI + 0.6 : 1.4;
+    v.set(nokta.x, yukseklik, nokta.z).project(kamera);
+    const x = Math.min(boyut.width - 110, Math.max(110, ((v.x + 1) / 2) * boyut.width));
+    const y = Math.min(boyut.height - 70, Math.max(100, ((1 - v.y) / 2) * boyut.height));
+    oge.style.transform = `translate(${x}px, ${y}px) translate(-50%, -100%)`;
+    oge.style.opacity = '1';
+  });
+  return null;
+}
+
+// Dokunulan eşyanın altı sarı yanar (seçili olduğu görünsün)
+const secimIzi = new THREE.MeshBasicMaterial({ color: '#ffc928', transparent: true, opacity: 0.8, depthWrite: false });
+
 export function Dekorlar() {
   const durum = useDurum();
   const { isikSeviyesi, yerlesim, yerlestirme, parseller } = durum;
+  // Onaylanmamış yeni yer: elindeki eşyanın soluk hâli
+  const onizleme: Yerlesim | null =
+    yerlestirme && durum.onizleme && durum.seciliEsya
+      ? {
+          esya: durum.seciliEsya,
+          hucre: birimAnahtari(durum.onizleme.c, durum.onizleme.r),
+          yon: durum.seciliYon,
+          ...(RENKLI_ESYALAR.includes(durum.seciliEsya) ? { renk: durum.seciliRenk } : {}),
+        }
+      : null;
+  const liste = onizleme ? [...yerlesim, onizleme] : yerlesim;
   return (
     <group>
       {parseller
@@ -437,19 +524,20 @@ export function Dekorlar() {
       {isikSeviyesi >= 3 && <IsikliSerit />}
 
       {/* Yere konmuş eşyalar; yerleştirirken dokunulursa kalkar (taşımak için) */}
-      {yerlesim.map((y) => {
+      {liste.map((y) => {
         const { c, r } = birimCoz(y.hucre);
         const katman = esyaKatmani(y.esya);
-        // Yerleştirirken yalnız seçili eşyanın katmanındakiler dokununca kalkar
-        // (halının üstüne masa konurken halı kalkmasın)
-        const secilen = dokunmaKatmani(durum);
-        // Tablolar her zaman tutulur: elde masa seçiliyken duvardaki tablo
-        // taşınamıyordu (Kemal, 15 Ekim akşam); duvarda başka katman yok
-        const tutulur = yerlestirme && (secilen === null || secilen === katman || katman === 'duvar');
-        const tikla = (e: { delta: number; stopPropagation: () => void }) => {
+        const soluk = y === onizleme;
+        const secili = y === durum.tutulan;
+        // Yerleştirirken her eşya tutulur. El boşken dokunulan eşya seçilir; elde eşya
+        // varken dokunuş yalnız elindekini o yere gösterir (Kemal, 16 Kasım 2026)
+        const tutulur = yerlestirme && !soluk;
+        const tikla = (e: { delta: number; point: THREE.Vector3; stopPropagation: () => void }) => {
           if (!tutulur || e.delta > 12 || suruklemeSuruyor()) return;
           e.stopPropagation();
-          yerlesimiKaldir(y);
+          // Tablo duvarda: dokunuş tablonun karesine sayılır
+          const n = katman === 'duvar' ? birimOrtasi(c, r) : { x: e.point.x, z: e.point.z };
+          yerlestirmeDokunusu(n.x, n.z, y);
         };
         // Basılı tutup kaydırınca sürüklenir (tablolar duvarda, dokunarak taşınır)
         const bas = (e: { pointerId: number; nativeEvent: PointerEvent; stopPropagation: () => void }) => {
@@ -465,10 +553,19 @@ export function Dekorlar() {
           const k = duvarlar[y.yon % duvarlar.length];
           const { x, z, nx, nz } = kenarYeri(k);
           return (
-            <group key={`${y.hucre}:${y.esya}`} position={[x - nx * 0.06, 0, z - nz * 0.06]} rotation={[0, DUVAR_DONUSU[k.y], 0]} onClick={tikla}>
+            <group key={soluk ? 'onizleme' : `${y.hucre}:${y.esya}`} position={[x - nx * 0.06, 0, z - nz * 0.06]} rotation={[0, DUVAR_DONUSU[k.y], 0]} onClick={soluk ? undefined : tikla}>
               <group position={[0, 0, 0.03]}>
-                <EsyaModeli esya={y.esya} />
+                {soluk ? (
+                  <Soluk>
+                    <EsyaModeli esya={y.esya} />
+                  </Soluk>
+                ) : (
+                  <EsyaModeli esya={y.esya} />
+                )}
               </group>
+              {(soluk || secili) && (
+                <mesh position={[0, TABLO_YUKSEKLIGI, 0.05]} geometry={izKaresi} material={soluk ? izYesil : secimIzi} renderOrder={2} />
+              )}
               {tutulur && (
                 <mesh position={[0, TABLO_YUKSEKLIGI, 0.2]}>
                   <boxGeometry args={[0.9, 0.8, 0.4]} />
@@ -485,14 +582,24 @@ export function Dekorlar() {
         const { en, boy } = esyaOlcusu(y.esya, y.yon);
         const ic = birimIcMi(yc, yr, durum);
         return (
-          <group key={`${y.hucre}:${y.esya}`}>
+          <group key={soluk ? 'onizleme' : `${y.hucre}:${y.esya}`}>
             {suruklenen && <SurukleIzi y={y} c={suruklenen.c} r={suruklenen.r} sigar={suruklenen.sigar} />}
-            <group position={[o.x, (ic ? 0 : 0.06) + (suruklenen ? 0.25 : 0), o.z]} onClick={tikla} onPointerDown={bas}>
-              <Solgun miktar={esyaSolmasi(y, durum)}>
-                <group rotation={[0, (y.yon * Math.PI) / 2, 0]}>
-                  <EsyaModeli esya={y.esya} renkId={y.renk} />
-                </group>
-              </Solgun>
+            {soluk && <SurukleIzi y={y} c={c} r={r} sigar />}
+            {secili && !suruklenen && <SurukleIzi y={y} c={c} r={r} sigar malzeme={secimIzi} />}
+            <group position={[o.x, (ic ? 0 : 0.06) + (suruklenen ? 0.25 : 0), o.z]} onClick={soluk ? undefined : tikla} onPointerDown={soluk ? undefined : bas}>
+              {soluk ? (
+                <Soluk>
+                  <group rotation={[0, (y.yon * Math.PI) / 2, 0]}>
+                    <EsyaModeli esya={y.esya} renkId={y.renk} />
+                  </group>
+                </Soluk>
+              ) : (
+                <Solgun miktar={esyaSolmasi(y, durum)}>
+                  <group rotation={[0, (y.yon * Math.PI) / 2, 0]}>
+                    <EsyaModeli esya={y.esya} renkId={y.renk} />
+                  </group>
+                </Solgun>
+              )}
               {/* Yerleştirirken eşyayı kolay tutmak için görünmez kutu (halıda yassı) */}
               {tutulur && (
                 <mesh position={[0, katman === 'zemin' ? 0.05 : 0.8, 0]}>
@@ -507,6 +614,7 @@ export function Dekorlar() {
 
       {yerlestirme && <Kareler />}
       {yerlestirme && <EsyaSurukleyici />}
+      {yerlestirme && <DugmeTakibi />}
     </group>
   );
 }
